@@ -43,9 +43,22 @@ public class HCL {
         
         coach1.addArea("swimming");
         coach1.addArea("badminton");
+        coach1.addArea("gymnastics");
+        coach2.addArea("swimming");
+        coach2.addArea("badminton");
+        coach3.addArea("gymnastics");
+        coach4.addArea("swimming");
+        coach4.addArea("badminton");
+        coach4.addArea("gymnastics");
+        coach5.addArea("badminton");
+        coach5.addArea("gymnastics");
+        coach6.addArea("swimming");
+        coach7.addArea("swimming");
+        coach7.addArea("badminton");
+        coach7.addArea("gymnastics");
         
-        coach1.displayExpertiseArea();
-        hatfieldLeisureCentre.displayCoaches();
+        
+       
         
         Student student1 = new Student ("Loida", "Poon", "", "");
         Student student2 = new Student ("Ewa", "Porto", "", "");
@@ -80,38 +93,41 @@ public class HCL {
         hatfieldLeisureCentre.registerStudent(student14);
         hatfieldLeisureCentre.registerStudent(student15);
         
-        hatfieldLeisureCentre.displayStudents();
+    
+       
         
-    /**    
-       Lesson Lesson1 = new Lesson(coach1, "Mon", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson2 = new Lesson(coach1, "Tue", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson3 = new Lesson(coach1, "Wed", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson4 = new Lesson(coach2, "Thu", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson5 = new Lesson(coach2, "Fri", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson6 = new Lesson(coach2, "Mon", "14:00 - 15:00", "area", "lessonId");
-       Lesson Lesson7 = new Lesson(coach3, "Mon", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson8 = new Lesson(coach3, "Tue", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson9 = new Lesson(coach3, "Wed", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson10 = new Lesson(coach4, "Thu", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson11 = new Lesson(coach4, "Fri", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson12 = new Lesson(coach4, "Wed", "17:00 - 18:00", "area", "lessonId");
-       Lesson Lesson13 = new Lesson(coach5, "Mon", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson14 = new Lesson(coach5, "Tue", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson15 = new Lesson(coach5, "Wed", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson16 = new Lesson(coach6, "Thu", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson17 = new Lesson(coach7, "Fri", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson18 = new Lesson(coach6, "Tue", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson19 = new Lesson(coach6, "Wed", "19:00 - 20:00", "area", "lessonId");
-       Lesson Lesson20 = new Lesson(coach7, "Thu", "19:00 - 20:00", "area", "lessonId");
-    **/    
+       hatfieldLeisureCentre.addLesson(new Lesson(coach1, "Mon", "14:00 - 15:00", "swimming", "less01"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach1, "Tue", "14:00 - 15:00", "badminton", "less02"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach1, "Wed", "14:00 - 15:00", "gymnastics", "less03"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach2, "Thu", "14:00 - 15:00", "swimming", "less04"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach2, "Fri", "14:00 - 15:00", "swimming", "less05"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach2, "Mon", "14:00 - 15:00", "badminton", "less06"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach3, "Mon", "17:00 - 18:00", "gymnastics", "less07"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach3, "Tue", "17:00 - 18:00", "gymnastics", "less08"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach3, "Wed", "17:00 - 18:00", "gymnastics", "less09"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach4, "Thu", "17:00 - 18:00", "swimming", "less10"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach4, "Fri", "17:00 - 18:00", "gymnastics", "less11"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach4, "Wed", "17:00 - 18:00", "gymnastics", "less12"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach5, "Mon", "19:00 - 20:00", "badminton", "less13"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach5, "Tue", "19:00 - 20:00", "badminton", "less14"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach5, "Wed", "19:00 - 20:00", "gymnastics", "less15"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach6, "Thu", "19:00 - 20:00", "swimming", "less16"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach7, "Fri", "19:00 - 20:00", "swimming", "less17"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach6, "Tue", "19:00 - 20:00", "swimming", "less18"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach6, "Wed", "19:00 - 20:00", "swimming", "less19"));
+       hatfieldLeisureCentre.addLesson(new Lesson(coach7, "Thu", "19:00 - 20:00", "gymnastics", "less20"));
+       
+       hatfieldLeisureCentre.displayLessons();
+       
         
     }
-    public void addCoach(Coach coach){
+    public String addCoach(Coach coach){
         String coachId;
         idC = idC+1;
         coachId = "C0"+ String.valueOf(idC);
         coach.setId(coachId);
         coaches.put(coachId, coach);
+        return coachId;
     }
     
     public void displayCoaches(){
@@ -122,21 +138,33 @@ public class HCL {
         }
     }
     
-    public void registerStudent(Student student){
+    public String registerStudent(Student student){
         String studentId;
         idS = idS+1;
         studentId = "S0"+ String.valueOf(idS);
         students.put(studentId, student);
+        return studentId;
     }
     
     public void displayStudents(){
         for (Map.Entry<String, Student> entry : students.entrySet()) {
             String k = entry.getKey();
-        //    String v = entry.getValue().;
-            System.out.println(k);
+            Student v = entry.getValue();
+            System.out.println(k+": "+v.getFirstName()+" "+v.getLastName());
         }
     }
     
+    public void addLesson(Lesson lesson){
+        lessons.put(lesson.getId(), lesson);
+    }
+    
+    public void displayLessons(){
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            String k = entry.getKey();
+            Lesson v = entry.getValue();
+            System.out.println(k+": "+v.getArea()+" / "+v.getDay()+" / "+v.getHour());
+        }
+    }
     
     
     public void lookupLesson(String area){

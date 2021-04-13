@@ -33,9 +33,18 @@ public class Coach extends Personnel {
         expertiseArea.add(sport);
     }
     public void displayExpertiseArea(){
-        for (String area : expertiseArea) {                                   // (4)
+        for (String area : expertiseArea) {                                   
             System.out.println (area);
         }
+    }
+    
+    public boolean hasExpertiseArea(String areaName){
+        for (String area : expertiseArea) { 
+            if(area == areaName){
+                return true;
+            }    
+        }
+        return false;
     }
     
 }
