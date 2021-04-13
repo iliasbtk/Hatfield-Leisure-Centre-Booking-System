@@ -14,6 +14,7 @@ abstract public class Personnel {
     public String lastName;
     public String address;
     public String tel;
+    public String id;
     
     public Personnel(String firstName, String lastName, String address, String tel){
         this.firstName = firstName;
@@ -33,5 +34,11 @@ abstract public class Personnel {
     }
     public String getLastName(){
         return lastName;
+    }
+    public void setId(String id){
+        this.id = id; 
+    }
+    public String getId(){
+        return id;
     }
 }
