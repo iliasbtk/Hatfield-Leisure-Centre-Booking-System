@@ -246,7 +246,10 @@ public class HCL {
         lesson.decreaseStudentsNumber();
     }
     
-   
+    public void attendLesson (String bookNum){
+        Booking booking = bookings.get(bookNum);
+        booking.setState("Attended");
+    }
     
     
    
