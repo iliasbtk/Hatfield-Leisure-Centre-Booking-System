@@ -42,6 +42,26 @@ public class Lesson {
     public String getHour(){
         return hour;
     }
+    public String getCoachName(){
+        return this.coach.getFirstName() + " " + this.coach.getLastName();
+    }
+    public void updateState(){
+        if(this.studentsNumber == 5){
+            this.isFull = true;
+        }else if(this.studentsNumber < 5){
+            this.isFull = false;
+        }
+    }
+    public String isFull(){
+        if(isFull == true){
+            return "Full";
+        }else{
+            return "Availble";
+        }
+    }
+    public void increaseStudentsNumber(){
+        this.studentsNumber +=1;
+    }
     
     
 }

@@ -37,6 +37,7 @@ public class Coach extends Personnel {
             System.out.println (area);
         }
     }
+
     
     public boolean hasExpertiseArea(String areaName){
         for (String area : expertiseArea) { 
@@ -46,5 +47,6 @@ public class Coach extends Personnel {
         }
         return false;
     }
+    
     
 }

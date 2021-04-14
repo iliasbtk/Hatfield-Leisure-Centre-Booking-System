@@ -7,6 +7,7 @@ package hcl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -19,6 +20,7 @@ public class HCL {
     Map<String, Booking> bookings = new HashMap<> ();
     Integer idC=0;
     Integer idS=0;
+    Integer bookNum=0;
    
     public static void main(String[] args) {
         
@@ -117,7 +119,28 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson(coach6, "Wed", "19:00 - 20:00", "swimming", "less19"));
        hatfieldLeisureCentre.addLesson(new Lesson(coach7, "Thu", "19:00 - 20:00", "gymnastics", "less20"));
        
-       hatfieldLeisureCentre.displayLessons();
+       hatfieldLeisureCentre.lookupLessonByArea("swimming");
+       hatfieldLeisureCentre.lookupLessonByArea("gymnastics");
+       hatfieldLeisureCentre.lookupLessonByArea("badminton");
+       
+       hatfieldLeisureCentre.book("S01", "less10");
+       hatfieldLeisureCentre.book("S01", "less01");
+       hatfieldLeisureCentre.book("S01", "less20");
+       hatfieldLeisureCentre.book("S02", "less10");
+       hatfieldLeisureCentre.book("S03", "less10");
+       hatfieldLeisureCentre.book("S04", "less10");
+       hatfieldLeisureCentre.book("S05", "less10");
+       hatfieldLeisureCentre.book("S06", "less10");
+       hatfieldLeisureCentre.book("S07", "less11");
+       hatfieldLeisureCentre.book("S07", "less12");
+       hatfieldLeisureCentre.book("S08", "less13");
+       hatfieldLeisureCentre.book("S09", "less14");
+       hatfieldLeisureCentre.book("S010", "less15");
+       hatfieldLeisureCentre.book("S011", "less16");
+       hatfieldLeisureCentre.book("S012", "less17");
+       
+       hatfieldLeisureCentre.displayBookings();
+       
        
         
     }
@@ -143,6 +166,8 @@ public class HCL {
         idS = idS+1;
         studentId = "S0"+ String.valueOf(idS);
         students.put(studentId, student);
+        student.setId(studentId);
+        
         return studentId;
     }
     
@@ -166,10 +191,52 @@ public class HCL {
         }
     }
     
-    
-    public void lookupLesson(String area){
-        
+    public void lookupLessonByArea(String area){
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            String k = entry.getKey();
+            Lesson v = entry.getValue();
+            if(v.getArea().equals(area)){
+                System.out.println(k+": "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName());
+            }
+        }
     }
+    
+    public void lookupLessonByCoach(String coachName){
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            String k = entry.getKey();
+            Lesson v = entry.getValue();
+            if(v.getCoachName().equals(coachName)){
+                System.out.println(k+": "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
+            }
+        }
+    }
+    
+    public void book(String idS, String lessonId){
+        Lesson lesson = lessons.get(lessonId);
+        Student student = students.get(idS);
+        if(lesson.isFull().equals("Full")){
+            System.out.println("This class is fully booked");
+        }else{
+            Booking booking = new Booking(student, lesson, "Booked");
+            String bookingNumber;
+            bookNum = bookNum+1;
+            bookingNumber = "B0"+ String.valueOf(bookNum);
+            bookings.put(bookingNumber, booking);
+            lesson.increaseStudentsNumber();
+            lesson.updateState();
+        }
+    }
+    
+    public void displayBookings(){
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            Booking v = entry.getValue();
+            System.out.println(k+": "+v.getStudentId()+" "+v.getLessonId()+" "+ v.getState());
+        }
+    }
+    
+    
+   
     
     
 }
