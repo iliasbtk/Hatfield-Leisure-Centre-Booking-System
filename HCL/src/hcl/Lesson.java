@@ -61,6 +61,11 @@ public class Lesson {
     }
     public void increaseStudentsNumber(){
         this.studentsNumber +=1;
+        updateState();
+    }
+    public void decreaseStudentsNumber(){
+        this.studentsNumber -=1;
+        updateState();
     }
     
     

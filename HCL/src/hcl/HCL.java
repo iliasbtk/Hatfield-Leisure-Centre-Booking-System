@@ -119,11 +119,9 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson(coach6, "Wed", "19:00 - 20:00", "swimming", "less19"));
        hatfieldLeisureCentre.addLesson(new Lesson(coach7, "Thu", "19:00 - 20:00", "gymnastics", "less20"));
        
-       hatfieldLeisureCentre.lookupLessonByArea("swimming");
-       hatfieldLeisureCentre.lookupLessonByArea("gymnastics");
-       hatfieldLeisureCentre.lookupLessonByArea("badminton");
+     
        
-       hatfieldLeisureCentre.book("S01", "less10");
+       
        hatfieldLeisureCentre.book("S01", "less01");
        hatfieldLeisureCentre.book("S01", "less20");
        hatfieldLeisureCentre.book("S02", "less10");
@@ -139,7 +137,10 @@ public class HCL {
        hatfieldLeisureCentre.book("S011", "less16");
        hatfieldLeisureCentre.book("S012", "less17");
        
-       hatfieldLeisureCentre.displayBookings();
+       
+       
+       
+       
        
        
         
@@ -191,6 +192,10 @@ public class HCL {
         }
     }
     
+    public Lesson getLesson(String lessonId){
+        return lessons.get(lessonId);
+    }
+    
     public void lookupLessonByArea(String area){
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
@@ -223,7 +228,6 @@ public class HCL {
             bookingNumber = "B0"+ String.valueOf(bookNum);
             bookings.put(bookingNumber, booking);
             lesson.increaseStudentsNumber();
-            lesson.updateState();
         }
     }
     
@@ -234,6 +238,15 @@ public class HCL {
             System.out.println(k+": "+v.getStudentId()+" "+v.getLessonId()+" "+ v.getState());
         }
     }
+    
+    public void cancelBooking (String bookNum){
+        Booking booking = bookings.get(bookNum);
+        booking.setState("Canceled");
+        Lesson lesson = lessons.get(booking.getLessonId());
+        lesson.decreaseStudentsNumber();
+    }
+    
+   
     
     
    

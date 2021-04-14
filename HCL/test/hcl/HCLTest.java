@@ -97,5 +97,57 @@ public class HCLTest {
         
     }
 
+  
+
+    
+    @Test
+    public void testLookupLessonByArea() {
+        System.out.println("lookupLessonByArea");
+        String area = "";
+        HCL instance = new HCL();
+        instance.lookupLessonByArea(area);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of lookupLessonByCoach method, of class HCL.
+     */
+    @Test
+    public void testLookupLessonByCoach() {
+        System.out.println("lookupLessonByCoach");
+        String coachName = "";
+        HCL instance = new HCL();
+        instance.lookupLessonByCoach(coachName);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of book method, of class HCL.
+     */
+    @Test
+    public void testBook() {
+        System.out.println("book");
+        String idS = "";
+        String lessonId = "";
+        HCL instance = new HCL();
+        instance.book(idS, lessonId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of displayBookings method, of class HCL.
+     */
+    @Test
+    public void testDisplayBookings() {
+        System.out.println("displayBookings");
+        HCL instance = new HCL();
+        instance.displayBookings();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
 
 }
