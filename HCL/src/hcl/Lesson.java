@@ -17,14 +17,19 @@ public class Lesson {
     private boolean isFull = false ;
     private String lessonId;
     private Integer studentsNumber = 0;
+    private String place;
+    private String name;
+    private Integer capacity;
     
-    public Lesson(Coach coach, String day, String hour, String area, String lessonId){
+    public Lesson(String name, String place, Coach coach, String day, String hour, String area, Integer capacity){
         if(coach.hasExpertiseArea(area) == true){
+            this.name = name;
+            this.place = place;
             this.coach = coach;
             this.day = day;
             this.hour = hour;
             this.area = area;
-            this.lessonId = lessonId;
+            this.capacity = capacity;
         }else {
             System.out.println ("The Coach: " + coach.getFirstName() + " " + coach.getLastName() + " does not teach " + area);
         }
@@ -45,10 +50,13 @@ public class Lesson {
     public String getCoachName(){
         return this.coach.getFirstName() + " " + this.coach.getLastName();
     }
+    public void setId(String id){
+        this.lessonId = id;
+    }
     public void updateState(){
-        if(this.studentsNumber == 5){
+        if(this.studentsNumber == capacity){
             this.isFull = true;
-        }else if(this.studentsNumber < 5){
+        }else if(this.studentsNumber < capacity){
             this.isFull = false;
         }
     }
