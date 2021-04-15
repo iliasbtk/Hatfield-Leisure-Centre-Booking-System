@@ -92,10 +92,10 @@ public class HCLTest {
     /*
      @Test
     public void testLookupLessonByArea() {
-        System.out.println("lookupLessonByArea");
-        String area = "";
+        String area = "swimming";
         HCL instance = new HCL();
         instance.lookupLessonByArea(area);
+        
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

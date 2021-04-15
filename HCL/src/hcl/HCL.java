@@ -100,26 +100,26 @@ public class HCL {
     
        
         
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1", "swimming pool A",coach1, "Mon", "14:00 - 15:00", "swimming", 10));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1", "swimming pool A",coach1, "Mon", "14:00 - 15:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 1","badminton court A",coach1, "Tue", "14:00 - 15:00", "badminton", 5));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach1, "Wed", "14:00 - 15:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Thu", "14:00 - 15:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Fri", "14:00 - 15:00", "swimming", 10));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach1, "Wed", "14:00 - 15:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Thu", "14:00 - 15:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Fri", "14:00 - 15:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 1","badminton court A",coach2, "Mon", "14:00 - 15:00", "badminton", 5));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach3, "Mon", "17:00 - 18:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach3, "Tue", "17:00 - 18:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach3, "Wed", "17:00 - 18:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach4, "Thu", "17:00 - 18:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach4, "Fri", "17:00 - 18:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach4, "Wed", "17:00 - 18:00", "gymnastics", 8));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach3, "Mon", "17:00 - 18:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach3, "Tue", "17:00 - 18:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach3, "Wed", "17:00 - 18:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach4, "Thu", "17:00 - 18:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach4, "Fri", "17:00 - 18:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 2","Gym",coach4, "Wed", "17:00 - 18:00", "gymnastics", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 2","badminton court B",coach5, "Mon", "19:00 - 20:00", "badminton", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 2","badminton court B",coach5, "Tue", "19:00 - 20:00", "badminton", 5));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach5, "Wed", "19:00 - 20:00", "gymnastics", 8));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool B",coach6, "Thu", "19:00 - 20:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach7, "Fri", "19:00 - 20:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Tue", "19:00 - 20:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 10));
-       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 8));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach5, "Wed", "19:00 - 20:00", "gymnastics", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool B",coach6, "Thu", "19:00 - 20:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach7, "Fri", "19:00 - 20:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Tue", "19:00 - 20:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 5));
        
        hatfieldLeisureCentre.lookupLessonByArea("swimming");
        hatfieldLeisureCentre.lookupLessonByCoach("Cyndy Cerrato");
@@ -206,7 +206,7 @@ public class HCL {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if(v.getArea().equals(area)){
-                System.out.println(k+": "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
+                System.out.println(k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
             }
         }
     }
@@ -216,7 +216,7 @@ public class HCL {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if(v.getCoachName().equals(coachName)){
-                System.out.println(k+": "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
+                System.out.println(k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
             }
         }
     }
@@ -249,6 +249,12 @@ public class HCL {
         booking.setState("Canceled");
         Lesson lesson = lessons.get(booking.getLessonId());
         lesson.decreaseStudentsNumber();
+    }
+    public void changeBooking (String bookNum, String newLessonId){
+        cancelBooking(bookNum);
+        Booking booking = bookings.get(bookNum);
+        book(booking.getStudentId(), newLessonId);
+        booking.setState("Changed");
     }
     
     public void attendLesson (String bookNum){

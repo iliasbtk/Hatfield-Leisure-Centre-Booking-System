@@ -34,7 +34,9 @@ public class Lesson {
             System.out.println ("The Coach: " + coach.getFirstName() + " " + coach.getLastName() + " does not teach " + area);
         }
     }
-    
+    public String getName(){
+        return name;
+    }
     public String getId(){
         return lessonId;
     }

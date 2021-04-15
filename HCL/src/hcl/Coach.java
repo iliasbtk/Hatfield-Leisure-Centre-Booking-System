@@ -29,6 +29,13 @@ public class Coach extends Personnel {
         this.officeDay = officeDay;
     }
     
+    public String getOfficeHours(){
+        return this.officeHours;
+    }
+    public String getOfficeDay(){
+        return this.officeHours;
+    }
+    
     public void addArea(String sport){
         expertiseArea.add(sport);
     }
