@@ -18,11 +18,13 @@ public class HCL {
     Map<String, Coach> coaches = new HashMap<> ();
     Map<String, Lesson> lessons = new HashMap<> ();
     Map<String, Booking> bookings = new HashMap<> ();
+    Map<String, ParentAppointment> parentAppointments = new HashMap<> ();
     
     Integer idC=0;
     Integer idS=0;
     Integer bookNum=0;
     Integer idL=10;
+    Integer idPA=0;
    
     public static void main(String[] args) {
         
@@ -121,8 +123,7 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 5));
        
-       hatfieldLeisureCentre.lookupLessonByArea("swimming");
-       hatfieldLeisureCentre.lookupLessonByCoach("Cyndy Cerrato");
+      
        
        hatfieldLeisureCentre.book("S01", "less11");
        hatfieldLeisureCentre.book("S01", "less20");
@@ -138,20 +139,19 @@ public class HCL {
        hatfieldLeisureCentre.book("S010", "less15");
        hatfieldLeisureCentre.book("S011", "less16");
        hatfieldLeisureCentre.book("S012", "less17");
-       
-    
-       
-       
-       
-       
+     
+       hatfieldLeisureCentre.lookupTimeslotsByCoach("Cyndy Cerrato");
+       hatfieldLeisureCentre.lookupTimeslotsByArea("swimming");
         
     }
+    
     public String addCoach(Coach coach){
         String coachId;
         idC = idC+1;
         coachId = "C0"+ String.valueOf(idC);
         coach.setId(coachId);
         coaches.put(coachId, coach);
+        addCoachTimeSlots(coach);
         return coachId;
     }
     
@@ -162,6 +162,8 @@ public class HCL {
             System.out.println(k);
         }
     }
+    
+    
     
     public String registerStudent(Student student){
         String studentId;
@@ -221,6 +223,7 @@ public class HCL {
         }
     }
     
+    
     public void book(String idS, String lessonId){
         Lesson lesson = lessons.get(lessonId);
         Student student = students.get(idS);
@@ -260,6 +263,38 @@ public class HCL {
     public void attendLesson (String bookNum){
         Booking booking = bookings.get(bookNum);
         booking.setState("Attended");
+    }
+    
+    public void lookupTimeslotsByCoach(String coachName){
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            ParentAppointment v = entry.getValue();
+            if(v.getCoachName().equals(coachName)){
+                System.out.println(k+": "+v.getCoachName()+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
+            }
+        }
+    }
+    public void lookupTimeslotsByArea(String area){
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            ParentAppointment v = entry.getValue();
+            for(String coachArea : v.getExpertiseArea()) {
+                if(coachArea.equals(area)){
+                    System.out.println(k+": "+v.getCoachName()+" / "+area+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
+                    
+                }
+            }
+        }
+    }
+   
+    public void addCoachTimeSlots(Coach coach){
+        for(Integer week=1; week <=4; week++){
+            ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(), week);
+            idPA = idPA+1;
+            String appointmentId = "Appoint0"+ String.valueOf(idPA);
+            parentAppointment.setId(appointmentId);
+            parentAppointments.put(appointmentId, parentAppointment);
+        }
     }
     
    

@@ -33,7 +33,7 @@ public class Coach extends Personnel {
         return this.officeHours;
     }
     public String getOfficeDay(){
-        return this.officeHours;
+        return this.officeDay;
     }
     
     public void addArea(String sport){
@@ -43,6 +43,9 @@ public class Coach extends Personnel {
         for (String area : expertiseArea) {                                   
             System.out.println (area);
         }
+    }
+    public Set<String> getExpertiseArea(){
+        return expertiseArea;
     }
 
     
