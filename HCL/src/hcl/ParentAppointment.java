@@ -14,11 +14,14 @@ import java.util.Set;
 public class ParentAppointment {
     private String id;
     private String idS;
+    private String parentName;
     private Coach coach;
     private String day;
     private String time;
     private Integer week;
     private String state = "Availble";
+    private Integer appointmentNumber; 
+    
     
     
     public ParentAppointment(Coach coach, String day, String time, Integer week){
@@ -28,8 +31,12 @@ public class ParentAppointment {
         this.week = week;
         
     }
-    public void setIdC(String idS){
+    
+    public void setIdS(String idS){
         this.idS = idS;
+    }
+    public void setParentName(String parentName){
+        this.parentName = parentName;
     }
     public void setState(String state){
         this.state = state;
@@ -39,6 +46,9 @@ public class ParentAppointment {
     }
     public void setId(String id){
         this.id = id;
+    }
+    public void setAppointmentNumber(Integer appointmentNumber){
+        this.appointmentNumber=appointmentNumber;
     }
     public String getCoachName(){
         return this.coach.getFirstName() + " " + this.coach.getLastName();
@@ -57,5 +67,13 @@ public class ParentAppointment {
     }
     public Integer getWeek(){
         return this.week;
+    }
+    public Integer getAppointmentNumber(){
+        return this.appointmentNumber;
+    }
+    public void updateState(){
+        if(this.appointmentNumber == 3){
+            this.state = "Fully booked";
+        }
     }
 }

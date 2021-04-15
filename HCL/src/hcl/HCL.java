@@ -6,6 +6,7 @@
 package hcl;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -271,6 +272,8 @@ public class HCL {
             ParentAppointment v = entry.getValue();
             if(v.getCoachName().equals(coachName)){
                 System.out.println(k+": "+v.getCoachName()+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
+            }else{
+                System.out.println("Coach name: "+coachName+" is incorrect");
             }
         }
     }
@@ -281,12 +284,10 @@ public class HCL {
             for(String coachArea : v.getExpertiseArea()) {
                 if(coachArea.equals(area)){
                     System.out.println(k+": "+v.getCoachName()+" / "+area+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
-                    
                 }
             }
         }
     }
-   
     public void addCoachTimeSlots(Coach coach){
         for(Integer week=1; week <=4; week++){
             ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(), week);
@@ -295,6 +296,19 @@ public class HCL {
             parentAppointment.setId(appointmentId);
             parentAppointments.put(appointmentId, parentAppointment);
         }
+    }
+    public void bookApointment(String appointmentId, String idS){
+        ParentAppointment parentAppointment = parentAppointments.get(appointmentId);
+        Student student = students.get(idS);
+        if(parentAppointment.getState()=="Availble"){
+            parentAppointment.setAppointmentNumber(parentAppointment.getAppointmentNumber() +1);
+            parentAppointment.updateState();
+            parentAppointment.setIdS(idS);
+            parentAppointment.setParentName(student.getParentName());    
+        }else{
+            System.out.println("This apointment slot is fully booked");
+        }
+        
     }
     
    

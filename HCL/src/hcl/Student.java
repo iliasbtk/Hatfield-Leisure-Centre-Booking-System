@@ -21,6 +21,8 @@ public class Student extends Personnel{
         super(firstName, lastName, tel);
         this.parrentName = parrentName;
     }
-    
+    public String getParentName(){
+        return this.parrentName;
+    }
     
 }
