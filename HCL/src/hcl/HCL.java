@@ -141,7 +141,7 @@ public class HCL {
        hatfieldLeisureCentre.book("S011", "less16");
        hatfieldLeisureCentre.book("S012", "less17");
      
-      hatfieldLeisureCentre.lookupTimeslotsByArea("swimming");
+      
        
        
        hatfieldLeisureCentre.bookApointment("Appoint016", "S01");
@@ -151,7 +151,7 @@ public class HCL {
        hatfieldLeisureCentre.bookApointment("Appoint016", "S05");
        hatfieldLeisureCentre.bookApointment("Appoint03", "S06");
        
-       hatfieldLeisureCentre.report1();
+       hatfieldLeisureCentre.report2();
        
        
         
@@ -338,6 +338,22 @@ public class HCL {
             }
         }
     }
+    public void report2(){
+        for (Map.Entry<String, Student> entry1 : students.entrySet()) {
+            String key1 = entry1.getKey();
+            Student value1 = entry1.getValue();
+            
+            for (Map.Entry<String, Booking> entry2 : bookings.entrySet()) {
+                String key2 = entry2.getKey();
+                Booking value2 = entry2.getValue();
+                if(value1.getId()==value2.getStudentId()){
+                    System.out.println("Student: "+value1.getFirstName()+" "+value1.getLastName()+" is signed up for:");
+                    System.out.println(value2.getLessonId()+" / "+value2.getLessonName());
+                }          
+            }    
+        }
+    }
+   
     
    
     
