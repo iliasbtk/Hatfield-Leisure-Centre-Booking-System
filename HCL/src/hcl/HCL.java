@@ -67,21 +67,21 @@ public class HCL {
         
        
         
-        Student student1 = new Student ("Loida", "Poon", "", "");
-        Student student2 = new Student ("Ewa", "Porto", "", "");
-        Student student3 = new Student ("Dylan ", "Bucher", "", "");
-        Student student4 = new Student ("Reggie ", "Malan", "", "");
-        Student student5 = new Student ("Landon ", "Buel", "", "");
-        Student student6 = new Student ("Enid ", "Lepine", "", "");
-        Student student7 = new Student ("Aiko ", "Redmon", "", "");
-        Student student8 = new Student ("Earl ", "Evatt", "", "");
-        Student student9 = new Student ("Annita ", "Bruckner", "", "");
-        Student student10 = new Student ("Emilee ", "Lubin", "", "");
-        Student student11 = new Student ("Estell ", "Dillenbeck", "", "");
-        Student student12 = new Student ("Charleen ", "Boss", "", "");
-        Student student13 = new Student ("Chadwick ", "Fiscus", "", "");
-        Student student14 = new Student ("Steven", "Pullman", "", "");
-        Student student15 = new Student ("Elizabeth", "Simpson", "", "");
+        Student student1 = new Student ("Loida", "Poon", "", "Brad");
+        Student student2 = new Student ("Ewa", "Porto", "", "Linkon");
+        Student student3 = new Student ("Dylan ", "Bucher", "", "Jimmy");
+        Student student4 = new Student ("Reggie ", "Malan", "", "Smith");
+        Student student5 = new Student ("Landon ", "Buel", "", "Henderson");
+        Student student6 = new Student ("Enid ", "Lepine", "", "Eriksen");
+        Student student7 = new Student ("Aiko ", "Redmon", "", "Marco");
+        Student student8 = new Student ("Earl ", "Evatt", "", "Lucas");
+        Student student9 = new Student ("Annita ", "Bruckner", "", "Sergio");
+        Student student10 = new Student ("Emilee ", "Lubin", "", "Dani");
+        Student student11 = new Student ("Estell ", "Dillenbeck", "", "Ferland");
+        Student student12 = new Student ("Charleen ", "Boss", "", "Toni");
+        Student student13 = new Student ("Chadwick ", "Fiscus", "", "Fede");
+        Student student14 = new Student ("Steven", "Pullman", "", "Nacho");
+        Student student15 = new Student ("Elizabeth", "Simpson", "", "Fernandez");
        
         
         hatfieldLeisureCentre.registerStudent(student1);
@@ -141,8 +141,19 @@ public class HCL {
        hatfieldLeisureCentre.book("S011", "less16");
        hatfieldLeisureCentre.book("S012", "less17");
      
-       hatfieldLeisureCentre.lookupTimeslotsByCoach("Cyndy Cerrato");
-       hatfieldLeisureCentre.lookupTimeslotsByArea("swimming");
+      hatfieldLeisureCentre.lookupTimeslotsByArea("swimming");
+       
+       
+       hatfieldLeisureCentre.bookApointment("Appoint016", "S01");
+       hatfieldLeisureCentre.bookApointment("Appoint014", "S02");
+       hatfieldLeisureCentre.bookApointment("Appoint015", "S03");
+       hatfieldLeisureCentre.bookApointment("Appoint013", "S04");
+       hatfieldLeisureCentre.bookApointment("Appoint016", "S05");
+       hatfieldLeisureCentre.bookApointment("Appoint03", "S06");
+       
+       hatfieldLeisureCentre.report1();
+       
+       
         
     }
     
@@ -290,25 +301,42 @@ public class HCL {
     }
     public void addCoachTimeSlots(Coach coach){
         for(Integer week=1; week <=4; week++){
-            ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(), week);
-            idPA = idPA+1;
-            String appointmentId = "Appoint0"+ String.valueOf(idPA);
-            parentAppointment.setId(appointmentId);
-            parentAppointments.put(appointmentId, parentAppointment);
+            for (Integer slot=1; slot <=3; slot++){
+                ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(),"Slot: "+slot, week);
+                idPA = idPA+1;
+                String appointmentId = "Appoint0"+ String.valueOf(idPA);
+                parentAppointment.setId(appointmentId);
+                parentAppointments.put(appointmentId, parentAppointment);
+            }
         }
     }
     public void bookApointment(String appointmentId, String idS){
         ParentAppointment parentAppointment = parentAppointments.get(appointmentId);
         Student student = students.get(idS);
-        if(parentAppointment.getState()=="Availble"){
-            parentAppointment.setAppointmentNumber(parentAppointment.getAppointmentNumber() +1);
-            parentAppointment.updateState();
+        if(parentAppointment.getState().equals("Availble")){
+            parentAppointment.setBooked();
             parentAppointment.setIdS(idS);
             parentAppointment.setParentName(student.getParentName());    
         }else{
-            System.out.println("This apointment slot is fully booked");
+            System.out.println("This apointment slot is already booked");
         }
         
+    }
+    public void report1(){
+        System.out.println("Lessons:");
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            String k = entry.getKey();
+            Lesson v = entry.getValue();
+            System.out.println(k+": "+v.getName()+" / "+v.getDay()+" / "+v.getHour()+" / Students number: "+v.getStudentNumber()+" / "+v.isFull());
+        }
+        System.out.println("Appointments:");    
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            ParentAppointment v = entry.getValue();
+            if(v.getState().equals("Booked")){
+                System.out.println(k+": "+v.getWeek()+" / "+v.getDay()+" / "+v.getTime()+" / "+v.getSlot()+" / "+v.getParentName()+" / "+v.getCoachName());
+            }
+        }
     }
     
    

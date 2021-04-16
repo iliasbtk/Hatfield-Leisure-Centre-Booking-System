@@ -52,6 +52,9 @@ public class Lesson {
     public String getCoachName(){
         return this.coach.getFirstName() + " " + this.coach.getLastName();
     }
+    public Integer getStudentNumber(){
+        return this.studentsNumber;
+    }
     public void setId(String id){
         this.lessonId = id;
     }

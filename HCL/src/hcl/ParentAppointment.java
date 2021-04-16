@@ -20,14 +20,15 @@ public class ParentAppointment {
     private String time;
     private Integer week;
     private String state = "Availble";
-    private Integer appointmentNumber; 
+    private String slot; 
     
     
     
-    public ParentAppointment(Coach coach, String day, String time, Integer week){
+    public ParentAppointment(Coach coach, String day, String time, String slot, Integer week){
         this.coach = coach;
         this.day = day;
         this.time = time;
+        this.slot = slot;
         this.week = week;
         
     }
@@ -47,8 +48,9 @@ public class ParentAppointment {
     public void setId(String id){
         this.id = id;
     }
-    public void setAppointmentNumber(Integer appointmentNumber){
-        this.appointmentNumber=appointmentNumber;
+
+    public void setSlot(){
+        this.slot = slot;
     }
     public String getCoachName(){
         return this.coach.getFirstName() + " " + this.coach.getLastName();
@@ -68,12 +70,14 @@ public class ParentAppointment {
     public Integer getWeek(){
         return this.week;
     }
-    public Integer getAppointmentNumber(){
-        return this.appointmentNumber;
+
+    public String getParentName(){
+        return this.parentName;
     }
-    public void updateState(){
-        if(this.appointmentNumber == 3){
-            this.state = "Fully booked";
-        }
+    public String getSlot(){
+        return this.slot;
+    }
+    public void setBooked(){
+        this.state = "Booked";
     }
 }
