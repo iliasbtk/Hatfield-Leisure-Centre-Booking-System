@@ -37,6 +37,12 @@ public class Booking {
     public String getLessonId(){
         return lesson.getId();
     }
+    public String getDay(){
+        return lesson.getDay();
+    }
+    public String getTime(){
+        return lesson.getHour();
+    }
     public String getLessonName(){
         return lesson.getName();
     }

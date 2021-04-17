@@ -124,10 +124,11 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 5));
        
+       
       
        
        hatfieldLeisureCentre.book("S01", "less11");
-       hatfieldLeisureCentre.book("S01", "less20");
+       hatfieldLeisureCentre.book("S01", "less16");
        hatfieldLeisureCentre.book("S02", "less11");
        hatfieldLeisureCentre.book("S03", "less11");
        hatfieldLeisureCentre.book("S04", "less11");
@@ -235,10 +236,30 @@ public class HCL {
         }
     }
     
+    public boolean checkSameTimeLessons(String idS, Lesson lesson){
+        String day = lesson.getDay();
+        String time = lesson.getHour();
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            Booking v = entry.getValue();
+            if(v.getStudentId().equals(idS)){
+                if(v.getDay().equals(day)){
+                    if(v.getTime().equals(time)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    } 
     
     public Booking book(String idS, String lessonId){
         Lesson lesson = lessons.get(lessonId);
         Student student = students.get(idS);
+        if(checkSameTimeLessons(idS, lesson)){
+            System.out.println("You are already registered in a class running at the same time");
+            return null;
+        }
         if(lesson.isFull().equals("Full")){
             System.out.println("This class is fully booked");
             return null;
