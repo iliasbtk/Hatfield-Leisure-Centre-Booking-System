@@ -236,11 +236,12 @@ public class HCL {
     }
     
     
-    public void book(String idS, String lessonId){
+    public Booking book(String idS, String lessonId){
         Lesson lesson = lessons.get(lessonId);
         Student student = students.get(idS);
         if(lesson.isFull().equals("Full")){
             System.out.println("This class is fully booked");
+            return null;
         }else{
             Booking booking = new Booking(student, lesson, "Booked");
             String bookingNumber;
@@ -248,7 +249,9 @@ public class HCL {
             bookingNumber = "B0"+ String.valueOf(bookNum);
             bookings.put(bookingNumber, booking);
             lesson.increaseStudentsNumber();
+            return booking;
         }
+        
     }
     
     public void displayBookings(){
@@ -342,7 +345,6 @@ public class HCL {
         for (Map.Entry<String, Student> entry1 : students.entrySet()) {
             String key1 = entry1.getKey();
             Student value1 = entry1.getValue();
-            
             for (Map.Entry<String, Booking> entry2 : bookings.entrySet()) {
                 String key2 = entry2.getKey();
                 Booking value2 = entry2.getValue();
