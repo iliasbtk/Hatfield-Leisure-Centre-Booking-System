@@ -103,10 +103,10 @@ public class HCL {
     
        
         
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1", "swimming pool A",coach1, "Mon", "14:00 - 15:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1", "swimming pool A",coach1, "Mon", "16:00 - 17:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 1","badminton court A",coach1, "Tue", "14:00 - 15:00", "badminton", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach1, "Wed", "14:00 - 15:00", "gymnastics", 5));
-       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Thu", "14:00 - 15:00", "swimming", 5));
+       hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach1, "Thu", "14:00 - 15:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1","swimming pool A",coach2, "Fri", "14:00 - 15:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 1","badminton court A",coach2, "Mon", "14:00 - 15:00", "badminton", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 1","Gym",coach3, "Mon", "17:00 - 18:00", "gymnastics", 5));
@@ -196,12 +196,21 @@ public class HCL {
         }
     }
     
+ 
+    
     public void addLesson(Lesson lesson){
-        String lessonId;
-        idL = idL+1;
-        lessonId = "less"+ String.valueOf(idL);
-        lessons.put(lessonId, lesson);
-        lesson.setId(lessonId);
+        if (lesson.getCoach().getLessonsNumber() >= 3){
+            System.out.println("The coach: "+lesson.getCoachName()+" is already teaching 3 lessons per week");
+        }else if(lesson.getDay().equals(lesson.getCoach().getOfficeDay()) && lesson.getHour().equals(lesson.getCoach().getOfficeHours())){
+            System.out.println("The lesson time is conflicting with the coach "+lesson.getCoachName()+" 's office hour");
+        }else{
+            String lessonId;
+            idL = idL+1;
+            lessonId = "less"+ String.valueOf(idL);
+            lessons.put(lessonId, lesson);
+            lesson.setId(lessonId);
+            lesson.getCoach().increaseLessonNumbers();
+        }
     }
     
     public void displayLessons(){

@@ -17,6 +17,7 @@ public class Coach extends Personnel {
     Set<String> expertiseArea = new HashSet<> ();
     private String officeHours;
     private String officeDay;
+    private Integer lessonsNumber=0;
     
     public Coach(String firstName, String lastName, String address, String tel, String officeHours, String officeDay){
         super(firstName, lastName, address, tel);
@@ -35,7 +36,9 @@ public class Coach extends Personnel {
     public String getOfficeDay(){
         return this.officeDay;
     }
-    
+    public Integer getLessonsNumber(){
+        return this.lessonsNumber;
+    }
     public void addArea(String sport){
         expertiseArea.add(sport);
     }
@@ -56,6 +59,10 @@ public class Coach extends Personnel {
             }    
         }
         return false;
+    }
+
+    public void increaseLessonNumbers(){
+        this.lessonsNumber +=1;
     }
     
     
