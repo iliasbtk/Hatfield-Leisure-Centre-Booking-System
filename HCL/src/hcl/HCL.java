@@ -123,7 +123,6 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 5));
        
-       hatfieldLeisureCentre.lookupLessonByArea("swimming");
       
        
        hatfieldLeisureCentre.book("S01", "less11");
@@ -150,6 +149,8 @@ public class HCL {
        hatfieldLeisureCentre.bookApointment("Appoint013", "S04");
        hatfieldLeisureCentre.bookApointment("Appoint016", "S05");
        hatfieldLeisureCentre.bookApointment("Appoint03", "S06");
+       
+       
        
        
        
@@ -237,14 +238,17 @@ public class HCL {
         
     }
     
-    public void lookupLessonByCoach(String coachName){
+    public String lookupLessonByCoach(String coachName){
+        String result="";
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if(v.getCoachName().equals(coachName)){
-                System.out.println(k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
+                result = result + (k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull()+"\n");
             }
         }
+        System.out.println(result);
+        return result;
     }
     
     public boolean checkSameTimeLessons(String idS, Lesson lesson){
@@ -315,27 +319,34 @@ public class HCL {
         booking.setState("Attended");
     }
     
-    public void lookupTimeslotsByCoach(String coachName){
+    public String lookupTimeslotsByCoach(String coachName){
+        String result="";
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if(v.getCoachName().equals(coachName)){
-                System.out.println(k+": "+v.getCoachName()+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
-            }else{
-                System.out.println("Coach name: "+coachName+" is incorrect");
+                result = result + (k+": "+v.getCoachName()+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+"Slot: "+v.getSlot()+" / "+v.getState()+"\n");
             }
         }
+        if(result==""){
+            result="Coach name: "+coachName+" is incorrect";
+        }
+        System.out.println(result);
+        return result;
     }
-    public void lookupTimeslotsByArea(String area){
+    public String lookupTimeslotsByArea(String area){
+        String result="";
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             for(String coachArea : v.getExpertiseArea()) {
                 if(coachArea.equals(area)){
-                    System.out.println(k+": "+v.getCoachName()+" / "+area+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+v.getState());
+                    result = result + (k+": "+v.getCoachName()+" / "+area+" / "+v.getDay()+" / "+v.getTime()+" / Week: "+v.getWeek()+" / "+"Slot: "+v.getSlot()+" / "+v.getState()+"\n");
                 }
             }
         }
+        System.out.println(result);
+        return result;
     }
     public void addCoachTimeSlots(Coach coach){
         for(Integer week=1; week <=4; week++){

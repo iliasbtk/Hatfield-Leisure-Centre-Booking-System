@@ -210,41 +210,83 @@ public class HCLTest {
         hcl.addLesson(lesson);
         Lesson lesson2 = new Lesson("Swimming 2","swimming pool B",coach, "Wed", "19:00 - 20:00", "swimming", 5);
         hcl.addLesson(lesson2);
-        hcl.lookupLessonByArea("swimming");
         String actualResult = hcl.lookupLessonByArea("swimming");
         String expectedResult = "less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble\n" +
                                 "less12: Swimming 2 / swimming / Wed / 19:00 - 20:00 / Serita Tuck / Availble\n";
-        assertEquals(actualResult, expectedResult);
-        
+        assertEquals(actualResult, expectedResult);     
     }
-    /*
+    @Test
+    public void testLookupLessonByCoach() {
+        HCL hcl = new HCL();
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        coach.addArea("badminton");
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
+        hcl.addLesson(lesson);
+        Lesson lesson2 = new Lesson("Badminton 1","badminton court A",coach, "Tue", "14:00 - 15:00", "badminton", 5);
+        hcl.addLesson(lesson2);
+        hcl.lookupLessonByCoach("Serita Tuck");
+        String actualResult = hcl.lookupLessonByCoach("Serita Tuck");
+        String expectedResult = "less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble\n" +
+                                "less12: Badminton 1 / badminton / Tue / 14:00 - 15:00 / Serita Tuck / Availble\n";
+        assertEquals(actualResult, expectedResult);
+    }
+    
 
     @Test
     public void testLookupTimeslotsByCoach() {
-        System.out.println("lookupTimeslotsByCoach");
-        String coachName = "";
-        HCL instance = new HCL();
-        instance.lookupTimeslotsByCoach(coachName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        HCL hcl = new HCL();
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        Coach coach2 = new Coach("Cyndy" ,  "Cerrato",  "tel", "16:00 - 17:00", "Tue");
+        hcl.addCoach(coach);
+        hcl.addCoach(coach2);
+        String actualResult = hcl.lookupTimeslotsByCoach("Serita Tuck");
+        String expectedResult = "Appoint02: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint01: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint06: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint05: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint04: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint03: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint09: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint08: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint07: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint012: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint010: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint011: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 2 / Availble\n";
+        assertEquals(actualResult, expectedResult);
     }
 
-  
+   
     @Test
     public void testLookupTimeslotsByArea() {
-        System.out.println("lookupTimeslotsByArea");
-        String area = "";
-        HCL instance = new HCL();
-        instance.lookupTimeslotsByArea(area);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        HCL hcl = new HCL();
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        Coach coach2 = new Coach("Cyndy" ,  "Cerrato",  "tel", "16:00 - 17:00", "Tue");
+        coach.addArea("swimming");
+        coach2.addArea("badminton");
+        hcl.addCoach(coach);
+        hcl.addCoach(coach2);
+        String actualResult = hcl.lookupTimeslotsByArea("badminton");
+        String expectedResult = "Appoint018: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 2 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint019: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint016: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 2 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint017: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 2 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint014: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 1 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint015: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 1 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint023: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 4 / Slot: Slot: 2 / Availble\n" +
+                                "Appoint013: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 1 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint024: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 4 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint021: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Slot: 3 / Availble\n" +
+                                "Appoint022: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 4 / Slot: Slot: 1 / Availble\n" +
+                                "Appoint020: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Slot: 2 / Availble\n";
+        assertEquals(actualResult, expectedResult);
     }
 
   
     
 
  
-    
+/*    
 
  
     @Test
@@ -265,22 +307,13 @@ public class HCLTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-*/    
-    /*
+    
+   
     
 
  
-    @Test
-    public void testLookupLessonByCoach() {
-        System.out.println("lookupLessonByCoach");
-        String coachName = "";
-        HCL instance = new HCL();
-        instance.lookupLessonByCoach(coachName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    */
-/**
+    
+/*
     @Test
     public void testAddCoachTimeSlots() {
         Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
