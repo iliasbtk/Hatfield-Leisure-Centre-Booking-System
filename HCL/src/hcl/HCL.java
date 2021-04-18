@@ -123,7 +123,7 @@ public class HCL {
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 2","swimming pool B",coach6, "Wed", "19:00 - 20:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Gymnastics 3","Gym",coach7, "Thu", "19:00 - 20:00", "gymnastics", 5));
        
-       
+       hatfieldLeisureCentre.lookupLessonByArea("swimming");
       
        
        hatfieldLeisureCentre.book("S01", "less11");
@@ -151,7 +151,6 @@ public class HCL {
        hatfieldLeisureCentre.bookApointment("Appoint016", "S05");
        hatfieldLeisureCentre.bookApointment("Appoint03", "S06");
        
-       hatfieldLeisureCentre.report2();
        
        
         
@@ -224,14 +223,18 @@ public class HCL {
         return lessons.get(lessonId);
     }
     
-    public void lookupLessonByArea(String area){
+    public String lookupLessonByArea(String area){
+        String result="";
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if(v.getArea().equals(area)){
-                System.out.println(k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull());
+                result = result + (k+": "+v.getName()+" / "+v.getArea()+" / "+v.getDay()+" / "+v.getHour()+" / "+v.getCoachName()+" / "+v.isFull()+"\n");
             }
         }
+        System.out.println(result);
+        return result;
+        
     }
     
     public void lookupLessonByCoach(String coachName){

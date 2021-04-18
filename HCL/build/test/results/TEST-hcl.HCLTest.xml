@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HCLTest" skipped="0" tests="8" time="0.141" timestamp="2021-04-18T11:10:08">
+<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HCLTest" skipped="0" tests="9" time="0.218" timestamp="2021-04-18T14:19:37">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="GB" />
@@ -59,7 +59,7 @@
     <property name="libs.j2me_common_ant.maven-pom" value="" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HCLTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HCLTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher1658787597142107138.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit3680540762867524632.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HCLTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HCLTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher8735218033191748007.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit8083395166715943693.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -405,18 +405,25 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="hcl.HCLTest" name="testBookApointment" time="0.007" />
-  <testcase classname="hcl.HCLTest" name="testAttendLesson" time="0.002" />
-  <testcase classname="hcl.HCLTest" name="testBook" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testCancelBooking" time="0.001" />
+  <testcase classname="hcl.HCLTest" name="testBookApointment" time="0.016" />
+  <testcase classname="hcl.HCLTest" name="testAttendLesson" time="0.0" />
+  <testcase classname="hcl.HCLTest" name="testBook" time="0.0" />
+  <testcase classname="hcl.HCLTest" name="testCancelBooking" time="0.0" />
   <testcase classname="hcl.HCLTest" name="testAddCoach" time="0.0" />
+  <testcase classname="hcl.HCLTest" name="testLookupLessonByArea" time="0.0" />
   <testcase classname="hcl.HCLTest" name="testAddLesson" time="0.0" />
-  <testcase classname="hcl.HCLTest" name="testChangeBooking" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testRegisterStudent" time="0.001" />
+  <testcase classname="hcl.HCLTest" name="testChangeBooking" time="0.0" />
+  <testcase classname="hcl.HCLTest" name="testRegisterStudent" time="0.0" />
   <system-out><![CDATA[This class is fully booked
 The Coach: Serita Tuck does not teach badminton
 You are already registered in a class running at the same time
 You are already registered in a class running at the same time
+less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble
+less12: Swimming 2 / swimming / Wed / 19:00 - 20:00 / Serita Tuck / Availble
+
+less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble
+less12: Swimming 2 / swimming / Wed / 19:00 - 20:00 / Serita Tuck / Availble
+
 You are already registered in a class running at the same time
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

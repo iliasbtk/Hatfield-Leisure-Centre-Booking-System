@@ -181,6 +181,8 @@ public class HCLTest {
         assertEquals(actualResult, expectedResult);
     }
     
+    
+    
     @Test
     public void testBookApointment() {
         Student student = new Student("Loida", "Poon", "", "");
@@ -195,8 +197,25 @@ public class HCLTest {
         hcl.bookApointment(appointmentId, idS);
         String actualResult = parentAppointment.getState();
         String expectedResult = "Booked";
-        
         assertEquals(actualResult, expectedResult);   
+    }
+    @Test
+    public void testLookupLessonByArea() {
+        HCL hcl = new HCL();
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        Coach coach2 = new Coach("Cyndy" ,  "Cerrato",  "tel", "16:00 - 17:00", "Tue");
+        coach2.addArea("swimming");
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
+        hcl.addLesson(lesson);
+        Lesson lesson2 = new Lesson("Swimming 2","swimming pool B",coach, "Wed", "19:00 - 20:00", "swimming", 5);
+        hcl.addLesson(lesson2);
+        hcl.lookupLessonByArea("swimming");
+        String actualResult = hcl.lookupLessonByArea("swimming");
+        String expectedResult = "less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble\n" +
+                                "less12: Swimming 2 / swimming / Wed / 19:00 - 20:00 / Serita Tuck / Availble\n";
+        assertEquals(actualResult, expectedResult);
+        
     }
     /*
 
@@ -222,15 +241,7 @@ public class HCLTest {
     }
 
   
-    @Test
-    public void testAddCoachTimeSlots() {
-        System.out.println("addCoachTimeSlots");
-        Coach coach = null;
-        HCL instance = new HCL();
-        instance.addCoachTimeSlots(coach);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
  
     
@@ -256,15 +267,7 @@ public class HCLTest {
     }
 */    
     /*
-     @Test
-    public void testLookupLessonByArea() {
-        String area = "swimming";
-        HCL instance = new HCL();
-        instance.lookupLessonByArea(area);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
  
     @Test
@@ -278,7 +281,13 @@ public class HCLTest {
     }
     */
 /**
-    
+    @Test
+    public void testAddCoachTimeSlots() {
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        HCL hcl = new HCL();
+        hcl.addCoachTimeSlots(coach);
+        assertEquals(hcl.parentAppointments.get("Appoint01"),);
+    }
 
 
     @Test
@@ -286,22 +295,6 @@ public class HCLTest {
         
     }
 
-  
-
-    
-   
-
-
-    @Test
-    public void testBook() {
-        System.out.println("book");
-        String idS = "";
-        String lessonId = "";
-        HCL instance = new HCL();
-        instance.book(idS, lessonId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
    
     @Test
