@@ -160,18 +160,26 @@ public class HCLTest {
         assertEquals(actualResult3, expectedResult3);
         
     }
-    /*
+    
    
     @Test
     public void testAttendLesson() {
-        System.out.println("attendLesson");
-        String bookNum = "";
-        HCL instance = new HCL();
-        instance.attendLesson(bookNum);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Student student = new Student("Loida", "Poon", "", "");
+        HCL hcl = new HCL();
+        String idS = hcl.registerStudent(student);
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
+        hcl.addLesson(lesson);
+        String lessonId = lesson.getId();
+        Booking booking = hcl.book(idS, lessonId);
+        String bookingNumber = booking.getBookingNumber();
+        hcl.attendLesson(bookingNumber);
+        String actualResult = booking.getState();
+        String expectedResult = "Attended";
+        assertEquals(actualResult, expectedResult);
     }
-
+    /*
 
     @Test
     public void testLookupTimeslotsByCoach() {
