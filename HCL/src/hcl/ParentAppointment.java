@@ -52,6 +52,9 @@ public class ParentAppointment {
     public void setSlot(){
         this.slot = slot;
     }
+    public String getId(){
+        return this.id;
+    }
     public String getCoachName(){
         return this.coach.getFirstName() + " " + this.coach.getLastName();
     }

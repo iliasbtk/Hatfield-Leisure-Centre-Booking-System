@@ -5,6 +5,7 @@
  */
 package hcl;
 
+import java.util.HashSet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -179,6 +180,24 @@ public class HCLTest {
         String expectedResult = "Attended";
         assertEquals(actualResult, expectedResult);
     }
+    
+    @Test
+    public void testBookApointment() {
+        Student student = new Student("Loida", "Poon", "", "");
+        HCL hcl = new HCL();
+        String idS = hcl.registerStudent(student);
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(),"Slot: 1", 1);
+        String appointmentId = "Appoint01";
+        parentAppointment.setId(appointmentId);
+        hcl.parentAppointments.put(appointmentId, parentAppointment);
+        hcl.bookApointment(appointmentId, idS);
+        String actualResult = parentAppointment.getState();
+        String expectedResult = "Booked";
+        
+        assertEquals(actualResult, expectedResult);   
+    }
     /*
 
     @Test
@@ -214,16 +233,7 @@ public class HCLTest {
     }
 
  
-    @Test
-    public void testBookApointment() {
-        System.out.println("bookApointment");
-        String appointmentId = "";
-        String idS = "";
-        HCL instance = new HCL();
-        instance.bookApointment(appointmentId, idS);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
  
     @Test
