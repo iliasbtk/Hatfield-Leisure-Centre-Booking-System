@@ -8,7 +8,6 @@ package hcl;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -277,6 +276,7 @@ public class HCL {
             String bookingNumber;
             bookNum = bookNum+1;
             bookingNumber = "B0"+ String.valueOf(bookNum);
+            booking.setBookNumber(bookingNumber);
             bookings.put(bookingNumber, booking);
             lesson.increaseStudentsNumber();
             return booking;

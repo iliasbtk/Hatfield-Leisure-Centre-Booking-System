@@ -22,7 +22,7 @@ public class Booking {
         
     }
     
-    public void setBookNum(String bookingNumber){
+    public void setBookNumber(String bookingNumber){
         this.bookingNumber = bookingNumber;
     }
     public String getStudentId(){

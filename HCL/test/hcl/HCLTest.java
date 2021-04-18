@@ -52,6 +52,9 @@ public class HCLTest {
 
     @Test
     public void testBook() {
+        /*
+        Case: Succesful lesson booking.
+        */
         Student student = new Student("Loida", "Poon", "", "");
         HCL hcl = new HCL();
         String idS = hcl.registerStudent(student);
@@ -65,8 +68,10 @@ public class HCLTest {
         assertEquals(expectedResult.getStudentFullName(), actualResult.getStudentFullName());
         assertEquals(expectedResult.getLessonId(), actualResult.getLessonId());
         assertEquals(expectedResult.getState(), actualResult.getState());
-        assertEquals(expectedResult.getBookingNumber(), actualResult.getBookingNumber());
         
+        /*
+        Case: If one lesson is full, booking will be unsuccessful and the student will be asked to book another one);
+        */
         Student student2 = new Student ("Ewa", "Porto", "", "");
         Student student3 = new Student ("Dylan ", "Bucher", "", "");
         Student student4 = new Student ("Reggie ", "Malan", "", "");
@@ -78,7 +83,9 @@ public class HCLTest {
         Booking actualResult2 = hcl.book(idS4, lessonId);
         Booking expectedResult2 = null;
         assertEquals(actualResult2, actualResult2);
-        
+        /*
+        Case: Students cannot sign up for two lessons running at the same time 
+        */
         Lesson lesson2 = new Lesson("Badminton 1","badminton court A",coach, "Mon", "14:00 - 15:00", "badminton", 5);
         String lessonId2 = lesson.getId();
         hcl.book(idS, lessonId2);
@@ -98,18 +105,25 @@ public class HCLTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    */
   
+    
     @Test
     public void testCancelBooking() {
-        System.out.println("cancelBooking");
-        String bookNum = "";
-        HCL instance = new HCL();
-        instance.cancelBooking(bookNum);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Student student = new Student("Loida", "Poon", "", "");
+        HCL hcl = new HCL();
+        String idS = hcl.registerStudent(student);
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
+        hcl.addLesson(lesson);
+        String lessonId = lesson.getId();
+        Booking actualResult1 = hcl.book(idS, lessonId);
+        String bookingNumber = actualResult1.getBookingNumber();
+        hcl.cancelBooking(bookingNumber);
+        assertEquals(actualResult1.getState(), "Canceled");
     }
-
+    /*
  
     @Test
     public void testChangeBooking() {
