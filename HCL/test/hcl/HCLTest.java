@@ -57,7 +57,7 @@ public class HCLTest {
         String idS = hcl.registerStudent(student);
         Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
         coach.addArea("swimming");
-        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 10);
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
         hcl.addLesson(lesson);
         String lessonId = lesson.getId();
         Booking actualResult = hcl.book(idS, lessonId);
@@ -66,6 +66,25 @@ public class HCLTest {
         assertEquals(expectedResult.getLessonId(), actualResult.getLessonId());
         assertEquals(expectedResult.getState(), actualResult.getState());
         assertEquals(expectedResult.getBookingNumber(), actualResult.getBookingNumber());
+        
+        Student student2 = new Student ("Ewa", "Porto", "", "");
+        Student student3 = new Student ("Dylan ", "Bucher", "", "");
+        Student student4 = new Student ("Reggie ", "Malan", "", "");
+        String idS2 = hcl.registerStudent(student2);
+        String idS3 = hcl.registerStudent(student3);
+        String idS4 = hcl.registerStudent(student4);
+        hcl.book(idS2, lessonId);
+        hcl.book(idS3, lessonId);
+        Booking actualResult2 = hcl.book(idS4, lessonId);
+        Booking expectedResult2 = null;
+        assertEquals(actualResult2, actualResult2);
+        
+        Lesson lesson2 = new Lesson("Badminton 1","badminton court A",coach, "Mon", "14:00 - 15:00", "badminton", 5);
+        String lessonId2 = lesson.getId();
+        hcl.book(idS, lessonId2);
+        Booking actualResult3 = hcl.book(idS, lessonId2);
+        Booking expectedResult3 = null;
+        assertEquals(actualResult3, actualResult3);
         
     }
 
