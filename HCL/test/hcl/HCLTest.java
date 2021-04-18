@@ -119,24 +119,49 @@ public class HCLTest {
         hcl.addLesson(lesson);
         String lessonId = lesson.getId();
         Booking actualResult1 = hcl.book(idS, lessonId);
+        Integer studentNumbersBefore = lesson.getStudentNumber();
         String bookingNumber = actualResult1.getBookingNumber();
         hcl.cancelBooking(bookingNumber);
-        assertEquals(actualResult1.getState(), "Canceled");
+        String actualResult = actualResult1.getState();
+        String expectedResult = "Canceled";
+        Integer actualResult2 = lesson.getStudentNumber();
+        Integer expectedResult2 = studentNumbersBefore-1;
+        assertEquals(actualResult, expectedResult);
+        assertEquals(actualResult2, expectedResult2);
     }
-    /*
+     
  
     @Test
     public void testChangeBooking() {
-        System.out.println("changeBooking");
-        String bookNum = "";
-        String newLessonId = "";
-        HCL instance = new HCL();
-        instance.changeBooking(bookNum, newLessonId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Student student = new Student("Loida", "Poon", "", "");
+        HCL hcl = new HCL();
+        String idS = hcl.registerStudent(student);
+        Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+        coach.addArea("swimming");
+        coach.addArea("badminton");
+        Lesson lesson = new Lesson("Swimming 1", "swimming pool A",coach, "Mon", "14:00 - 15:00", "swimming", 3);
+        hcl.addLesson(lesson);       
+        Lesson lesson2 = new Lesson("Badminton 1","badminton court A",coach, "Tue", "15:00 - 16:00", "badminton", 5);
+        hcl.addLesson(lesson2);        
+        String lessonId = lesson.getId();
+        Booking booking = hcl.book(idS, lessonId);
+        Integer studentNumbersBefore = lesson.getStudentNumber();
+        Integer studentNumbersBefore2 = lesson2.getStudentNumber();
+        String bookingNumber = booking.getBookingNumber();
+        hcl.changeBooking (bookingNumber, lesson2.getId());
+        String actualResult = booking.getState();
+        String expectedResult = "Changed";
+        Integer actualResult2 = lesson.getStudentNumber();
+        Integer expectedResult2 = studentNumbersBefore-1;
+        Integer actualResult3 = lesson2.getStudentNumber();
+        Integer expectedResult3 = studentNumbersBefore2+1;
+        assertEquals(actualResult, expectedResult);
+        assertEquals(actualResult2, expectedResult2);
+        assertEquals(actualResult3, expectedResult3);
+        
     }
-
- 
+    /*
+   
     @Test
     public void testAttendLesson() {
         System.out.println("attendLesson");

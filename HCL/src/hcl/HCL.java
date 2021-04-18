@@ -295,14 +295,16 @@ public class HCL {
     public void cancelBooking (String bookNum){
         Booking booking = bookings.get(bookNum);
         booking.setState("Canceled");
-        Lesson lesson = lessons.get(booking.getLessonId());
+        Lesson lesson = booking.getLesson();
         lesson.decreaseStudentsNumber();
     }
-    public void changeBooking (String bookNum, String newLessonId){
+    public Booking changeBooking (String bookNum, String newLessonId){
         cancelBooking(bookNum);
         Booking booking = bookings.get(bookNum);
         book(booking.getStudentId(), newLessonId);
         booking.setState("Changed");
+        
+        return book(booking.getStudentId(), newLessonId);
     }
     
     public void attendLesson (String bookNum){

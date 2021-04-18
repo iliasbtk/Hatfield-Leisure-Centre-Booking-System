@@ -46,6 +46,9 @@ public class Booking {
     public String getLessonName(){
         return lesson.getName();
     }
+    public Lesson getLesson(){
+        return this.lesson;
+    }
     public String getState(){
         return state;
     }
