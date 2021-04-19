@@ -5,32 +5,65 @@
  */
 package hcl;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author NGSI
  */
-public class HCL {
-    Map<String, Student> students = new HashMap<> (); 
-    Map<String, Coach> coaches = new HashMap<> ();
-    Map<String, Lesson> lessons = new HashMap<> ();
-    Map<String, Booking> bookings = new HashMap<> ();
-    Map<String, ParentAppointment> parentAppointments = new HashMap<> ();
+public class Main extends JFrame {
     
-    Integer idC=0;
-    Integer idS=0;
-    Integer bookNum=0;
-    Integer idL=10;
-    Integer idPA=0;
+  
+    
+//    public HCL(){
+//        super("Hatfield Leisure Centre");
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setSize(400, 200);
+//        
+//        setLayout (new BorderLayout ());
+//        
+//        add(coachRegisterForm(), BorderLayout.CENTER);
+//                               
+//    } 
+    
+    
+    
+//    Map<String, Student> students = new HashMap<> (); 
+//    Map<String, Coach> coaches = new HashMap<> ();
+//    Map<String, Lesson> lessons = new HashMap<> ();
+//    Map<String, Booking> bookings = new HashMap<> ();
+//    Map<String, ParentAppointment> parentAppointments = new HashMap<> ();
+//    
+//    Integer idC=0;
+//    Integer idS=0;
+//    Integer bookNum=0;
+//    Integer idL=10;
+//    Integer idPA=0;
    
     public static void main(String[] args) {
+        HatfieldLeisureCentre hcl = new HatfieldLeisureCentre();
+//        hatfieldLeisureCentre.setVisible(true);
         
-        HCL hatfieldLeisureCentre = new HCL();
+            
         
         
+        // Coach class instances
+    
         Coach coach1 = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
         Coach coach2 = new Coach("Cyndy" ,  "Cerrato",  "tel", "16:00 - 17:00", "Tue");
         Coach coach3 = new Coach("Annamae" ,  "Koski",  "tel", "16:00 - 17:00", "Wed");
@@ -39,13 +72,20 @@ public class HCL {
         Coach coach6 = new Coach("Ronny" ,  "Eriksen",  "tel", "15:00 - 16:00", "Tue");
         Coach coach7 = new Coach("Steward" ,  "Denver",  "tel", "15:00 - 16:00", "Wed");
         
-        hatfieldLeisureCentre.addCoach(coach1);
-        hatfieldLeisureCentre.addCoach(coach2);
-        hatfieldLeisureCentre.addCoach(coach3);
-        hatfieldLeisureCentre.addCoach(coach4);
-        hatfieldLeisureCentre.addCoach(coach5);
-        hatfieldLeisureCentre.addCoach(coach6);
-        hatfieldLeisureCentre.addCoach(coach7);
+        // Register new coaches
+       
+        hcl.addCoach(coach1);
+        hcl.addCoach(coach2);
+        hcl.addCoach(coach3);
+        hcl.addCoach(coach4);
+        hcl.addCoach(coach5);
+        hcl.addCoach(coach6);
+        hcl.addCoach(coach7);
+        
+        hcl.displayCoaches();
+        
+        /*
+        // Adding expertise area to the coaches
         
         coach1.addArea("swimming");
         coach1.addArea("badminton");
@@ -63,8 +103,7 @@ public class HCL {
         coach7.addArea("badminton");
         coach7.addArea("gymnastics");
         
-        
-       
+        // Student class instances
         
         Student student1 = new Student ("Loida", "Poon", "", "Brad");
         Student student2 = new Student ("Ewa", "Porto", "", "Linkon");
@@ -82,6 +121,7 @@ public class HCL {
         Student student14 = new Student ("Steven", "Pullman", "", "Nacho");
         Student student15 = new Student ("Elizabeth", "Simpson", "", "Fernandez");
        
+        // Register new students
         
         hatfieldLeisureCentre.registerStudent(student1);
         hatfieldLeisureCentre.registerStudent(student2);
@@ -99,8 +139,9 @@ public class HCL {
         hatfieldLeisureCentre.registerStudent(student14);
         hatfieldLeisureCentre.registerStudent(student15);
         
+        
     
-       
+    /*
         
        hatfieldLeisureCentre.addLesson(new Lesson("Swimming 1", "swimming pool A",coach1, "Mon", "16:00 - 17:00", "swimming", 5));
        hatfieldLeisureCentre.addLesson(new Lesson("Badminton 1","badminton court A",coach1, "Tue", "14:00 - 15:00", "badminton", 5));
@@ -150,53 +191,46 @@ public class HCL {
        hatfieldLeisureCentre.bookApointment("Appoint016", "S05");
        hatfieldLeisureCentre.bookApointment("Appoint03", "S06");
        
-       
+       */
        
        
        
         
     }
     
-    public String addCoach(Coach coach){
-        String coachId;
-        idC = idC+1;
-        coachId = "C0"+ String.valueOf(idC);
-        coach.setId(coachId);
-        coaches.put(coachId, coach);
-        addCoachTimeSlots(coach);
-        return coachId;
-    }
-    
-    public void displayCoaches(){
-        for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
-            String k = entry.getKey();
-        //    String v = entry.getValue().;
-            System.out.println(k);
-        }
-    }
-    
-    
-    
+//    public String registerCoach(String firstName, String lastName, String tel, String officeHours, String officeDay){
+//        Coach coach = new Coach(firstName, lastName, tel, officeHours, officeDay);
+//        return addCoach(coach);
+//    }
+//    
+//    public String addCoach(Coach coach){
+//        for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
+//            Coach v = entry.getValue();
+//            if(v.getFullName().equals(coach.getFullName())){
+//                System.out.println("This coach named: "+coach.getFullName()+" is already registered");
+//                return"";
+//            }
+//        }
+//        String coachId = generateId("C0",idC);
+//        coach.setId(coachId);
+//        coaches.put(coachId, coach);
+//        addCoachTimeSlots(coach);
+//        return coachId;
+//    }
+    /*
     public String registerStudent(Student student){
-        String studentId;
-        idS = idS+1;
-        studentId = "S0"+ String.valueOf(idS);
+        for (Map.Entry<String, Student> entry : students.entrySet()) {
+            Student v = entry.getValue();
+            if(v.getFullName().equals(student.getFullName())){
+                System.out.println("This student named: "+student.getFullName()+" is already registered");
+                return"";
+            }
+        }
+        String studentId = generateId("S0",idS);
         students.put(studentId, student);
         student.setId(studentId);
-        
         return studentId;
     }
-    
-    public void displayStudents(){
-        for (Map.Entry<String, Student> entry : students.entrySet()) {
-            String k = entry.getKey();
-            Student v = entry.getValue();
-            System.out.println(k+": "+v.getFirstName()+" "+v.getLastName());
-        }
-    }
-    
- 
-    
     public void addLesson(Lesson lesson){
         if (lesson.getCoach().getLessonsNumber() >= 3){
             System.out.println("The coach: "+lesson.getCoachName()+" is already teaching 3 lessons per week");
@@ -348,17 +382,7 @@ public class HCL {
         System.out.println(result);
         return result;
     }
-    public void addCoachTimeSlots(Coach coach){
-        for(Integer week=1; week <=4; week++){
-            for (Integer slot=1; slot <=3; slot++){
-                ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(),"Slot: "+slot, week);
-                idPA = idPA+1;
-                String appointmentId = "Appoint0"+ String.valueOf(idPA);
-                parentAppointment.setId(appointmentId);
-                parentAppointments.put(appointmentId, parentAppointment);
-            }
-        }
-    }
+    
     public void bookApointment(String appointmentId, String idS){
         ParentAppointment parentAppointment = parentAppointments.get(appointmentId);
         Student student = students.get(idS);
@@ -401,13 +425,126 @@ public class HCL {
             }    
         }
     }
+    */
+//    public void addCoachTimeSlots(Coach coach){
+//        for(Integer week=1; week <=4; week++){
+//            for (Integer slot=1; slot <=3; slot++){
+//                ParentAppointment parentAppointment = new ParentAppointment(coach, coach.getOfficeDay(), coach.getOfficeHours(),"Slot: "+slot, week);
+//                idPA = idPA+1;
+//                String appointmentId = "Appoint0"+ String.valueOf(idPA);
+//                parentAppointment.setId(appointmentId);
+//                parentAppointments.put(appointmentId, parentAppointment);
+//            }
+//        }
+//    }
+//   
+//    /*
+//    Helper Methods
+//    */
+//    public String generateId(String code, Integer i){
+//        String id;
+//        i = i+1;
+//        switch(code)
+//        {
+//            case "S0":
+//                idS = i;
+//            break;
+//            case "C0":
+//                idC = i;
+//            break;
+//            default:
+//                ;
+//            break;
+//        }
+//        
+//        id = code+ String.valueOf(i);
+//        return id;        
+//    }
+ 
    
     
-   
-    
-   
-    
-    
+    /*
+    Testing methods
+    */
+//    public String displayCoaches(){
+//        String result="";
+//        for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
+//            String k = entry.getKey();
+//            Coach v = entry.getValue();
+//            System.out.println(k+" / "+ v.getFullName());
+//            result = result+(k+" / "+ v.getFullName()+"\n");
+//        }
+//        return result;
+//    }
+//    public void displayStudents(){
+//        for (Map.Entry<String, Student> entry : students.entrySet()) {
+//            String k = entry.getKey();
+//            Student v = entry.getValue();
+//            System.out.println(k+": "+v.getFullName());
+//        }
+//    }
+//    
+//   
+//    
+//    class DescribeAction implements ActionListener {
+//        private final JEditorPane pane;
+//        public DescribeAction (JEditorPane pane) {
+//            this.pane = pane;                                           
+//        }
+//        public void actionPerformed (ActionEvent e) {
+//            System.out.println("Coaches Registered:");
+//            displayCoaches();
+//                                          
+//        }
+//    }
+//    class ClickListener implements ActionListener {  
+//            private String  FNameT;
+//            private String  lNameT;
+//            private String  telT;
+//            private String  officeDayT;
+//            private String  officeTimeT;
+//            public ClickListener (String FNameT, String lNameT, String telT, String officeTimeT, String officeDayT) {
+//                this.FNameT = FNameT;
+//                this.lNameT = lNameT;
+//                this.officeDayT = officeDayT;
+//                this.officeTimeT = officeTimeT;
+//                this.telT = telT;
+//            }
+//            public void actionPerformed(ActionEvent e) {       
+//                registerCoach( FNameT,  lNameT,  telT,  officeTimeT,  officeDayT);
+//            }
+//        }
+//    public JPanel coachRegisterForm () {
+//        JPanel panel = new JPanel ();                               // (2)
+//        panel.setLayout (new BoxLayout (panel, BoxLayout.Y_AXIS));  // (3)
+//        
+//        JLabel fName = new JLabel("Enter your first name:");
+//        JTextField FNameT = new JTextField(25);
+//        JLabel lName = new JLabel("Enter your last name:");
+//        JTextField lNameT = new JTextField(25);
+//        JLabel tel = new JLabel("Enter your telephone number:");
+//        JTextField telT = new JTextField(25);
+//        JLabel officeDay = new JLabel("Enter your office day:");
+//        JTextField officeDayT = new JTextField(25);
+//        JLabel officeTime = new JLabel("Enter your office hour:");
+//        JTextField officeTimeT = new JTextField(25);
+//        
+//        panel.add(fName);
+//        panel.add(FNameT);
+//        panel.add(lName);
+//        panel.add(lNameT);
+//        panel.add(tel);
+//        panel.add(telT);
+//        panel.add(officeDay);
+//        panel.add(officeDayT);
+//        panel.add(officeTime);
+//        panel.add(officeTimeT);
+//        JButton button = new JButton("Register Coach");                        
+//        button.addActionListener(new ClickListener(FNameT.getText(),  lNameT.getText(),  telT.getText(),  officeTimeT.getText(),  officeDayT.getText()));                   
+//        panel.add(button, BorderLayout.SOUTH);
+//    
+//        return panel;
+//    }
    
     
     

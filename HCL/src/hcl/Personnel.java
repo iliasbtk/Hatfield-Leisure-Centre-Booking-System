@@ -35,6 +35,9 @@ abstract public class Personnel {
     public String getLastName(){
         return lastName;
     }
+    public String getFullName(){
+        return this.getFirstName() + " " + this.getLastName();
+    }
     public void setId(String id){
         this.id = id; 
     }

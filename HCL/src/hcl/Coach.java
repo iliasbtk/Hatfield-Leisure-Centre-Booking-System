@@ -29,7 +29,6 @@ public class Coach extends Personnel {
         this.officeHours = officeHours;
         this.officeDay = officeDay;
     }
-    
     public String getOfficeHours(){
         return this.officeHours;
     }
@@ -39,19 +38,19 @@ public class Coach extends Personnel {
     public Integer getLessonsNumber(){
         return this.lessonsNumber;
     }
+    public Set<String> getExpertiseArea(){
+        return expertiseArea;
+    }
+    
     public void addArea(String sport){
         expertiseArea.add(sport);
     }
     public void displayExpertiseArea(){
+        System.out.println ("Coach: " + this.getFullName() +" - Expertise area:");
         for (String area : expertiseArea) {                                   
             System.out.println (area);
         }
     }
-    public Set<String> getExpertiseArea(){
-        return expertiseArea;
-    }
-
-    
     public boolean hasExpertiseArea(String areaName){
         for (String area : expertiseArea) { 
             if(area == areaName){
@@ -60,7 +59,6 @@ public class Coach extends Personnel {
         }
         return false;
     }
-
     public void increaseLessonNumbers(){
         this.lessonsNumber +=1;
     }

@@ -29,15 +29,21 @@ public class HCLTest {
         Coach coach = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
         HCL hcl = new HCL();
         String idC = hcl.addCoach(coach);
-        assertEquals(coach, (hcl.coaches).get(idC));
+        Coach actualResult = hcl.coaches.get(idC);
+        Coach expectedResult = coach;
+        assertEquals(idC, expectedResult.getId());
+        assertEquals(actualResult.getFullName(), expectedResult.getFullName());
     }
    
     @Test
     public void testRegisterStudent() {
-        Student student = new Student("Loida", "Poon", "", "");
+        Student student = new Student("Loida", "Poon", "tel", "Parent name");
         HCL hcl = new HCL();
         String idS = hcl.registerStudent(student);
-        assertEquals(student, (hcl.students).get(idS));
+        Student actualResult = hcl.students.get(idS);
+        Student expectedResult = student;
+        assertEquals(idS, expectedResult.getId());
+        assertEquals(actualResult.getFullName(), expectedResult.getFullName());
     }
 
     
