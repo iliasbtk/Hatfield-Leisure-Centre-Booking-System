@@ -20,6 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -31,44 +32,8 @@ import javax.swing.JTextPane;
  * @author NGSI
  */
 public class Main{
-    
-    
-  
-    
-//    public Main(){
-//        super("Hatfield Leisure Centre");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setSize(400, 400);
-//        
-//        setLayout (new BorderLayout ());
-//        JPanel panel = new JPanel ();                              
-//        panel.setLayout (new BoxLayout (panel, BoxLayout.Y_AXIS));
-//        JButton button = new JButton("Register Coach");                        
-//        button.addActionListener(new ClickListenerCoachMenu());
-//                         
-//        panel.add(button, BorderLayout.SOUTH);
-//
-//        
-//        add(coachRegisterForm(), BorderLayout.CENTER);
-//                               
-//    } 
-    
-    
-    
-//    Map<String, Student> students = new HashMap<> (); 
-//    Map<String, Coach> coaches = new HashMap<> ();
-//    Map<String, Lesson> lessons = new HashMap<> ();
-//    Map<String, Booking> bookings = new HashMap<> ();
-//    Map<String, ParentAppointment> parentAppointments = new HashMap<> ();
-//    
-//    Integer idC=0;
-//    Integer idS=0;
-//    Integer bookNum=0;
-//    Integer idL=10;
-//    Integer idPA=0;
-   
-    public static void main(String[] args) {
-        
+
+    public static void main(String[] args) { 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 HatfieldLeisureCentre hcl = new HatfieldLeisureCentre();
@@ -100,9 +65,7 @@ public class Main{
                 MainFrame bookLessonFrame = new MainFrame("Hatfield Leisure Centre"); 
                 MainFrame cancelChangeFrame = new MainFrame("Hatfield Leisure Centre"); 
                 MainFrame attendFrame = new MainFrame("Hatfield Leisure Centre"); 
-                
-                
-                
+
                 /*
                 app frame componenets
                 */
@@ -190,14 +153,54 @@ public class Main{
                 registerCoachButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.registerCoach(FNameT.getText(), lNameT.getText(), telT.getText(), officeDayT.getText(), officeTimeT.getText());
-                        coachFrame.setVisible(false);
-                        app.setVisible(true);
-                        
+                        String id = hcl.registerCoach(FNameT.getText(), lNameT.getText(), telT.getText(), officeDayT.getText(), officeTimeT.getText());
+                        if(id.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Coach Registration",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id==""){
+                            JOptionPane.showMessageDialog(null,
+                                    "The Coach: " + FNameT.getText() + " " + lNameT.getText() + " is already registered",
+                                    "Coach Registration",
+                                    JOptionPane.ERROR_MESSAGE);
+                            FNameT.setText("");
+                            lNameT.setText("");
+                            telT.setText("");
+                            officeDayT.setText("");
+                            officeTimeT.setText("");
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "The Coach: " + FNameT.getText() + " " + lNameT.getText() + " is succefully created with Id: " + id,
+                                    "Coach Registration",
+                                    JOptionPane.ERROR_MESSAGE);
+                            registerCoachFrame.setVisible(false);
+                            FNameT.setText("");
+                            lNameT.setText("");
+                            telT.setText("");
+                            officeDayT.setText("");
+                            officeTimeT.setText("");
+                        }
                     }
                 });
+                JButton CancelCoachButton = new JButton("Cancel");
+                CancelCoachButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        FNameT.setText("");
+                        lNameT.setText("");
+                        telT.setText("");
+                        officeDayT.setText("");
+                        officeTimeT.setText("");
+                        registerCoachFrame.setVisible(false); 
+                    }
+                });
+                JPanel groupPanel = new JPanel();
+                groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.Y_AXIS));
+                groupPanel.add(registerCoachButton);
+                groupPanel.add(CancelCoachButton);
                 registerCoachFrame.add(registerCoachPanel, BorderLayout.CENTER);
-                registerCoachFrame.add(registerCoachButton, BorderLayout.SOUTH);
+                registerCoachFrame.add(groupPanel, BorderLayout.SOUTH);
                 /*
                 addExpAreaFrame components
                 */
@@ -272,12 +275,23 @@ public class Main{
                 buttonDisplayCoaches.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                       report.setText(hcl.displayCoaches());
-                       
+                       report.setText(hcl.displayCoaches()); 
                     }
                 });
                 JButton buttonDisplayLessons = new JButton("Display Lessons");
+                buttonDisplayLessons.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       report.setText(hcl.displayLessons());     
+                    }
+                });
                 JButton buttonDisplayBookings = new JButton("Display Bookings");
+                buttonDisplayBookings.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       report.setText(hcl.displayBookings()); 
+                    }
+                });
                 
                 JPanel reportPanel = new JPanel();                            
                 reportPanel.setLayout(new BoxLayout(reportPanel, BoxLayout.Y_AXIS));  
@@ -554,27 +568,7 @@ public class Main{
                 
                 
             }
-//            class ClickListener implements ActionListener {
-//
-//            private String FNameT;
-//            private String lNameT;
-//            private String telT;
-//            private String officeDayT;
-//            private String officeTimeT;
-//
-//            public ClickListener(String FNameT, String lNameT, String telT, String officeTimeT, String officeDayT) {
-//                this.FNameT = FNameT;
-//                this.lNameT = lNameT;
-//                this.officeDayT = officeDayT;
-//                this.officeTimeT = officeTimeT;
-//                this.telT = telT;
-//            }
-//
-//            public void actionPerformed(ActionEvent e) {
-//                hcl.registerCoach(FNameT, lNameT, telT, officeTimeT, officeDayT);
-//                
-//            }
-//        }
+
             
         });
         
@@ -820,6 +814,28 @@ public class Main{
 //    class ClickListenerCoachMenu implements ActionListener {  
 //            
 //            public void actionPerformed(ActionEvent e) {       
+//                
+//            }
+//        }
+    
+    //            class ClickListener implements ActionListener {
+//
+//            private String FNameT;
+//            private String lNameT;
+//            private String telT;
+//            private String officeDayT;
+//            private String officeTimeT;
+//
+//            public ClickListener(String FNameT, String lNameT, String telT, String officeTimeT, String officeDayT) {
+//                this.FNameT = FNameT;
+//                this.lNameT = lNameT;
+//                this.officeDayT = officeDayT;
+//                this.officeTimeT = officeTimeT;
+//                this.telT = telT;
+//            }
+//
+//            public void actionPerformed(ActionEvent e) {
+//                hcl.registerCoach(FNameT, lNameT, telT, officeTimeT, officeDayT);
 //                
 //            }
 //        }

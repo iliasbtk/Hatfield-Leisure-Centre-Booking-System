@@ -27,6 +27,9 @@ public class HatfieldLeisureCentre {
     Integer idPA = 0;
 
     public String registerCoach(String firstName, String lastName, String tel, String officeHours, String officeDay) {
+        if(firstName.equals("") || lastName.equals("") || tel.equals("") || officeHours.equals("") || officeDay.equals("")){
+            return "Error";
+        }
         Coach coach = new Coach(firstName, lastName, tel, officeHours, officeDay);
         return addCoach(coach);
     }
@@ -76,12 +79,16 @@ public class HatfieldLeisureCentre {
         }
     }
 
-    public void displayLessons() {
+    public String displayLessons() {
+        String result="";
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
-            System.out.println(k + ": " + v.getArea() + " / " + v.getDay() + " / " + v.getHour());
+            result = result + (k + ": " + v.getArea() + " / " + v.getDay() + " / " + v.getHour()+"\n");
+
         }
+        System.out.println(result);
+        return result;
     }
 
     public Lesson getLesson(String lessonId) {
@@ -155,12 +162,15 @@ public class HatfieldLeisureCentre {
 
     }
 
-    public void displayBookings() {
+    public String displayBookings() {
+        String result="";
         for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
             String k = entry.getKey();
             Booking v = entry.getValue();
-            System.out.println(k + ": " + v.getStudentId() + " " + v.getLessonId() + " " + v.getState());
+            result = result + (k + ": " + v.getStudentId() + " " + v.getLessonId() + " " + v.getState()+"\n");
         }
+        System.out.println(result);
+        return result;
     }
 
     public void cancelBooking(String bookNum) {
