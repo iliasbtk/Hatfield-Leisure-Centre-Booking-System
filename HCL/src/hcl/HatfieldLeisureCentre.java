@@ -50,6 +50,9 @@ public class HatfieldLeisureCentre {
     }
 
     public String registerStudent(String firstName, String lastName, String address, String tel, String parrentName) {
+        if(firstName.equals("") || lastName.equals("") || address.equals("") || tel.equals("") || parrentName.equals("")){
+            return "Error";
+        }
         Student student = new Student(firstName, lastName, address, tel, parrentName);
         for (Map.Entry<String, Student> entry : students.entrySet()) {
             Student v = entry.getValue();

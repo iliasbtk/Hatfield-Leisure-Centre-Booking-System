@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -213,24 +215,67 @@ public class Main{
                 JLabel fCaochId = new JLabel("Enter the coach ID:");
                 JTextField fCaochIdT = new JTextField(25);
                 
-                JCheckBox area1 = new JCheckBox("Pepperoni");
-                JCheckBox area2 = new JCheckBox("Mushroom");
-                JCheckBox area3 = new JCheckBox("Black olives");
-                JCheckBox area4 = new JCheckBox("Tomato");
-                JCheckBox area5 = new JCheckBox("Tomato");
-                
+                JCheckBox area1 = new JCheckBox("swimming");
+                JCheckBox area2 = new JCheckBox("badminton");
+                JCheckBox area3 = new JCheckBox("gymnastics");
+
                 JButton addAreaButton = new JButton("Add");
+                addAreaButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(!(area1.isSelected() || area2.isSelected() || area3.isSelected())){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Add Expertise Area",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            String successMessage ="";
+                            Coach coach = hcl.coaches.get(fCaochIdT.getText());
+                            if(area1.isSelected()){
+                                coach.addArea("swimming");
+                                successMessage += ", swimming";
+                            }
+                            if(area2.isSelected()){
+                                coach.addArea("badminton");
+                                successMessage += ", badminton";
+                            }
+                            if(area3.isSelected()){
+                                coach.addArea("gymnastics");
+                                successMessage += ", gymnastics";
+                            }
+                            JOptionPane.showMessageDialog(null,
+                                "The expertise areas: "+successMessage+" succesfully added to the coach: "+coach.getFullName(),
+                                "Add Expertise Area",
+                                JOptionPane.ERROR_MESSAGE);
+                            addExpAreaFrame.setVisible(false);
+                            fCaochIdT.setText("");
+                        }
+                    }
+                });
+                JButton cancelAreaButton = new JButton("Cancel");
+                cancelAreaButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        addExpAreaFrame.setVisible(false);
+                        fCaochIdT.setText(""); 
+                    }
+                });
+                
                 
                 areaPanel.add(fCaochId);
                 areaPanel.add(fCaochIdT);
                 areaPanel.add(area1);
                 areaPanel.add(area2);
                 areaPanel.add(area3);
-                areaPanel.add(area4);
-                areaPanel.add(area5);
+                JPanel groupPanel2 = new JPanel();
+                groupPanel2.setLayout(new BoxLayout(groupPanel2, BoxLayout.Y_AXIS));
+                groupPanel2.add(addAreaButton);
+                groupPanel2.add(cancelAreaButton);
                 
+                addExpAreaFrame.add(groupPanel2, BorderLayout.SOUTH);
                 addExpAreaFrame.add(areaPanel, BorderLayout.CENTER);
-                addExpAreaFrame.add(addAreaButton, BorderLayout.SOUTH);
+                
+                
                 
                 
                  /*
@@ -445,14 +490,55 @@ public class Main{
                 registerStudentButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.registerStudent(sFirstNameT.getText(), sLastNameT.getText(), sAddressT.getText(), sTelT.getText(), parentNameT.getText());
-                        registerStudentFrame.setVisible(false);
-                        studentFrame.setVisible(true);
-                        
+                        String id = hcl.registerStudent(sFirstNameT.getText(), sLastNameT.getText(), sAddressT.getText(), sTelT.getText(), parentNameT.getText());
+                        if(id.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Student Registration",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id==""){
+                            JOptionPane.showMessageDialog(null,
+                                    "The Student: " + sFirstNameT.getText() + " " + sLastNameT.getText() + " is already registered",
+                                    "Student Registration",
+                                    JOptionPane.ERROR_MESSAGE);
+                            sFirstNameT.setText("");
+                            sLastNameT.setText("");
+                            sAddressT.setText("");
+                            sTelT.setText("");
+                            parentNameT.setText("");
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                    "The Student: " + sFirstNameT.getText() + " " + sLastNameT.getText() + " is succefully created with Id: " + id,
+                                    "Student Registration",
+                                    JOptionPane.ERROR_MESSAGE);
+                            registerStudentFrame.setVisible(false);
+                            sFirstNameT.setText("");
+                            sLastNameT.setText("");
+                            sAddressT.setText("");
+                            sTelT.setText("");
+                            parentNameT.setText("");
+                        }
                     }
                 });
+                JButton cancelSRegButton = new JButton("Cancel");
+                cancelSRegButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        registerStudentFrame.setVisible(false);
+                        sFirstNameT.setText("");
+                        sLastNameT.setText("");
+                        sAddressT.setText("");
+                        sTelT.setText("");
+                        parentNameT.setText(""); 
+                    }
+                });
+                JPanel groupPanel3 = new JPanel();
+                groupPanel3.setLayout(new BoxLayout(groupPanel3, BoxLayout.Y_AXIS));
+                groupPanel3.add(registerStudentButton);
+                groupPanel3.add(cancelSRegButton);
+                
                 registerStudentFrame.add(registerStudentPanel, BorderLayout.CENTER);
-                registerStudentFrame.add(registerStudentButton, BorderLayout.SOUTH);
+                registerStudentFrame.add(groupPanel3, BorderLayout.SOUTH);
                 
                 /*
                 lookupLessonFrame
