@@ -336,24 +336,33 @@ public class HatfieldLeisureCentre {
 
     }
 
-    public void report1() {
+    public String report1() {
+        String result="";
+        result = result+"Lessons:\n";
         System.out.println("Lessons:");
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
+            result=result+(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + " / " + v.isFull()+"\n");
             System.out.println(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + " / " + v.isFull());
         }
+        result = result+"Appointments:\n";
         System.out.println("Appointments:");
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getState().equals("Booked")) {
-                System.out.println(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / " + v.getParentName() + " / " + v.getCoachName());
+                result=result+(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / " +
+                        v.getParentName() + " / " + v.getCoachName()+"\n");
+                System.out.println(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() +
+                        " / " + v.getParentName() + " / " + v.getCoachName());
             }
         }
+        return result;
     }
 
-    public void report2() {
+    public String report2() {
+        String result="";
         for (Map.Entry<String, Student> entry1 : students.entrySet()) {
             String key1 = entry1.getKey();
             Student value1 = entry1.getValue();
@@ -361,11 +370,14 @@ public class HatfieldLeisureCentre {
                 String key2 = entry2.getKey();
                 Booking value2 = entry2.getValue();
                 if (value1.getId() == value2.getStudentId()) {
+                    result=result+"Student: " + value1.getFirstName() + " " + value1.getLastName() + " is signed up for:\n"+
+                            value2.getLessonId() + " / " + value2.getLessonName()+"\n";
                     System.out.println("Student: " + value1.getFirstName() + " " + value1.getLastName() + " is signed up for:");
                     System.out.println(value2.getLessonId() + " / " + value2.getLessonName());
                 }
             }
         }
+        return result;
     }
 
     public void addCoachTimeSlots(Coach coach) {

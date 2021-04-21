@@ -317,7 +317,19 @@ public class Main{
                 reportsFrame.add(label1, BorderLayout.NORTH);
                 
                 JButton buttonReport1 = new JButton("Report 1");
+                buttonReport1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       report.setText(hcl.report1()); 
+                    }
+                });
                 JButton buttonReport2 = new JButton("Report 2");
+                buttonReport2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       report.setText(hcl.report2()); 
+                    }
+                });
                 JButton buttonDisplayCoaches = new JButton("Display Coaches");
                 buttonDisplayCoaches.addActionListener(new ActionListener() {
                     @Override
