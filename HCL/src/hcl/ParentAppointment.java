@@ -52,14 +52,14 @@ public class ParentAppointment {
     public void setSlot(){
         this.slot = slot;
     }
+    public String getStudentId(){
+        return this.idS;
+    }
     public String getId(){
         return this.id;
     }
-    public String getCoachName(){
-        return this.coach.getFirstName() + " " + this.coach.getLastName();
-    }
-    public Set<String> getExpertiseArea(){
-        return coach.getExpertiseArea();
+    public Coach getCoach(){
+        return this.coach;
     }
     public String getDay(){
         return this.day;

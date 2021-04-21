@@ -6,6 +6,9 @@
 package hcl;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +31,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -45,6 +49,7 @@ public class Main{
                 */
                 
                 MainFrame app = new MainFrame("Hatfield Leisure Centre");
+                app.setResizable(false);
                 app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 app.setVisible(true);
                 
@@ -52,31 +57,48 @@ public class Main{
                 
                 MainFrame adminFrame = new MainFrame("Hatfield Leisure Centre");
                 MainFrame reportsFrame = new MainFrame("Hatfield Leisure Centre");
-                reportsFrame.setLayout(new BorderLayout());
+                reportsFrame.setSize(800, 500);
                 MainFrame addLessonFrame = new MainFrame("Hatfield Leisure Centre");
+                addLessonFrame.setSize(500, 500);
                 //Coach 
                 
                 MainFrame coachFrame = new MainFrame("Hatfield Leisure Centre");
                 MainFrame registerCoachFrame = new MainFrame("Hatfield Leisure Centre");
+                registerCoachFrame.setSize(500, 300);
                 MainFrame addExpAreaFrame = new MainFrame("Hatfield Leisure Centre");
-
+                addExpAreaFrame.setSize(500, 250);
+                MainFrame coachReportFrame = new MainFrame("Hatfield Leisure Centre"); 
+                coachReportFrame.setSize(1000, 200);
                 //Student
                 MainFrame studentFrame = new MainFrame("Hatfield Leisure Centre"); 
                 MainFrame registerStudentFrame = new MainFrame("Hatfield Leisure Centre"); 
+                registerStudentFrame.setSize(500, 250);
                 MainFrame lookupLessonFrame = new MainFrame("Hatfield Leisure Centre"); 
+                lookupLessonFrame.setSize(800, 250);
                 MainFrame bookLessonFrame = new MainFrame("Hatfield Leisure Centre"); 
+                bookLessonFrame.setSize(400, 200);
                 MainFrame cancelChangeFrame = new MainFrame("Hatfield Leisure Centre"); 
+                cancelChangeFrame.setSize(600, 280);
                 MainFrame attendFrame = new MainFrame("Hatfield Leisure Centre"); 
+                attendFrame.setSize(400, 150);
+                MainFrame studentReportFrame = new MainFrame("Hatfield Leisure Centre"); 
+                studentReportFrame.setSize(1000, 200);
                 MainFrame lookupTimeSlotFrame = new MainFrame("Hatfield Leisure Centre"); 
+                lookupTimeSlotFrame.setSize(800, 250);
                 MainFrame bookAppointmentFrame = new MainFrame("Hatfield Leisure Centre");
-
+                bookAppointmentFrame.setSize(600, 200);
                 /*
                 app frame componenets
                 */
-                JPanel mainPanel = new JPanel ();                               
-                mainPanel.setLayout (new BoxLayout (mainPanel, BoxLayout.X_AXIS));
+                JPanel mainPanelCenter = new JPanel ();              
+                mainPanelCenter.setBorder(new LineBorder(Color.BLACK,3));
+                mainPanelCenter.setBackground(Color.GRAY);
+                mainPanelCenter.setLayout(new GridLayout(3, 1, 5, 5));
                 
+                JLabel title1 = new JLabel("Main Menu");
+                title1.setFont(new Font("Times New Roman", Font.BOLD, 42));
                 JButton buttonCoach = new JButton("I am a Coach"); 
+                
                 buttonCoach.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -97,16 +119,22 @@ public class Main{
                         adminFrame.setVisible(true);
                     }
                 });
-                mainPanel.add (buttonCoach);                        
-                mainPanel.add (buttonStudent);
-                mainPanel.add (buttonAdmin);
-                app.add(mainPanel, BorderLayout.CENTER);
+                mainPanelCenter.add (buttonCoach);                        
+                mainPanelCenter.add (buttonStudent);
+                mainPanelCenter.add (buttonAdmin);
+                app.add(title1, BorderLayout.NORTH);
+                app.add(mainPanelCenter, BorderLayout.CENTER);
                 
                 /*
                 Coach frame componenets
                 */
-                JPanel coachPanel = new JPanel();
-                coachPanel.setLayout(new BoxLayout(coachPanel, BoxLayout.Y_AXIS));
+                JPanel coachPanelCenter = new JPanel();
+                coachPanelCenter.setBorder(new LineBorder(Color.BLACK,3));
+                coachPanelCenter.setBackground(Color.GRAY);
+                coachPanelCenter.setLayout(new GridLayout(3, 1, 5, 5));
+                
+                JLabel title2 = new JLabel("Coach Menu");
+                title2.setFont(new Font("Times New Roman", Font.BOLD, 42));
                 
                 JButton buttonNewCoach = new JButton("Register a New Coach"); 
                 buttonNewCoach.addActionListener(new ActionListener() {
@@ -122,15 +150,28 @@ public class Main{
                         addExpAreaFrame.setVisible(true);
                     }
                 });
-                coachPanel.add (buttonNewCoach);                        
-                coachPanel.add (buttonAddArea);                
-                coachFrame.add(coachPanel, BorderLayout.CENTER);
-                
+                JButton buttonReportCoach = new JButton("Reports"); 
+                buttonReportCoach.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        coachReportFrame.setVisible(true);
+                    }
+                });
+                coachPanelCenter.add (buttonNewCoach);                        
+                coachPanelCenter.add (buttonAddArea);  
+                coachPanelCenter.add (buttonReportCoach);
+                coachFrame.add(coachPanelCenter, BorderLayout.CENTER);
+                coachFrame.add(title2, BorderLayout.NORTH);
                 /*
                 Register Coach frame componenets
                 */
                 JPanel registerCoachPanel = new JPanel();
-                registerCoachPanel.setLayout(new BoxLayout(registerCoachPanel, BoxLayout.Y_AXIS));
+                registerCoachPanel.setBorder(new LineBorder(Color.BLACK,3));
+                registerCoachPanel.setBackground(Color.LIGHT_GRAY);
+                registerCoachPanel.setLayout(new GridLayout(5, 2, 2, 10));
+                
+                JLabel title5 = new JLabel("Register a New Coach");
+                title5.setFont(new Font("Times New Roman", Font.BOLD, 42));
 
                 JLabel fName = new JLabel("Enter your first name:");
                 JTextField FNameT = new JTextField(25);
@@ -200,23 +241,26 @@ public class Main{
                     }
                 });
                 JPanel groupPanel = new JPanel();
-                groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.Y_AXIS));
+                groupPanel.setLayout(new GridLayout(1, 2, 5, 5));
                 groupPanel.add(registerCoachButton);
                 groupPanel.add(CancelCoachButton);
                 registerCoachFrame.add(registerCoachPanel, BorderLayout.CENTER);
                 registerCoachFrame.add(groupPanel, BorderLayout.SOUTH);
+                registerCoachFrame.add(title5, BorderLayout.NORTH);
                 /*
                 addExpAreaFrame components
                 */
                 JPanel areaPanel = new JPanel();
                 areaPanel.setLayout(new BoxLayout(areaPanel, BoxLayout.Y_AXIS));
                 
-                JLabel label2 = new JLabel("Add an expertise area:");
-                reportsFrame.add(label2, BorderLayout.NORTH);
+                JLabel title6 = new JLabel("Add an expertise area:");
+                title6.setFont(new Font("Times New Roman", Font.BOLD, 42));
                 
                 JLabel fCaochId = new JLabel("Enter the coach ID:");
                 JTextField fCaochIdT = new JTextField(25);
                 
+                JLabel areaLabel = new JLabel("Select the Expertise Areas:");
+
                 JCheckBox area1 = new JCheckBox("swimming");
                 JCheckBox area2 = new JCheckBox("badminton");
                 JCheckBox area3 = new JCheckBox("gymnastics");
@@ -266,25 +310,66 @@ public class Main{
                 
                 areaPanel.add(fCaochId);
                 areaPanel.add(fCaochIdT);
+                areaPanel.add(areaLabel);
                 areaPanel.add(area1);
                 areaPanel.add(area2);
                 areaPanel.add(area3);
                 JPanel groupPanel2 = new JPanel();
-                groupPanel2.setLayout(new BoxLayout(groupPanel2, BoxLayout.Y_AXIS));
+                groupPanel2.setLayout(new GridLayout(1, 2, 5, 5));
                 groupPanel2.add(addAreaButton);
                 groupPanel2.add(cancelAreaButton);
                 
                 addExpAreaFrame.add(groupPanel2, BorderLayout.SOUTH);
                 addExpAreaFrame.add(areaPanel, BorderLayout.CENTER);
+                addExpAreaFrame.add(title6, BorderLayout.NORTH);
+                
+                /*
+                coachReportFrame
+                */
+                JLabel title17 = new JLabel("Coach Reports");
+                title17.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                
+                JTextPane coachReport = new JTextPane();
+                coachReport.setEditable(false);
+                coachReportFrame.add(new JScrollPane(coachReport), BorderLayout.CENTER);
+                
+                JLabel cId3 = new JLabel("Enter your Coach Id:");
+                JTextField cIdT3 = new JTextField(25);
+
+                JButton buttonDisplayCReport = new JButton("Display Report");
+                buttonDisplayCReport.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       coachReport.setText(hcl.coachReport(cIdT3.getText())); 
+                    }
+                });
                 
                 
-                
+                JPanel cReportPanel = new JPanel();              
+                cReportPanel.setBorder(new LineBorder(Color.BLACK,3));
+                cReportPanel.setBackground(Color.LIGHT_GRAY);
+                cReportPanel.setLayout(new GridLayout(3, 1, 5, 5));
+                coachReportFrame.add(cReportPanel, BorderLayout.EAST);
+                coachReportFrame.add(title17, BorderLayout.NORTH);
+
+                cReportPanel.add(cId3);
+                cReportPanel.add(cIdT3);
+                cReportPanel.add(buttonDisplayCReport); 
                 
                  /*
                 Admin frame componenets
-                */
-                JPanel adminPanel = new JPanel();
-                adminPanel.setLayout(new BoxLayout(adminPanel, BoxLayout.Y_AXIS));
+                */                
+                
+                
+                
+                
+                JPanel adminPanelCenter = new JPanel();
+                adminPanelCenter.setBorder(new LineBorder(Color.BLACK,3));
+                adminPanelCenter.setBackground(Color.GRAY);
+                adminPanelCenter.setLayout(new GridLayout(2, 1, 5, 5));
+                
+                JLabel title3 = new JLabel("Administration Menu");
+                title3.setFont(new Font("Times New Roman", Font.BOLD, 42));
                 
                 JButton buttonNewLesson = new JButton("Add a New Lesson"); 
                 buttonNewLesson.addActionListener(new ActionListener() {
@@ -302,20 +387,23 @@ public class Main{
                         
                     }
                 });
-                adminPanel.add (buttonNewLesson);                        
-                adminPanel.add (buttonReporting);                
-                adminFrame.add(adminPanel, BorderLayout.CENTER);
+                adminPanelCenter.add (buttonNewLesson);                        
+                adminPanelCenter.add (buttonReporting);                
+                adminFrame.add(adminPanelCenter, BorderLayout.CENTER);
+                adminFrame.add(title3, BorderLayout.NORTH);
                 
                 /*
                 Reports frame componenets
                 */
+                
+                
+                JLabel title7 = new JLabel("Reports");
+                title7.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                
                 JTextPane report = new JTextPane();
                 report.setEditable(false);
                 reportsFrame.add(new JScrollPane(report), BorderLayout.CENTER);
 
-                JLabel label1 = new JLabel("Report Name");
-                reportsFrame.add(label1, BorderLayout.NORTH);
-                
                 JButton buttonReport1 = new JButton("Report 1");
                 buttonReport1.addActionListener(new ActionListener() {
                     @Override
@@ -337,11 +425,11 @@ public class Main{
                        report.setText(hcl.displayCoaches()); 
                     }
                 });
-                JButton buttonDisplayLessons = new JButton("Display Lessons");
-                buttonDisplayLessons.addActionListener(new ActionListener() {
+                JButton buttonDisplayStudents = new JButton("Display Students");
+                buttonDisplayStudents.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                       report.setText(hcl.displayLessons());     
+                       report.setText(hcl.displayStudents()); 
                     }
                 });
                 JButton buttonDisplayBookings = new JButton("Display Bookings");
@@ -352,21 +440,31 @@ public class Main{
                     }
                 });
                 
-                JPanel reportPanel = new JPanel();                            
-                reportPanel.setLayout(new BoxLayout(reportPanel, BoxLayout.Y_AXIS));  
+                JPanel reportPanel = new JPanel();              
+                reportPanel.setBorder(new LineBorder(Color.BLACK,3));
+                reportPanel.setBackground(Color.GRAY);
+                reportPanel.setLayout(new GridLayout(5, 1, 5, 5));
                 reportsFrame.add(reportPanel, BorderLayout.EAST);
+                reportsFrame.add(title7, BorderLayout.NORTH);
 
                 reportPanel.add(buttonReport1);
                 reportPanel.add(buttonReport2);
-                reportPanel.add(buttonDisplayCoaches);   
-                reportPanel.add(buttonDisplayLessons);   
+                reportPanel.add(buttonDisplayCoaches); 
+                reportPanel.add(buttonDisplayStudents);
                 reportPanel.add(buttonDisplayBookings);   
                 
                 /*
                 addLessonFrame componenets
-                */
+                */                          
+
+                
                 JPanel addLessonPanel = new JPanel();
+
                 addLessonPanel.setLayout(new BoxLayout(addLessonPanel, BoxLayout.Y_AXIS));
+                
+                JLabel title8 = new JLabel("Add a New Lesson");
+                title8.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                
                 JLabel lessonName = new JLabel("Enter Lesson name:");
                 JTextField lessonNameT = new JTextField(25);
                 JLabel location = new JLabel("Enter Location");
@@ -378,23 +476,21 @@ public class Main{
                 JLabel time = new JLabel("Enter time:");
                 JTextField timeT = new JTextField(25);
                 
-                JLabel area = new JLabel("Enter Area");
+                JLabel arealabel2 = new JLabel("Select an Area");
                 JRadioButton radioButton1 = new JRadioButton("swimming");
                 JRadioButton radioButton2 = new JRadioButton("badminton");
                 JRadioButton radioButton3 = new JRadioButton("gymnastics");
 
-                ButtonGroup group = new ButtonGroup();
-                group.add(radioButton1);
-                group.add(radioButton2);
-                group.add(radioButton3);
+                ButtonGroup group2 = new ButtonGroup();
+                group2.add(radioButton1);
+                group2.add(radioButton2);
+                group2.add(radioButton3);
 
                 JPanel radioPanel = new JPanel();
                 radioPanel.setLayout(new GridLayout(0, 1));
                 radioPanel.add(radioButton1);
                 radioPanel.add(radioButton2);
-                radioPanel.add(radioButton3);
-                
-                radioButton1.setSelected(true);
+                radioPanel.add(radioButton3);                
 
                 JLabel capacity = new JLabel("Enter Lesson Capacity:");
                 JTextField capacityT = new JTextField(25);
@@ -410,7 +506,7 @@ public class Main{
                 addLessonPanel.add(dayT);
                 addLessonPanel.add(time);
                 addLessonPanel.add(timeT);
-                addLessonPanel.add(area);
+                addLessonPanel.add(arealabel2);
                 addLessonPanel.add(radioPanel);
                 addLessonPanel.add(capacity);
                 addLessonPanel.add(capacityT);
@@ -485,19 +581,29 @@ public class Main{
                         capacityT.setText("");
                     }
                 });
-                JPanel groupPanel4 = new JPanel();
-                groupPanel4.setLayout(new BoxLayout(groupPanel4, BoxLayout.Y_AXIS));
+                JPanel groupPanel4 = new JPanel();                
+                groupPanel4.setLayout(new GridLayout(1, 2, 5, 5));
                 groupPanel4.add(addLessonButton);
                 groupPanel4.add(cancelLessButton);
                 
                 addLessonFrame.add(addLessonPanel, BorderLayout.CENTER);
                 addLessonFrame.add(groupPanel4, BorderLayout.SOUTH);
-               
+                addLessonFrame.add(title8, BorderLayout.NORTH);
                 /*
                 Student frame components
                 */
-                JPanel studentPanel = new JPanel();
-                studentPanel.setLayout(new BoxLayout(studentPanel, BoxLayout.Y_AXIS));
+                
+                
+                
+                
+                JPanel studentPanelCenter = new JPanel();
+                studentPanelCenter.setBorder(new LineBorder(Color.BLACK,3));
+                studentPanelCenter.setBackground(Color.GRAY);
+                studentPanelCenter.setLayout(new GridLayout(8, 1, 5, 5));
+                
+                JLabel title4 = new JLabel("Student Menu");
+                title4.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                
                 JButton buttonNewStudent = new JButton("Register a New Student"); 
                 buttonNewStudent.addActionListener(new ActionListener() {
                     @Override
@@ -547,22 +653,40 @@ public class Main{
                         bookAppointmentFrame.setVisible(true);
                     }
                 });
+                JButton buttonSReport = new JButton("Report");
+                buttonSReport.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        studentReportFrame.setVisible(true);
+                    }
+                });
                 
-                studentPanel.add(buttonNewStudent);
-                studentPanel.add(buttonLookupLesson);
-                studentPanel.add(buttonBookLesson);   
-                studentPanel.add(buttonCancelChange);   
-                studentPanel.add(buttonAttend);  
-                studentPanel.add(ButtonLookupTimeSlot);   
-                studentPanel.add(ButtonBookAppointment);
-                studentFrame.add(studentPanel, BorderLayout.CENTER);
+                
+                studentPanelCenter.add(buttonNewStudent);
+                studentPanelCenter.add(buttonLookupLesson);
+                studentPanelCenter.add(buttonBookLesson);   
+                studentPanelCenter.add(buttonCancelChange);   
+                studentPanelCenter.add(buttonAttend);  
+                studentPanelCenter.add(ButtonLookupTimeSlot);   
+                studentPanelCenter.add(ButtonBookAppointment);
+                studentPanelCenter.add(buttonSReport);
+                studentFrame.add(studentPanelCenter, BorderLayout.CENTER);
+                studentFrame.add(title4, BorderLayout.NORTH);
                 
 
                 /*
                 registerStudentFrame componenets
                 */
-                JPanel registerStudentPanel = new JPanel();
-                registerStudentPanel.setLayout(new BoxLayout(registerStudentPanel, BoxLayout.Y_AXIS));
+                
+                
+                
+                
+                JPanel registerStudentPanel = new JPanel();adminPanelCenter.setBorder(new LineBorder(Color.BLACK,3));
+                registerStudentPanel.setBackground(Color.LIGHT_GRAY);
+                registerStudentPanel.setLayout(new GridLayout(5, 2, 5, 5));
+                
+                JLabel title9 = new JLabel("Student Registration");
+                title9.setFont(new Font("Times New Roman", Font.BOLD, 42));
 
                 JLabel sFirstName = new JLabel("Enter your first name:");
                 JTextField sFirstNameT = new JTextField(25);
@@ -591,7 +715,7 @@ public class Main{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String id = hcl.registerStudent(sFirstNameT.getText(), sLastNameT.getText(), sAddressT.getText(), sTelT.getText(), parentNameT.getText());
-                        if(id.equals("Error")){
+                        if(id.equals("Empty Fields")){
                             JOptionPane.showMessageDialog(null,
                                 "Empty Fileds",
                                 "Student Registration",
@@ -633,12 +757,14 @@ public class Main{
                     }
                 });
                 JPanel groupPanel3 = new JPanel();
-                groupPanel3.setLayout(new BoxLayout(groupPanel3, BoxLayout.Y_AXIS));
+                groupPanel3.setLayout(new GridLayout(1, 2, 5, 5));
                 groupPanel3.add(registerStudentButton);
                 groupPanel3.add(cancelSRegButton);
+               
                 
                 registerStudentFrame.add(registerStudentPanel, BorderLayout.CENTER);
                 registerStudentFrame.add(groupPanel3, BorderLayout.SOUTH);
+                registerStudentFrame.add(title9, BorderLayout.NORTH);
                 
                 /*
                 lookupLessonFrame
@@ -648,19 +774,14 @@ public class Main{
                 lookupLessonResult.setEditable(false);
                 lookupLessonFrame.add(new JScrollPane(lookupLessonResult), BorderLayout.CENTER);
 
-                JLabel label3 = new JLabel("Lookup Lessons:");
-                lookupLessonFrame.add(label1, BorderLayout.NORTH);
+                JLabel title10 = new JLabel("Lookup Lessons:");
+                title10.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                lookupLessonFrame.add(title10, BorderLayout.NORTH);
                 
                 JLabel lookupCoach = new JLabel("Enter a coach full name:");
                 JTextField lookupCoachT = new JTextField(25);
                 
-                JButton cancelLookupButton = new JButton("Cancel");
-                cancelLookupButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        lookupLessonFrame.setVisible(false); 
-                    }
-                });                
+                               
                 JButton lookupByCoach = new JButton("Lookup by Coach");
                 lookupByCoach.addActionListener(new ActionListener() {
                     @Override
@@ -702,17 +823,17 @@ public class Main{
                     }
                 });
                 
-                ButtonGroup group2 = new ButtonGroup();
-                group2.add(radioButton4);
-                group2.add(radioButton5);
-                group2.add(radioButton6);
+                ButtonGroup group3 = new ButtonGroup();
+                group3.add(radioButton4);
+                group3.add(radioButton5);
+                group3.add(radioButton6);
                 JPanel radioPanel2 = new JPanel();
                 radioPanel2.setLayout(new GridLayout(0, 1));
                 radioPanel2.add(radioButton4);
                 radioPanel2.add(radioButton5);
                 radioPanel2.add(radioButton6);
                 
-                lookupLessonPanel.add(cancelLookupButton);
+ 
                 lookupLessonPanel.add(lookupCoach);
                 lookupLessonPanel.add(lookupCoachT);
                 lookupLessonPanel.add(lookupByCoach);   
@@ -724,6 +845,10 @@ public class Main{
                 */
                 JPanel bookLessonPanel = new JPanel();
                 bookLessonPanel.setLayout(new BoxLayout(bookLessonPanel, BoxLayout.Y_AXIS));
+                
+                JLabel title11 = new JLabel("Book a Lesson:");
+                title11.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                bookLessonFrame.add(title11, BorderLayout.NORTH);
 
                 JLabel sId = new JLabel("Enter your Student Id:");
                 JTextField sIdT = new JTextField(25);
@@ -745,7 +870,12 @@ public class Main{
                                 "Empty Fileds",
                                 "Lesson Booking",
                                 JOptionPane.ERROR_MESSAGE);
-                        }else if(id.equals("Error")){
+                        }else if(id.equals("Error studentId")){
+                            JOptionPane.showMessageDialog(null,
+                                "The student with id: "+sIdT.getText()+" does not exist",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Error lessonId")){
                             JOptionPane.showMessageDialog(null,
                                 "The lesson with id: "+lessonIdT.getText()+" does not exist",
                                 "Lesson Booking",
@@ -781,17 +911,25 @@ public class Main{
                     }
                 });
                 JPanel groupPanel5 = new JPanel();
-                groupPanel5.setLayout(new BoxLayout(groupPanel5, BoxLayout.Y_AXIS));
+                groupPanel5.setLayout(new GridLayout(0, 2));
                 groupPanel5.add(bookLessonButton);
                 groupPanel5.add(cancelBookButton);
+                
 
                 bookLessonFrame.add(bookLessonPanel, BorderLayout.CENTER);
                 bookLessonFrame.add(groupPanel5, BorderLayout.SOUTH);
                 /*
                 cancelChangeFrame
                 */
+                
+                
                 JPanel cancelChangePanel = new JPanel();
                 cancelChangePanel.setLayout(new BoxLayout(cancelChangePanel, BoxLayout.Y_AXIS));
+                
+                JLabel title12 = new JLabel("Cancel / Change a Booking:");
+                title12.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                cancelChangeFrame.add(title12, BorderLayout.NORTH);
+                
                 JLabel bNum = new JLabel("Enter your booking number:");
                 JTextField bNumT = new JTextField(25);
                 JLabel bNum2 = new JLabel("Enter your booking number:");
@@ -867,6 +1005,11 @@ public class Main{
                 */
                 JPanel attendPanel = new JPanel();
                 attendPanel.setLayout(new BoxLayout(attendPanel, BoxLayout.Y_AXIS));
+                
+                JLabel title13 = new JLabel("Attend a Lesson:");
+                title13.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                attendFrame.add(title13, BorderLayout.NORTH);
+                
                 JLabel bNum3 = new JLabel("Enter your booking number:");
                 JTextField bNumT3 = new JTextField(25);
                 JButton attendButton = new JButton("Attend");
@@ -915,21 +1058,13 @@ public class Main{
                 JTextPane lookupSlotsResult = new JTextPane();
                 lookupSlotsResult.setEditable(false);
                 lookupTimeSlotFrame.add(new JScrollPane(lookupSlotsResult), BorderLayout.CENTER);
-
-                JLabel label4 = new JLabel("Lookup Appointment Slots:");
-                lookupTimeSlotFrame.add(label1, BorderLayout.NORTH);
+                
+                JLabel title14 = new JLabel("Lookup Appointment Slots:");
+                title14.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                lookupTimeSlotFrame.add(title14, BorderLayout.NORTH);
                 
                 JLabel lookupSCoach = new JLabel("Enter a coach full name:");
-                JTextField lookupSCoachT = new JTextField(25);
-                
-                JButton cancelLookupSButton = new JButton("Cancel");
-                cancelLookupSButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        lookupTimeSlotFrame.setVisible(false); 
-                    }
-                });
-                
+                JTextField lookupSCoachT = new JTextField(25);                
                 
                 JButton lookupSByCoach = new JButton("Lookup by Coach");
                 lookupSByCoach.addActionListener(new ActionListener() {
@@ -975,17 +1110,17 @@ public class Main{
                     }
                 });
                 
-                ButtonGroup group3 = new ButtonGroup();
-                group3.add(radioButton7);
-                group3.add(radioButton8);
-                group3.add(radioButton9);
+                ButtonGroup group4 = new ButtonGroup();
+                group4.add(radioButton7);
+                group4.add(radioButton8);
+                group4.add(radioButton9);
                 JPanel radioPanel3 = new JPanel();
                 radioPanel3.setLayout(new GridLayout(0, 1));
                 radioPanel3.add(radioButton7);
                 radioPanel3.add(radioButton8);
                 radioPanel3.add(radioButton9);
                 
-                lookupSlotsPanel.add(cancelLookupSButton);
+
                 lookupSlotsPanel.add(lookupSCoach);
                 lookupSlotsPanel.add(lookupSCoachT);
                 lookupSlotsPanel.add(lookupSByCoach);   
@@ -997,6 +1132,10 @@ public class Main{
                 */
                 JPanel bookAppointPanel = new JPanel();
                 bookAppointPanel.setLayout(new BoxLayout(bookAppointPanel, BoxLayout.Y_AXIS));
+                
+                JLabel title15 = new JLabel("Book a Visitor Appointment");
+                title15.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                bookAppointmentFrame.add(title15, BorderLayout.NORTH);
 
                 JLabel sId2 = new JLabel("Enter your Student Id:");
                 JTextField sIdT2 = new JTextField(25);
@@ -1054,13 +1193,47 @@ public class Main{
                     }
                 });
                 JPanel groupPanel6 = new JPanel();
-                groupPanel6.setLayout(new BoxLayout(groupPanel6, BoxLayout.Y_AXIS));
+                groupPanel6.setLayout(new GridLayout(0, 2));
                 groupPanel6.add(bookAppointButton);
                 groupPanel6.add(cancelAppointButton);
+                
 
                 bookAppointmentFrame.add(bookAppointPanel, BorderLayout.CENTER);
                 bookAppointmentFrame.add(groupPanel6, BorderLayout.SOUTH);
                 
+                /*
+                studentReportFrame
+                */
+                JLabel title16 = new JLabel("Student Reports");
+                title16.setFont(new Font("Times New Roman", Font.BOLD, 42));
+                
+                JTextPane studentReport = new JTextPane();
+                studentReport.setEditable(false);
+                studentReportFrame.add(new JScrollPane(studentReport), BorderLayout.CENTER);
+                
+                JLabel sId3 = new JLabel("Enter your Student Id:");
+                JTextField sIdT3 = new JTextField(25);
+
+                JButton buttonDisplaySReport = new JButton("Display Report");
+                buttonDisplaySReport.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       studentReport.setText(hcl.studentReport(sIdT3.getText())); 
+                    }
+                });
+                
+                
+                JPanel sReportPanel = new JPanel();              
+                sReportPanel.setBorder(new LineBorder(Color.BLACK,3));
+                sReportPanel.setBackground(Color.LIGHT_GRAY);
+                sReportPanel.setLayout(new GridLayout(3, 1, 5, 5));
+                studentReportFrame.add(sReportPanel, BorderLayout.EAST);
+                studentReportFrame.add(title16, BorderLayout.NORTH);
+
+                sReportPanel.add(sId3);
+                sReportPanel.add(sIdT3);
+                sReportPanel.add(buttonDisplaySReport); 
+
                 
                 /*
                 
@@ -1143,6 +1316,12 @@ public class Main{
                 hcl.book("S011", "less16");
                 hcl.book("S012", "less17");
         
+                hcl.bookApointment("Appoint016", "S01");
+                hcl.bookApointment("Appoint014", "S02");
+                hcl.bookApointment("Appoint015", "S03");
+                hcl.bookApointment("Appoint013", "S04");
+                hcl.bookApointment("Appoint016", "S05");
+                hcl.bookApointment("Appoint03", "S06");
                 
                 
             }

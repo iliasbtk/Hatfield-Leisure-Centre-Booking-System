@@ -25,26 +25,11 @@ public class Booking {
     public void setBookNumber(String bookingNumber){
         this.bookingNumber = bookingNumber;
     }
-    public String getStudentId(){
-        return student.getId();
-    }
-    public String getStudentFullName(){
-        return (student.getFirstName()+" "+student.getLastName());
+    public Student getStudent(){
+        return this.student;
     }
     public String getBookingNumber(){
         return bookingNumber;
-    }
-    public String getLessonId(){
-        return lesson.getId();
-    }
-    public String getDay(){
-        return lesson.getDay();
-    }
-    public String getTime(){
-        return lesson.getHour();
-    }
-    public String getLessonName(){
-        return lesson.getName();
     }
     public Lesson getLesson(){
         return this.lesson;

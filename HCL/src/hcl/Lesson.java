@@ -53,12 +53,6 @@ public class Lesson {
     public Coach getCoach(){
         return this.coach;
     }
-    public String getCoachName(){
-        return this.coach.getFirstName() + " " + this.coach.getLastName();
-    }
-    public String getCoachId(){
-        return this.coach.getId();
-    }
     public Integer getStudentNumber(){
         return this.studentsNumber;
     }
