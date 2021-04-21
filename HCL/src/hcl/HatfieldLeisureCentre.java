@@ -33,6 +33,16 @@ public class HatfieldLeisureCentre {
         Coach coach = new Coach(firstName, lastName, tel, officeHours, officeDay);
         return addCoach(coach);
     }
+    
+    public boolean coachDoesExist(String coachId){
+        for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
+            String k = entry.getKey();
+            if (k.equals(coachId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String addCoach(Coach coach) {
         for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
@@ -67,11 +77,24 @@ public class HatfieldLeisureCentre {
         return studentId;
     }
 
-    public void addLesson(Lesson lesson) {
+    public String addLesson(String name, String place, String coachId, String day, String hour, String area, Integer capacity) {
+        if(name.equals("") || place.equals("") || coachId.equals("") || day.equals("") || hour.equals("")){
+            return "Empty Fields";
+        }
+        if(!coachDoesExist(coachId)){
+            return "Coach not registered";
+        }
+        Coach coach = coaches.get(coachId);
+        if(!coach.hasExpertiseArea(area)){
+            return "Expertise area not teached by the coach";
+        }
+        Lesson lesson = new Lesson(name, place, coaches.get(coachId), day, hour, area, capacity);
         if (lesson.getCoach().getLessonsNumber() >= 3) {
             System.out.println("The coach: " + lesson.getCoachName() + " is already teaching 3 lessons per week");
+            return "Max lesson";
         } else if (lesson.getDay().equals(lesson.getCoach().getOfficeDay()) && lesson.getHour().equals(lesson.getCoach().getOfficeHours())) {
             System.out.println("The lesson time is conflicting with the coach " + lesson.getCoachName() + " 's office hour");
+            return "Time conflict";
         } else {
             String lessonId;
             idL = idL + 1;
@@ -79,6 +102,7 @@ public class HatfieldLeisureCentre {
             lessons.put(lessonId, lesson);
             lesson.setId(lessonId);
             lesson.getCoach().increaseLessonNumbers();
+            return lessonId;
         }
     }
 

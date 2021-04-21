@@ -353,7 +353,6 @@ public class Main{
                 */
                 JPanel addLessonPanel = new JPanel();
                 addLessonPanel.setLayout(new BoxLayout(addLessonPanel, BoxLayout.Y_AXIS));
-//                String name, String place, Coach coach, String day, String hour, String area, Integer capacity
                 JLabel lessonName = new JLabel("Enter Lesson name:");
                 JTextField lessonNameT = new JTextField(25);
                 JLabel location = new JLabel("Enter Location");
@@ -366,28 +365,26 @@ public class Main{
                 JTextField timeT = new JTextField(25);
                 
                 JLabel area = new JLabel("Enter Area");
-                JRadioButton radioButton1 = new JRadioButton("Area1");
-                JRadioButton radioButton2 = new JRadioButton("Area2");
-                JRadioButton radioButton3 = new JRadioButton("Area3");
-                JRadioButton radioButton4 = new JRadioButton("Area4");
-                JRadioButton radioButton5 = new JRadioButton("Area5");
+                JRadioButton radioButton1 = new JRadioButton("swimming");
+                JRadioButton radioButton2 = new JRadioButton("badminton");
+                JRadioButton radioButton3 = new JRadioButton("gymnastics");
+
                 ButtonGroup group = new ButtonGroup();
                 group.add(radioButton1);
                 group.add(radioButton2);
                 group.add(radioButton3);
-                group.add(radioButton4);
-                group.add(radioButton5);
-                
+
                 JPanel radioPanel = new JPanel();
                 radioPanel.setLayout(new GridLayout(0, 1));
                 radioPanel.add(radioButton1);
                 radioPanel.add(radioButton2);
                 radioPanel.add(radioButton3);
-                radioPanel.add(radioButton4);
-                radioPanel.add(radioButton5);
                 
+                radioButton1.setSelected(true);
+
                 JLabel capacity = new JLabel("Enter Lesson Capacity:");
                 JTextField capacityT = new JTextField(25);
+                capacityT.setText("0");
                 
                 addLessonPanel.add(lessonName);
                 addLessonPanel.add(lessonNameT);
@@ -405,9 +402,82 @@ public class Main{
                 addLessonPanel.add(capacityT);
                 
                 JButton addLessonButton = new JButton("Add");
+                addLessonButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String coachId = coachIdT.getText();
+                        Coach coach = hcl.coaches.get(coachId);
+                        String area="";
+                        if(radioButton1.isSelected()){
+                            area = "swimming";
+                        }
+                        if(radioButton2.isSelected()){
+                            area = "badminton";
+                        }
+                        if(radioButton3.isSelected()){
+                            area = "gymnastics";
+                        }
+                        String result = hcl.addLesson(lessonNameT.getText(), locationT.getText(), coachId, dayT.getText(), timeT.getText(), area, Integer.parseInt(capacityT.getText()));
+                        if(result.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "New Lesson",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Coach not registered")){
+                            JOptionPane.showMessageDialog(null,
+                                    "The CoachId is incorrect",
+                                    "New Lesson",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Expertise area not teached by the coach")){
+                            JOptionPane.showMessageDialog(null,
+                                    "The Coach: " + coach.getFullName()+ " does not teach " + area,
+                                    "New Lesson",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else if(coach.getLessonsNumber() >= 3){
+                            JOptionPane.showMessageDialog(null,
+                                    "The Coach: "+coach.getFullName()+" is already teaching 3 lessons per week",
+                                    "New Lesson",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Time conflict")){
+                            JOptionPane.showMessageDialog(null,
+                                    "The lesson time is conflicting with the coach "+coach.getFullName()+"'s office hour",
+                                    "New Lesson",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                    "The Lesson: " +lessonNameT.getText()+ " is succefully added with Id: " + hcl.lessons.get(result),
+                                    "New Lesson",
+                                    JOptionPane.ERROR_MESSAGE);
+                            addLessonFrame.setVisible(false);
+                            lessonNameT.setText("");
+                            locationT.setText("");
+                            coachIdT.setText("");
+                            dayT.setText("");
+                            timeT.setText("");
+                            capacityT.setText("");
+                        }                       
+                    }
+                });
+                JButton cancelLessButton = new JButton("Cancel");
+                cancelLessButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        addLessonFrame.setVisible(false);
+                        lessonNameT.setText("");
+                        locationT.setText("");
+                        coachIdT.setText("");
+                        dayT.setText("");
+                        timeT.setText("");
+                        capacityT.setText("");
+                    }
+                });
+                JPanel groupPanel4 = new JPanel();
+                groupPanel4.setLayout(new BoxLayout(groupPanel4, BoxLayout.Y_AXIS));
+                groupPanel4.add(addLessonButton);
+                groupPanel4.add(cancelLessButton);
                 
                 addLessonFrame.add(addLessonPanel, BorderLayout.CENTER);
-                addLessonFrame.add(addLessonButton, BorderLayout.SOUTH);
+                addLessonFrame.add(groupPanel4, BorderLayout.SOUTH);
                
                 /*
                 Student frame components
@@ -551,19 +621,77 @@ public class Main{
                 JLabel label3 = new JLabel("Lookup Lessons:");
                 lookupLessonFrame.add(label1, BorderLayout.NORTH);
                 
-                JLabel lookupCoach = new JLabel("Enter a coach Id:");
+                JLabel lookupCoach = new JLabel("Enter a coach full name:");
                 JTextField lookupCoachT = new JTextField(25);
                 
-                JButton lookupByArea = new JButton("Lookup by Area");
+                JButton cancelLookupButton = new JButton("Cancel");
+                cancelLookupButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lookupLessonFrame.setVisible(false); 
+                    }
+                });
+                
+                
                 JButton lookupByCoach = new JButton("Lookup by Coach");
+                lookupByCoach.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String result = hcl.lookupLessonByCoach(lookupCoachT.getText());
+                        if (result.equals("")){
+                            JOptionPane.showMessageDialog(null,
+                                    "Coach name is incorrect",
+                                    "Lookup lessons",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            lookupLessonResult.setText(result);
+                        }
+                       
+                    }
+                });
+                
                                          
                 lookupLessonPanel.setLayout(new BoxLayout(lookupLessonPanel, BoxLayout.Y_AXIS));  
                 lookupLessonFrame.add(lookupLessonPanel, BorderLayout.EAST);
-
+                
+                
+                JRadioButton radioButton4 = new JRadioButton("swimming");
+                JRadioButton radioButton5 = new JRadioButton("badminton");
+                JRadioButton radioButton6 = new JRadioButton("gymnastics");
+                
+                JButton lookupByArea = new JButton("Lookup by Area");
+                lookupByArea.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String area="";
+                        if(radioButton4.isSelected()){
+                            area = "swimming";
+                        }
+                        if(radioButton5.isSelected()){
+                            area = "badminton";
+                        }
+                        if(radioButton6.isSelected()){
+                            area = "gymnastics";
+                        }
+                        lookupLessonResult.setText(hcl.lookupLessonByArea(area));
+                    }
+                });
+                
+                ButtonGroup group2 = new ButtonGroup();
+                group2.add(radioButton4);
+                group2.add(radioButton5);
+                group2.add(radioButton6);
+                JPanel radioPanel2 = new JPanel();
+                radioPanel2.setLayout(new GridLayout(0, 1));
+                radioPanel2.add(radioButton4);
+                radioPanel2.add(radioButton5);
+                radioPanel2.add(radioButton6);
+                
+                lookupLessonPanel.add(cancelLookupButton);
                 lookupLessonPanel.add(lookupCoach);
                 lookupLessonPanel.add(lookupCoachT);
                 lookupLessonPanel.add(lookupByCoach);   
-                lookupLessonPanel.add(radioPanel);   
+                lookupLessonPanel.add(radioPanel2);   
                 lookupLessonPanel.add(lookupByArea);  
                 
                 /*
@@ -653,8 +781,73 @@ public class Main{
                 attendFrame.add(attendPanel, BorderLayout.CENTER);
                 
                 
+                Coach coach1 = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
+                Coach coach2 = new Coach("Cyndy", "Cerrato", "tel", "16:00 - 17:00", "Tue");
+                Coach coach3 = new Coach("Annamae", "Koski", "tel", "16:00 - 17:00", "Wed");
+                Coach coach4 = new Coach("Sari", "Stlaurent", "tel", "16:00 - 17:00", "Thu");
+                Coach coach5 = new Coach("Desire", "Royalty", "tel", "16:00 - 17:00", "Fri");
+                Coach coach6 = new Coach("Ronny", "Eriksen", "tel", "15:00 - 16:00", "Tue");
+                Coach coach7 = new Coach("Steward", "Denver", "tel", "15:00 - 16:00", "Wed");
+                
+                hcl.addCoach(coach1);
+                hcl.addCoach(coach2);
+                hcl.addCoach(coach3);
+                hcl.addCoach(coach4);
+                hcl.addCoach(coach5);
+                hcl.addCoach(coach6);
+                hcl.addCoach(coach7);
+                
+                coach1.addArea("swimming");
+                coach1.addArea("badminton");
+                coach1.addArea("gymnastics");
+                coach2.addArea("swimming");
+                coach2.addArea("badminton");
+                coach3.addArea("gymnastics");
+                coach4.addArea("swimming");
+                coach4.addArea("badminton");
+                coach4.addArea("gymnastics");
+                coach5.addArea("badminton");
+                coach5.addArea("gymnastics");
+                coach6.addArea("swimming");
+                coach7.addArea("swimming");
+                coach7.addArea("badminton");
+                coach7.addArea("gymnastics");
+               
+                hcl.registerStudent("Loida", "Poon", "Add","tel", "Brad");
+                hcl.registerStudent("Ewa", "Porto", "Add","tel", "Linkon");
+                hcl.registerStudent("Dylan ", "Bucher", "Add","tel", "Jimmy");
+                hcl.registerStudent("Reggie ", "Malan", "Add","tel", "Smith");
+                hcl.registerStudent("Landon ", "Buel", "Add","tel", "Henderson");
+                hcl.registerStudent("Enid ", "Lepine", "Add","tel", "Eriksen");
+                hcl.registerStudent("Aiko ", "Redmon", "Add","tel", "Marco");
+                hcl.registerStudent("Earl ", "Evatt", "Add","tel", "Lucas");
+                hcl.registerStudent("Annita ", "Bruckner", "Add","tel", "Sergio");
+                hcl.registerStudent("Emilee ", "Lubin", "Add","tel", "Dani");
+                hcl.registerStudent("Estell ", "Dillenbeck", "Add","tel", "Ferland");
+                hcl.registerStudent("Charleen ", "Boss", "Add","tel", "Toni");
+                hcl.registerStudent("Chadwick ", "Fiscus", "Add","tel", "Fede");
+                hcl.registerStudent("Steven", "Pullman", "Add","tel", "Nacho");
+                hcl.registerStudent("Elizabeth", "Simpson", "Add","tel", "Fernandez");
+                
+                hcl.addLesson("Swimming 1", "swimming pool A","C01", "Mon", "16:00 - 17:00", "swimming", 5);
+                hcl.addLesson("Badminton 1", "badminton court A", "C01", "Tue", "14:00 - 15:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", "C01", "Wed", "14:00 - 15:00", "gymnastics", 5);
+                hcl.addLesson("Swimming 1", "swimming pool A", "C02", "Fri", "14:00 - 15:00", "swimming", 5);
+                hcl.addLesson("Badminton 1", "badminton court A", "C02", "Mon", "14:00 - 15:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", "C03", "Mon", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", "C03", "Tue", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 2", "Gym", "C03", "Wed", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Swimming 1", "swimming pool A", "C04", "Thu", "17:00 - 18:00", "swimming", 5);
+                hcl.addLesson("Gymnastics 2", "Gym", "C04", "Fri", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 2", "Gym", "C04", "Wed", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Badminton 2", "badminton court B", "C05", "Mon", "19:00 - 20:00", "badminton", 5);
+                hcl.addLesson("Badminton 2", "badminton court B", "C05", "Tue", "19:00 - 20:00", "badminton", 5);
+                
+        
+                
+                
             }
-
+            
             
         });
         

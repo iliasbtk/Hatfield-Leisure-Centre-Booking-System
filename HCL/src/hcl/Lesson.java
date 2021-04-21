@@ -21,6 +21,7 @@ public class Lesson {
     private String name;
     private Integer capacity;
     
+    
     public Lesson(String name, String place, Coach coach, String day, String hour, String area, Integer capacity){
         if(coach.hasExpertiseArea(area) == true){
             this.name = name;
