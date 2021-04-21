@@ -166,16 +166,30 @@ public class HatfieldLeisureCentre {
         return false;
     }
 
-    public Booking book(String idS, String lessonId) {
+    public String book(String idS, String lessonId) {
+        if(idS.equals("") || lessonId.equals("")){
+            return "Empty Fields";
+        }
+        String error="";
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            Lesson v = entry.getValue();
+            if (v.getId().equals(lessonId)) {
+                error = "Exist";
+            }
+        }
+        if(!error.equals("Exist")){
+            return "Error";
+        }
+        
         Lesson lesson = lessons.get(lessonId);
         Student student = students.get(idS);
         if (checkSameTimeLessons(idS, lesson)) {
             System.out.println("You are already registered in a class running at the same time");
-            return null;
+            return "Already enrolled into a class running at the same time";
         }
         if (lesson.isFull().equals("Full")) {
             System.out.println("This class is fully booked");
-            return null;
+            return "Lesson full";
         } else {
             Booking booking = new Booking(student, lesson, "Booked");
             String bookingNumber;
@@ -184,9 +198,8 @@ public class HatfieldLeisureCentre {
             booking.setBookNumber(bookingNumber);
             bookings.put(bookingNumber, booking);
             lesson.increaseStudentsNumber();
-            return booking;
+            return bookingNumber;
         }
-
     }
 
     public String displayBookings() {
@@ -200,15 +213,34 @@ public class HatfieldLeisureCentre {
         return result;
     }
 
-    public void cancelBooking(String bookNum) {
+    public String cancelBooking(String bookNum) {
+        if(bookNum.equals("")){
+            return "Empty Fields";
+        }
+        String error="";
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            Booking v = entry.getValue();
+            if (v.getBookingNumber().equals(bookNum)) {
+                error = "Exist";
+            }
+        }
+        if(error.equals("")){
+            return"Error";
+        }
         Booking booking = bookings.get(bookNum);
         booking.setState("Canceled");
         Lesson lesson = booking.getLesson();
         lesson.decreaseStudentsNumber();
+        return "The booking: "+bookNum+" is succesfully canceled";
     }
 
-    public Booking changeBooking(String bookNum, String newLessonId) {
-        cancelBooking(bookNum);
+    public String changeBooking(String bookNum, String newLessonId) {
+        if(bookNum.equals("") || newLessonId.equals("")){
+            return "Empty Fields";
+        }
+        if(cancelBooking(bookNum).equals("Error")){
+            return "Error";
+        }
         Booking booking = bookings.get(bookNum);
         book(booking.getStudentId(), newLessonId);
         booking.setState("Changed");
@@ -216,9 +248,23 @@ public class HatfieldLeisureCentre {
         return book(booking.getStudentId(), newLessonId);
     }
 
-    public void attendLesson(String bookNum) {
+    public String attendLesson(String bookNum) {
+        if(bookNum.equals("")){
+            return "Empty Fields";
+        }
+        String error="";
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            if (k.equals(bookNum)) {
+                error = "Exist";
+            }
+        }
+        if(error.equals("")){
+            return"Error";
+        }
         Booking booking = bookings.get(bookNum);
         booking.setState("Attended");
+        return bookNum;
     }
 
     public String lookupTimeslotsByCoach(String coachName) {

@@ -67,6 +67,8 @@ public class Main{
                 MainFrame bookLessonFrame = new MainFrame("Hatfield Leisure Centre"); 
                 MainFrame cancelChangeFrame = new MainFrame("Hatfield Leisure Centre"); 
                 MainFrame attendFrame = new MainFrame("Hatfield Leisure Centre"); 
+                MainFrame lookupTimeSlotFrame = new MainFrame("Hatfield Leisure Centre"); 
+                MainFrame bookAppointmentFrame = new MainFrame("Hatfield Leisure Centre");
 
                 /*
                 app frame componenets
@@ -519,12 +521,28 @@ public class Main{
                         attendFrame.setVisible(true);
                     }
                 });
+                JButton ButtonLookupTimeSlot = new JButton("Lookup Appointment Slots");
+                ButtonLookupTimeSlot.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lookupTimeSlotFrame.setVisible(true);
+                    }
+                });
+                JButton ButtonBookAppointment = new JButton("Book a Visitor Appointment");
+                buttonAttend.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bookAppointmentFrame.setVisible(true);
+                    }
+                });
                 
                 studentPanel.add(buttonNewStudent);
                 studentPanel.add(buttonLookupLesson);
                 studentPanel.add(buttonBookLesson);   
                 studentPanel.add(buttonCancelChange);   
                 studentPanel.add(buttonAttend);  
+                studentPanel.add(ButtonLookupTimeSlot);   
+                studentPanel.add(ButtonBookAppointment);
                 studentFrame.add(studentPanel, BorderLayout.CENTER);
                 
 
@@ -704,7 +722,6 @@ public class Main{
                 JTextField sIdT = new JTextField(25);
                 JLabel lessonId = new JLabel("Enter the lesson Id:");
                 JTextField lessonIdT = new JTextField(25);
-
                 
                 bookLessonPanel.add(sId);
                 bookLessonPanel.add(sIdT);
@@ -715,12 +732,54 @@ public class Main{
                 bookLessonButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.book(sIdT.getText(), lessonIdT.getText());
-                        bookLessonFrame.setVisible(false);                        
+                        String id = hcl.book(sIdT.getText(), lessonIdT.getText());
+                        if(id.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "The lesson with id: "+lessonIdT.getText()+" does not exist",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Already enrolled into a class running at the same time")){
+                            JOptionPane.showMessageDialog(null,
+                                "You are already registered in a class running at the same time",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Lesson full")){
+                            JOptionPane.showMessageDialog(null,
+                                "This class is fully booked",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                "Successful sign on to the lesson, Booking number: "+id,
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                            bookLessonFrame.setVisible(false);
+                            sIdT.setText("");
+                            lessonIdT.setText("");    
+                        }                      
                     }
                 });
+                JButton cancelBookButton = new JButton("Cancel");
+                cancelBookButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bookLessonFrame.setVisible(false); 
+                        sIdT.setText("");
+                        lessonIdT.setText(""); 
+                    }
+                });
+                JPanel groupPanel5 = new JPanel();
+                groupPanel5.setLayout(new BoxLayout(groupPanel5, BoxLayout.Y_AXIS));
+                groupPanel5.add(bookLessonButton);
+                groupPanel5.add(cancelBookButton);
+
                 bookLessonFrame.add(bookLessonPanel, BorderLayout.CENTER);
-                bookLessonFrame.add(bookLessonButton, BorderLayout.SOUTH);
+                bookLessonFrame.add(groupPanel5, BorderLayout.SOUTH);
                 /*
                 cancelChangeFrame
                 */
@@ -737,18 +796,54 @@ public class Main{
                 CancelButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.cancelBooking(bNumT.getText());
-                        bookLessonFrame.setVisible(false);                        
+                        String result = hcl.cancelBooking(bNumT.getText());
+                        if(result.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "This Booking does not exist",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                "The booking: "+bNumT.getText()+"is succesfully canceled",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                            bookLessonFrame.setVisible(false);
+                            bNumT.setText(""); 
+                        }                      
                     }
                 });
                 JButton ChangeButton = new JButton("Change Booking");
                 ChangeButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.changeBooking(bNumT2.getText(), lessonIdT2.getText());
-                        bookLessonFrame.setVisible(false);                        
+                        String result = hcl.changeBooking(bNumT2.getText(), lessonIdT2.getText());
+                        if(result.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "This Booking does not exist",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                "The booking: "+bNumT.getText()+"is succesfully Changed",
+                                "Lesson Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                            bookLessonFrame.setVisible(false);
+                            bNumT.setText(""); 
+                            lessonIdT2.setText("");
+                        }                      
                     }
                 });
+                
                 
                 cancelChangePanel.add(bNum);
                 cancelChangePanel.add(bNumT);
@@ -771,15 +866,127 @@ public class Main{
                 attendButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        hcl.attendLesson(bNumT3.getText());
-                        attendFrame.setVisible(false);                        
+                        String result = hcl.attendLesson(bNumT3.getText());
+                        if(result.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Lesson Attendance",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(result.equals("Error")){
+                            JOptionPane.showMessageDialog(null,
+                                "This Booking does not exist",
+                                "Lesson Attendance",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                "The booking: "+bNumT.getText()+"is succesfully Attended",
+                                "Lesson Attendance",
+                                JOptionPane.ERROR_MESSAGE);
+                            attendFrame.setVisible(false);
+                            bNumT3.setText(""); 
+                        }                        
                     }
                 });
+                JButton cancelAttendButton = new JButton("Cancel");
+                cancelAttendButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        attendFrame.setVisible(false);
+                        bNumT3.setText(""); 
+                    }
+                });
+                
                 attendPanel.add(bNum3);
                 attendPanel.add(bNumT3);
                 attendPanel.add(attendButton);
                 attendFrame.add(attendPanel, BorderLayout.CENTER);
                 
+                /*
+                lookupTimeSlotFrame
+                */
+                JPanel lookupSlotsPanel = new JPanel();
+                JTextPane lookupSlotsResult = new JTextPane();
+                lookupSlotsResult.setEditable(false);
+                lookupTimeSlotFrame.add(new JScrollPane(lookupSlotsResult), BorderLayout.CENTER);
+
+                JLabel label4 = new JLabel("Lookup Appointment Slots:");
+                lookupTimeSlotFrame.add(label1, BorderLayout.NORTH);
+                
+                JLabel lookupSCoach = new JLabel("Enter a coach full name:");
+                JTextField lookupSCoachT = new JTextField(25);
+                
+                JButton cancelLookupSButton = new JButton("Cancel");
+                cancelLookupSButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lookupTimeSlotFrame.setVisible(false); 
+                    }
+                });
+                
+                
+                JButton lookupSByCoach = new JButton("Lookup by Coach");
+                lookupSByCoach.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String result = hcl.lookupTimeslotsByCoach(lookupSCoachT.getText());
+                        if (result.equals("")){
+                            JOptionPane.showMessageDialog(null,
+                                    "Coach name is incorrect",
+                                    "Lookup Appointment Slots",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            lookupSlotsResult.setText(result);
+                        }
+                       
+                    }
+                });
+                
+                                         
+                lookupSlotsPanel.setLayout(new BoxLayout(lookupSlotsPanel, BoxLayout.Y_AXIS));  
+                lookupTimeSlotFrame.add(lookupSlotsPanel, BorderLayout.EAST);
+                
+                
+                JRadioButton radioButton7 = new JRadioButton("swimming");
+                JRadioButton radioButton8 = new JRadioButton("badminton");
+                JRadioButton radioButton9 = new JRadioButton("gymnastics");
+                
+                JButton lookupSByArea = new JButton("Lookup by Area");
+                lookupSByArea.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String area="";
+                        if(radioButton7.isSelected()){
+                            area = "swimming";
+                        }
+                        if(radioButton8.isSelected()){
+                            area = "badminton";
+                        }
+                        if(radioButton9.isSelected()){
+                            area = "gymnastics";
+                        }
+                        lookupLessonResult.setText(hcl.lookupTimeslotsByArea(area));
+                    }
+                });
+                
+                ButtonGroup group3 = new ButtonGroup();
+                group3.add(radioButton7);
+                group3.add(radioButton8);
+                group3.add(radioButton9);
+                JPanel radioPanel3 = new JPanel();
+                radioPanel3.setLayout(new GridLayout(0, 1));
+                radioPanel3.add(radioButton7);
+                radioPanel3.add(radioButton8);
+                radioPanel3.add(radioButton9);
+                
+                lookupSlotsPanel.add(cancelLookupSButton);
+                lookupSlotsPanel.add(lookupSCoach);
+                lookupSlotsPanel.add(lookupSCoachT);
+                lookupSlotsPanel.add(lookupSByCoach);   
+                lookupSlotsPanel.add(radioPanel3);   
+                lookupSlotsPanel.add(lookupSByArea);
+                /*
+                bookAppointmentFrame
+                */
                 
                 Coach coach1 = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");
                 Coach coach2 = new Coach("Cyndy", "Cerrato", "tel", "16:00 - 17:00", "Tue");
@@ -843,6 +1050,20 @@ public class Main{
                 hcl.addLesson("Badminton 2", "badminton court B", "C05", "Mon", "19:00 - 20:00", "badminton", 5);
                 hcl.addLesson("Badminton 2", "badminton court B", "C05", "Tue", "19:00 - 20:00", "badminton", 5);
                 
+                hcl.book("S01", "less11");
+                hcl.book("S01", "less16");
+                hcl.book("S02", "less11");
+                hcl.book("S03", "less11");
+                hcl.book("S04", "less11");
+                hcl.book("S05", "less11");
+                hcl.book("S06", "less11");
+                hcl.book("S07", "less11");
+                hcl.book("S07", "less12");
+                hcl.book("S08", "less13");
+                hcl.book("S09", "less14");
+                hcl.book("S010", "less15");
+                hcl.book("S011", "less16");
+                hcl.book("S012", "less17");
         
                 
                 
