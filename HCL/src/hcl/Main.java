@@ -529,7 +529,7 @@ public class Main{
                     }
                 });
                 JButton ButtonBookAppointment = new JButton("Book a Visitor Appointment");
-                buttonAttend.addActionListener(new ActionListener() {
+                ButtonBookAppointment.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         bookAppointmentFrame.setVisible(true);
@@ -648,9 +648,7 @@ public class Main{
                     public void actionPerformed(ActionEvent e) {
                         lookupLessonFrame.setVisible(false); 
                     }
-                });
-                
-                
+                });                
                 JButton lookupByCoach = new JButton("Lookup by Coach");
                 lookupByCoach.addActionListener(new ActionListener() {
                     @Override
@@ -666,12 +664,9 @@ public class Main{
                         }
                        
                     }
-                });
-                
-                                         
+                });                      
                 lookupLessonPanel.setLayout(new BoxLayout(lookupLessonPanel, BoxLayout.Y_AXIS));  
-                lookupLessonFrame.add(lookupLessonPanel, BorderLayout.EAST);
-                
+                lookupLessonFrame.add(lookupLessonPanel, BorderLayout.EAST);                
                 
                 JRadioButton radioButton4 = new JRadioButton("swimming");
                 JRadioButton radioButton5 = new JRadioButton("badminton");
@@ -964,7 +959,7 @@ public class Main{
                         if(radioButton9.isSelected()){
                             area = "gymnastics";
                         }
-                        lookupLessonResult.setText(hcl.lookupTimeslotsByArea(area));
+                        lookupSlotsResult.setText(hcl.lookupTimeslotsByArea(area));
                     }
                 });
                 
@@ -984,8 +979,79 @@ public class Main{
                 lookupSlotsPanel.add(lookupSByCoach);   
                 lookupSlotsPanel.add(radioPanel3);   
                 lookupSlotsPanel.add(lookupSByArea);
+                
                 /*
                 bookAppointmentFrame
+                */
+                JPanel bookAppointPanel = new JPanel();
+                bookAppointPanel.setLayout(new BoxLayout(bookAppointPanel, BoxLayout.Y_AXIS));
+
+                JLabel sId2 = new JLabel("Enter your Student Id:");
+                JTextField sIdT2 = new JTextField(25);
+                JLabel appointId = new JLabel("Enter the appointment Id:");
+                JTextField appointIdT = new JTextField(25);
+                
+                bookAppointPanel.add(sId2);
+                bookAppointPanel.add(sIdT2);
+                bookAppointPanel.add(appointId);
+                bookAppointPanel.add(appointIdT);
+                        
+                JButton bookAppointButton = new JButton("Book");
+                bookAppointButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String id = hcl.bookApointment(appointIdT.getText(), sIdT2.getText());
+                        if(id.equals("Empty Fields")){
+                            JOptionPane.showMessageDialog(null,
+                                "Empty Fileds",
+                                "Appointment Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Error appointmentId")){
+                            JOptionPane.showMessageDialog(null,
+                                "The appointment slot with id: "+appointIdT.getText()+" does not exist",
+                                "Appointment Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("Error studentId")){
+                            JOptionPane.showMessageDialog(null,
+                                "This student Id is incorrect",
+                                "Appointment Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else if(id.equals("This apointment slot is already booked")){
+                            JOptionPane.showMessageDialog(null,
+                                "This apointment slot is already booked",
+                                "Appointment Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                "Appointment succesfully booked, Booking number: "+appointIdT.getText(),
+                                "Appointment Booking",
+                                JOptionPane.ERROR_MESSAGE);
+                            bookAppointmentFrame.setVisible(false);
+                            sIdT2.setText("");
+                            appointIdT.setText("");    
+                        }                      
+                    }
+                });
+                JButton cancelAppointButton = new JButton("Cancel");
+                cancelAppointButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bookAppointmentFrame.setVisible(false); 
+                        sIdT2.setText("");
+                        appointIdT.setText("");   
+                    }
+                });
+                JPanel groupPanel6 = new JPanel();
+                groupPanel6.setLayout(new BoxLayout(groupPanel6, BoxLayout.Y_AXIS));
+                groupPanel6.add(bookAppointButton);
+                groupPanel6.add(cancelAppointButton);
+
+                bookAppointmentFrame.add(bookAppointPanel, BorderLayout.CENTER);
+                bookAppointmentFrame.add(groupPanel6, BorderLayout.SOUTH);
+                
+                
+                /*
+                
                 */
                 
                 Coach coach1 = new Coach("Serita",  "Tuck",  "tel", "16:00 - 17:00", "Mon");

@@ -298,15 +298,40 @@ public class HatfieldLeisureCentre {
         return result;
     }
 
-    public void bookApointment(String appointmentId, String idS) {
+    public String bookApointment(String appointmentId, String idS) {
+        if(appointmentId.equals("") || idS.equals("")){
+            return "Empty Fields";
+        }
+        String error="";
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            if (k.equals(appointmentId)) {
+                error = "Exist";
+            }
+        }
+        if(error.equals("")){
+            return"Error appointmentId";
+        }
+        String error2="";
+        for (Map.Entry<String, Student> entry : students.entrySet()) {
+            String k = entry.getKey();
+            if (k.equals(idS)) {
+                error2 = "Exist";
+            }
+        }
+        if(error2.equals("")){
+            return"Error studentId";
+        }
+        
         ParentAppointment parentAppointment = parentAppointments.get(appointmentId);
         Student student = students.get(idS);
         if (parentAppointment.getState().equals("Availble")) {
             parentAppointment.setBooked();
             parentAppointment.setIdS(idS);
             parentAppointment.setParentName(student.getParentName());
+            return "Booked";
         } else {
-            System.out.println("This apointment slot is already booked");
+            return "This apointment slot is already booked";
         }
 
     }
