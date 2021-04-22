@@ -10,11 +10,11 @@ package hcl;
  * @author NGSI
  */
 abstract public class Personnel {
-    public String firstName;
-    public String lastName;
-    public String address;
-    public String tel;
-    public String id;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String tel;
+    private String id;
     
     public Personnel(String firstName, String lastName, String address, String tel){
         this.firstName = firstName;

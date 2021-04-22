@@ -482,9 +482,4 @@ public class HatfieldLeisureCentre {
         }
         return result;
     }
- 
-
-
-   
-
 }
