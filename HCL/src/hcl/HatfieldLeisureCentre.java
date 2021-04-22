@@ -53,7 +53,9 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getArea().equals(area)) {
-                result = result + (k + ": " + v.getName() + " / " + v.getArea() + " / " + v.getDay() + " / " + v.getHour() + " / " + v.getCoach().getFullName() + " / " + v.isFull() + "\n");
+                result = result + (k + ": " + v.getName() + " / " + v.getArea() 
+                        + " / " + v.getDay() + " / " + v.getHour() + " / " +
+                        v.getCoach().getFullName() + " / " + v.isFull() + "\n");
             }
         }
         System.out.println(result);
@@ -67,7 +69,9 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getCoach().getFullName().equals(coachName)) {
-                result = result + (k + ": " + v.getName() + " / " + v.getArea() + " / " + v.getDay() + " / " + v.getHour() + " / " + v.getCoach().getFullName() + " / " + v.isFull() + "\n");
+                result = result + (k + ": " + v.getName() + " / " + v.getArea() 
+                        + " / " + v.getDay() + " / " + v.getHour() + " / " +
+                        v.getCoach().getFullName() + " / " + v.isFull() + "\n");
             }
         }
         System.out.println(result);
@@ -103,6 +107,22 @@ public class HatfieldLeisureCentre {
             return bookingNumber;
         }
     }
+        public boolean checkSameTimeLessons(String idS, Lesson lesson) {
+        String day = lesson.getDay();
+        String time = lesson.getHour();
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            Booking v = entry.getValue();
+            if (v.getStudent().getId().equals(idS)) {
+                if (v.getLesson().getDay().equals(day)) {
+                    if (v.getLesson().getHour().equals(time)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     public String cancelBooking(String bookNum) {
         if(bookNum.equals("")){
             return "Empty Fields";
@@ -125,7 +145,6 @@ public class HatfieldLeisureCentre {
             return "Error";
         }
         Booking booking = bookings.get(bookNum);
-        book(booking.getStudent().getId(), newLessonId);
         booking.setState("Changed");
 
         return book(booking.getStudent().getId(), newLessonId);
@@ -141,6 +160,30 @@ public class HatfieldLeisureCentre {
         Booking booking = bookings.get(bookNum);
         booking.setState("Attended");
         return bookNum;
+    }
+        public String studentReport(String studentId) {
+        String result="";
+        result = result+"Lessons:\n";
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            Booking v = entry.getValue();
+            if(v.getStudent().getId().equals(studentId)){
+                result=result+(k + ": " + v.getLesson().getName() + " / " + v.getLesson().getArea()  + " / " + v.getLesson().getDay() +" / "+v.getLesson().getHour() + "\n");
+            } 
+        }
+        result = result+"Appointments:\n";
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            ParentAppointment v = entry.getValue();
+            if(v.getState().equals("Booked")){
+                if (v.getStudentId().equals(studentId)) {
+                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
+                    v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+"\n");
+                }
+            }
+            
+        }
+        return result;
     }
     /*
     Student's parent
@@ -246,6 +289,24 @@ public class HatfieldLeisureCentre {
         }
         return false;
     }  
+        public String generateId(String code, Integer i) {
+        String id;
+        i = i + 1;
+        switch (code) {
+            case "S0":
+                idS = i;
+                break;
+            case "C0":
+                idC = i;
+                break;
+            default:
+                ;
+                break;
+        }
+
+        id = code + String.valueOf(i);
+        return id;
+    }
     
     /*
     Coach
@@ -282,6 +343,30 @@ public class HatfieldLeisureCentre {
                 parentAppointments.put(appointmentId, parentAppointment);
             }
         }
+    }
+            public String coachReport(String coachId) {
+        String result="";
+        result = result+"Lessons:\n";
+        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
+            String k = entry.getKey();
+            Lesson v = entry.getValue();
+            if(v.getCoach().getId().equals(coachId)){
+                result=result+(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + "\n");
+            } 
+        }
+        result = result+"Appointments:\n";
+        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
+            String k = entry.getKey();
+            ParentAppointment v = entry.getValue();
+            if(v.getState().equals("Booked")){
+                if (v.getCoach().getId().equals(coachId)) {
+                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
+                    v.getParentName() + " / Student Name: " + students.get(v.getStudentId()).getFullName()+"\n");
+                }
+            }
+            
+        }
+        return result;
     }
 
 
@@ -368,62 +453,16 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getState().equals("Booked")) {
-                result=result+(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / " +
-                        v.getParentName() + " / " + v.getCoach().getFullName()+"\n");
+                result=result+(k + ": Week: " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent Name: " +
+                        v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+"\n");
                 System.out.println(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() +
                         " / " + v.getParentName() + " / " + v.getCoach().getFullName());
             }
         }
         return result;
     }
-    public String studentReport(String studentId) {
-        String result="";
-        result = result+"Lessons:\n";
-        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
-            String k = entry.getKey();
-            Booking v = entry.getValue();
-            if(v.getStudent().getId().equals(studentId)){
-                result=result+(k + ": " + v.getLesson().getName() + " / " + v.getLesson().getArea()  + " / " + v.getLesson().getDay() +" / "+v.getLesson().getHour() + "\n");
-            } 
-        }
-        result = result+"Appointments:\n";
-        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
-            String k = entry.getKey();
-            ParentAppointment v = entry.getValue();
-            if(v.getState().equals("Booked")){
-                if (v.getStudentId().equals(studentId)) {
-                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                    v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+"\n");
-                }
-            }
-            
-        }
-        return result;
-    }
-        public String coachReport(String coachId) {
-        String result="";
-        result = result+"Lessons:\n";
-        for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
-            String k = entry.getKey();
-            Lesson v = entry.getValue();
-            if(v.getCoach().getId().equals(coachId)){
-                result=result+(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + "\n");
-            } 
-        }
-        result = result+"Appointments:\n";
-        for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
-            String k = entry.getKey();
-            ParentAppointment v = entry.getValue();
-            if(v.getState().equals("Booked")){
-                if (v.getCoach().getId().equals(coachId)) {
-                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                    v.getParentName() + " / Student Name: " + students.get(v.getStudentId()).getFullName()+"\n");
-                }
-            }
-            
-        }
-        return result;
-    }
+
+
 
     public String report2() {
         String result="";
@@ -445,65 +484,6 @@ public class HatfieldLeisureCentre {
     }
  
 
-    
-    
-
-
-
-
-
-    
-
-
-
-    public boolean checkSameTimeLessons(String idS, Lesson lesson) {
-        String day = lesson.getDay();
-        String time = lesson.getHour();
-        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
-            String k = entry.getKey();
-            Booking v = entry.getValue();
-            if (v.getStudent().getId().equals(idS)) {
-                if (v.getLesson().getDay().equals(day)) {
-                    if (v.getLesson().getHour().equals(time)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    
-
-
-
-
-
-    /*
-    Helper Methods
-     */
-    public String generateId(String code, Integer i) {
-        String id;
-        i = i + 1;
-        switch (code) {
-            case "S0":
-                idS = i;
-                break;
-            case "C0":
-                idC = i;
-                break;
-            default:
-                ;
-                break;
-        }
-
-        id = code + String.valueOf(i);
-        return id;
-    }
-
-    /*
-    Testing methods
-     */
 
    
 

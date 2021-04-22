@@ -20,9 +20,9 @@ import javax.swing.JTextField;
  * @author NGSI
  */
 public class MainFrame extends JFrame {
-    public MainFrame(String title){
-        super(title);
-        setSize(500, 500);
+    public MainFrame(Integer width, Integer Height){
+        super("Hatfield Leisure Centre");
+        setSize(width, Height);
         setLocation(600, 300);
     }
 }

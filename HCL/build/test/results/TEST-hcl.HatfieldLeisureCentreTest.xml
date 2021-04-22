@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HCLTest" skipped="0" tests="12" time="0.255" timestamp="2021-04-19T00:01:38">
+<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HatfieldLeisureCentreTest" skipped="0" tests="11" time="0.109" timestamp="2021-04-22T02:04:58">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="GB" />
@@ -59,7 +59,7 @@
     <property name="libs.j2me_common_ant.maven-pom" value="" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HCLTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HCLTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher6146590541288989703.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit3172868848534428326.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HatfieldLeisureCentreTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HatfieldLeisureCentreTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher6596201897010848871.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit2489261922980630187.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -391,7 +391,7 @@
     <property name="libs.jsf12.maven-pom" value="" />
     <property name="libs.hibernate4-persistencemodelgen.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-jpamodelgen-4.3.1.Final.jar" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
-    <property name="main.class" value="hcl.HCL" />
+    <property name="main.class" value="hcl.Main" />
     <property name="libs.CopyLibs.src" value="" />
     <property name="build.dir" value="build" />
     <property name="libs.jsp-compilation.classpath" value="C:\Program Files\NetBeans 8.2\extide\ant\lib\ant.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\servlet3.1-jsp2.3-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\glassfish-jspparser-4.0.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-2_2\javax.faces.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jstl-api.jar;C:\Program Files\NetBeans 8.2\extide\ant\lib\ant-launcher.jar" />
@@ -405,28 +405,21 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="hcl.HCLTest" name="testBookApointment" time="0.011" />
-  <testcase classname="hcl.HCLTest" name="testLookupLessonByCoach" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testAttendLesson" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testBook" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testCancelBooking" time="0.0" />
-  <testcase classname="hcl.HCLTest" name="testAddCoach" time="0.0" />
-  <testcase classname="hcl.HCLTest" name="testLookupTimeslotsByArea" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testLookupLessonByArea" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testAddLesson" time="0.001" />
-  <testcase classname="hcl.HCLTest" name="testChangeBooking" time="0.005" />
-  <testcase classname="hcl.HCLTest" name="testLookupTimeslotsByCoach" time="0.005" />
-  <testcase classname="hcl.HCLTest" name="testRegisterStudent" time="0.001" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBookApointment" time="0.015" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupLessonByCoach" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAttendLesson" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBook" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testCancelBooking" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupTimeslotsByArea" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupLessonByArea" time="0.016" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAddLesson" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testRegisterCoach" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testChangeBooking" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testRegisterStudent" time="0.0" />
   <system-out><![CDATA[less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble
-less12: Badminton 1 / badminton / Tue / 14:00 - 15:00 / Serita Tuck / Availble
 
-less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble
-less12: Badminton 1 / badminton / Tue / 14:00 - 15:00 / Serita Tuck / Availble
-
-This class is fully booked
-The Coach: Serita Tuck does not teach badminton
-You are already registered in a class running at the same time
-You are already registered in a class running at the same time
+The Coach: Serita Tuck does not teach swimming
+Start
 Appoint018: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 2 / Slot: Slot: 3 / Availble
 Appoint019: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Slot: 1 / Availble
 Appoint016: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 2 / Slot: Slot: 1 / Availble
@@ -440,23 +433,14 @@ Appoint021: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Sl
 Appoint022: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 4 / Slot: Slot: 1 / Availble
 Appoint020: Cyndy Cerrato / badminton / Tue / 16:00 - 17:00 / Week: 3 / Slot: Slot: 2 / Availble
 
+The Coach: Serita Tuck does not teach swimming
 less11: Swimming 1 / swimming / Mon / 14:00 - 15:00 / Serita Tuck / Availble
-less12: Swimming 2 / swimming / Wed / 19:00 - 20:00 / Serita Tuck / Availble
 
-You are already registered in a class running at the same time
-Appoint02: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 2 / Availble
-Appoint01: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 1 / Availble
-Appoint06: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 3 / Availble
-Appoint05: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 2 / Availble
-Appoint04: Serita Tuck / Mon / 16:00 - 17:00 / Week: 2 / Slot: Slot: 1 / Availble
-Appoint03: Serita Tuck / Mon / 16:00 - 17:00 / Week: 1 / Slot: Slot: 3 / Availble
-Appoint09: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 3 / Availble
-Appoint08: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 2 / Availble
-Appoint07: Serita Tuck / Mon / 16:00 - 17:00 / Week: 3 / Slot: Slot: 1 / Availble
-Appoint012: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 3 / Availble
-Appoint010: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 1 / Availble
-Appoint011: Serita Tuck / Mon / 16:00 - 17:00 / Week: 4 / Slot: Slot: 2 / Availble
-
+The coach: Serita Tuck is already teaching 3 lessons per week
+The lesson time is conflicting with the coach Celia Wanda 's office hour
+This coach named: Serita Tuck is already registered
+The Coach: Serita Tuck does not teach swimming
+This student named: Loida Poon is already registered
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
