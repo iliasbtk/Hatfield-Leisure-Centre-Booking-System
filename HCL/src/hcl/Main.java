@@ -46,10 +46,10 @@ public class Main {
                 //Administration               
                 MainFrame adminFrame = new MainFrame(500, 500);
                 MainFrame reportsFrame = new MainFrame(800, 500);
-                MainFrame addLessonFrame = new MainFrame(500, 500);
+                MainFrame addLessonFrame = new MainFrame(500, 600);
                 //Coach 
                 MainFrame coachFrame = new MainFrame(500, 500);
-                MainFrame registerCoachFrame = new MainFrame(500, 300);
+                MainFrame registerCoachFrame = new MainFrame(600, 500);
                 MainFrame addExpAreaFrame = new MainFrame(500, 250);
                 MainFrame coachReportFrame = new MainFrame(1000, 200);
                 //Student
@@ -139,7 +139,7 @@ public class Main {
                 Register Coach frame componenets
                  */
                 
-                JPanel registerCoachPanel = createPanelCenter(5, 2);
+                JPanel registerCoachPanel = createPanelCenter(6, 2);
                 JLabel title5 = createTitle("Register a New Coach");
 
                 JLabel fName = new JLabel("Enter your first name:");
@@ -148,10 +148,33 @@ public class Main {
                 JTextField lNameT = new JTextField(25);
                 JLabel tel = new JLabel("Enter your telephone number:");
                 JTextField telT = new JTextField(25);
-                JLabel officeDay = new JLabel("Enter your office day:");
-                JTextField officeDayT = new JTextField(25);
-                JLabel officeTime = new JLabel("Enter your office hour:");
-                JTextField officeTimeT = new JTextField(25);
+                JLabel officeDay = new JLabel("Select your office day:");
+                JRadioButton radioDayButton1 = new JRadioButton("Monday");
+                JRadioButton radioDayButton2 = new JRadioButton("Tuesday");
+                JRadioButton radioDayButton3 = new JRadioButton("Wednesday");
+                JRadioButton radioDayButton4 = new JRadioButton("Thursday");
+                JRadioButton radioDayButton5 = new JRadioButton("Friday");
+//                JTextField officeDayT = new JTextField(25);
+                JLabel startOfficeTime = new JLabel("Enter your start office hour (format hh:mm):");
+                JTextField startOfficeTimeT = new JTextField(5);
+                JLabel endOfficeTime = new JLabel("Enter your end office hour (format hh:mm):");
+                JTextField endOfficeTimeT = new JTextField(5);
+                
+                JPanel daysRadioPanel = new JPanel();
+                daysRadioPanel.setLayout(new GridLayout(3, 2, 5, 5));
+                             
+                ButtonGroup daysGroup = new ButtonGroup();
+                daysGroup.add(radioDayButton1);
+                daysGroup.add(radioDayButton2);
+                daysGroup.add(radioDayButton3);
+                daysGroup.add(radioDayButton4);
+                daysGroup.add(radioDayButton5);
+
+                daysRadioPanel.add(radioDayButton1);
+                daysRadioPanel.add(radioDayButton2);
+                daysRadioPanel.add(radioDayButton3);
+                daysRadioPanel.add(radioDayButton4);
+                daysRadioPanel.add(radioDayButton5);
                 
                 registerCoachPanel.add(fName);
                 registerCoachPanel.add(FNameT);
@@ -160,15 +183,34 @@ public class Main {
                 registerCoachPanel.add(tel);
                 registerCoachPanel.add(telT);
                 registerCoachPanel.add(officeDay);
-                registerCoachPanel.add(officeDayT);
-                registerCoachPanel.add(officeTime);
-                registerCoachPanel.add(officeTimeT);
+                registerCoachPanel.add(daysRadioPanel);
+//                registerCoachPanel.add(officeDayT);
+                registerCoachPanel.add(startOfficeTime);
+                registerCoachPanel.add(startOfficeTimeT);
+                registerCoachPanel.add(endOfficeTime);
+                registerCoachPanel.add(endOfficeTimeT);
 
                 JButton registerCoachButton = new JButton("Register Coach");
                 registerCoachButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String id = hcl.registerCoach(FNameT.getText(), lNameT.getText(), telT.getText(), officeDayT.getText(), officeTimeT.getText());
+                        String day = "";
+                        if (radioDayButton1.isSelected()) {
+                            day = "Monday";
+                        }
+                        if (radioDayButton2.isSelected()) {
+                            day = "Tuesday";
+                        }
+                        if (radioDayButton3.isSelected()) {
+                            day = "Wednesday";
+                        }
+                        if (radioDayButton4.isSelected()) {
+                            day = "Thursday";
+                        }
+                        if (radioDayButton5.isSelected()) {
+                            day = "Friday";
+                        }
+                        String id = hcl.registerCoach(FNameT.getText(), lNameT.getText(), telT.getText(), day, startOfficeTimeT.getText()+" - "+endOfficeTimeT.getText());
                         if (id.equals("Error")) {
                             JOptionPane.showMessageDialog(null,
                                     "Empty Fileds",
@@ -182,8 +224,8 @@ public class Main {
                             FNameT.setText("");
                             lNameT.setText("");
                             telT.setText("");
-                            officeDayT.setText("");
-                            officeTimeT.setText("");
+                            startOfficeTimeT.setText("");
+                            endOfficeTimeT.setText("");
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "The Coach: " + FNameT.getText() + " " + lNameT.getText() + " is succefully created with Id: " + id,
@@ -193,8 +235,8 @@ public class Main {
                             FNameT.setText("");
                             lNameT.setText("");
                             telT.setText("");
-                            officeDayT.setText("");
-                            officeTimeT.setText("");
+                            startOfficeTimeT.setText("");
+                            endOfficeTimeT.setText("");
                         }
                     }
                 });
@@ -205,8 +247,8 @@ public class Main {
                         FNameT.setText("");
                         lNameT.setText("");
                         telT.setText("");
-                        officeDayT.setText("");
-                        officeTimeT.setText("");
+                        startOfficeTimeT.setText("");
+                        endOfficeTimeT.setText("");
                         registerCoachFrame.setVisible(false);
                     }
                 });
@@ -417,8 +459,8 @@ public class Main {
                 addLessonFrame componenets
                  */
                 
-                JPanel addLessonPanel = new JPanel();
-                addLessonPanel.setLayout(new BoxLayout(addLessonPanel, BoxLayout.Y_AXIS));
+                JPanel addLessonPanel = createPanelCenter(8, 2);
+//                addLessonPanel.setLayout(new BoxLayout(addLessonPanel, BoxLayout.Y_AXIS));
                 JLabel title8 = createTitle("Add a New Lesson");
 
                 JLabel lessonName = new JLabel("Enter Lesson name:");
@@ -427,15 +469,38 @@ public class Main {
                 JTextField locationT = new JTextField(25);
                 JLabel coachId = new JLabel("Enter Coach Id");
                 JTextField coachIdT = new JTextField(25);
-                JLabel day = new JLabel("Enter day:");
-                JTextField dayT = new JTextField(25);
-                JLabel time = new JLabel("Enter time:");
-                JTextField timeT = new JTextField(25);
+                JLabel day = new JLabel("Select a day:");
+                JRadioButton radioDayButton6 = new JRadioButton("Monday");
+                JRadioButton radioDayButton7 = new JRadioButton("Tuesday");
+                JRadioButton radioDayButton8 = new JRadioButton("Wednesday");
+                JRadioButton radioDayButton9 = new JRadioButton("Thursday");
+                JRadioButton radioDayButton10 = new JRadioButton("Friday");
+//                JTextField dayT = new JTextField(25);
+                JLabel startTime = new JLabel("Enter start time(format hh:mm):");
+                JTextField startTimeT = new JTextField(5);
+                JLabel endTime = new JLabel("Enter end time(format hh:mm):");
+                JTextField endTimeT = new JTextField(5);
                 JLabel arealabel2 = new JLabel("Select an Area");
                 JRadioButton radioButton1 = new JRadioButton("swimming");
                 JRadioButton radioButton2 = new JRadioButton("badminton");
                 JRadioButton radioButton3 = new JRadioButton("gymnastics");
 
+                JPanel daysRadioPanel2 = new JPanel();
+                daysRadioPanel2.setLayout(new GridLayout(3, 2, 5, 5));
+                             
+                ButtonGroup daysGroup2 = new ButtonGroup();
+                daysGroup2.add(radioDayButton6);
+                daysGroup2.add(radioDayButton7);
+                daysGroup2.add(radioDayButton8);
+                daysGroup2.add(radioDayButton9);
+                daysGroup2.add(radioDayButton10);
+
+                daysRadioPanel2.add(radioDayButton6);
+                daysRadioPanel2.add(radioDayButton7);
+                daysRadioPanel2.add(radioDayButton8);
+                daysRadioPanel2.add(radioDayButton9);
+                daysRadioPanel2.add(radioDayButton10);
+                
                 ButtonGroup group2 = new ButtonGroup();
                 group2.add(radioButton1);
                 group2.add(radioButton2);
@@ -458,9 +523,12 @@ public class Main {
                 addLessonPanel.add(coachId);
                 addLessonPanel.add(coachIdT);
                 addLessonPanel.add(day);
-                addLessonPanel.add(dayT);
-                addLessonPanel.add(time);
-                addLessonPanel.add(timeT);
+                addLessonPanel.add(daysRadioPanel2);
+//                addLessonPanel.add(dayT);
+                addLessonPanel.add(startTime);
+                addLessonPanel.add(startTimeT);
+                addLessonPanel.add(endTime);
+                addLessonPanel.add(endTimeT);
                 addLessonPanel.add(arealabel2);
                 addLessonPanel.add(radioPanel);
                 addLessonPanel.add(capacity);
@@ -472,6 +540,22 @@ public class Main {
                     public void actionPerformed(ActionEvent e) {
                         String coachId = coachIdT.getText();
                         Coach coach = hcl.coaches.get(coachId);
+                        String day = "";
+                        if (radioDayButton6.isSelected()) {
+                            day = "Monday";
+                        }
+                        if (radioDayButton7.isSelected()) {
+                            day = "Tuesday";
+                        }
+                        if (radioDayButton8.isSelected()) {
+                            day = "Wednesday";
+                        }
+                        if (radioDayButton9.isSelected()) {
+                            day = "Thursday";
+                        }
+                        if (radioDayButton10.isSelected()) {
+                            day = "Friday";
+                        }
                         String area = "";
                         if (radioButton1.isSelected()) {
                             area = "swimming";
@@ -482,7 +566,7 @@ public class Main {
                         if (radioButton3.isSelected()) {
                             area = "gymnastics";
                         }
-                        String result = hcl.addLesson(lessonNameT.getText(), locationT.getText(), coachId, dayT.getText(), timeT.getText(), area, Integer.parseInt(capacityT.getText()));
+                        String result = hcl.addLesson(lessonNameT.getText(), locationT.getText(), coachId, day, startTimeT.getText()+" - "+endTimeT.getText(), area, Integer.parseInt(capacityT.getText()));
                         if (result.equals("Empty Fields")) {
                             JOptionPane.showMessageDialog(null,
                                     "Empty Fileds",
@@ -517,8 +601,8 @@ public class Main {
                             lessonNameT.setText("");
                             locationT.setText("");
                             coachIdT.setText("");
-                            dayT.setText("");
-                            timeT.setText("");
+                            startTimeT.setText("");
+                            endTimeT.setText("");
                             capacityT.setText("");
                         }
                     }
@@ -531,8 +615,8 @@ public class Main {
                         lessonNameT.setText("");
                         locationT.setText("");
                         coachIdT.setText("");
-                        dayT.setText("");
-                        timeT.setText("");
+                        startTimeT.setText("");
+                        endTimeT.setText("");
                         capacityT.setText("");
                     }
                 });
@@ -1166,6 +1250,9 @@ public class Main {
                 /*
                 Data
                 */
+               
+                
+
                 
                 Coach coach1 = new Coach("Serita", "Tuck", "tel", "16:00 - 17:00", "Mon");
                 Coach coach2 = new Coach("Cyndy", "Cerrato", "tel", "16:00 - 17:00", "Tue");
@@ -1257,7 +1344,7 @@ public class Main {
     public static JPanel createPanelCenter(Integer x, Integer y) {
         JPanel panelCenter = new JPanel();
         panelCenter.setBorder(new LineBorder(Color.BLACK, 3));
-        panelCenter.setBackground(Color.GRAY);
+        panelCenter.setBackground(Color.LIGHT_GRAY);
         panelCenter.setLayout(new GridLayout(x, y, 5, 5));
         return panelCenter;
     }
@@ -1266,4 +1353,10 @@ public class Main {
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 42));
         return titleLabel;
     }
+
+        
+
+        
+        
+
 }
