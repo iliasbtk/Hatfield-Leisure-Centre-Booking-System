@@ -40,13 +40,12 @@ public class Main {
                 Frames
                  */
                 MainFrame app = new MainFrame(500, 500);
-                app.setResizable(false);
                 app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 app.setVisible(true);
                 //Administration               
                 MainFrame adminFrame = new MainFrame(500, 500);
-                MainFrame reportsFrame = new MainFrame(800, 500);
-                MainFrame addLessonFrame = new MainFrame(500, 600);
+                MainFrame reportsFrame = new MainFrame(1000, 500);
+                MainFrame addLessonFrame = new MainFrame(600, 600);
                 //Coach 
                 MainFrame coachFrame = new MainFrame(500, 500);
                 MainFrame registerCoachFrame = new MainFrame(600, 500);
@@ -55,12 +54,12 @@ public class Main {
                 //Student
                 MainFrame studentFrame = new MainFrame(500, 500);
                 MainFrame registerStudentFrame = new MainFrame(500, 250);
-                MainFrame lookupLessonFrame = new MainFrame(800, 250);
+                MainFrame lookupLessonFrame = new MainFrame(1000, 250);
                 MainFrame bookLessonFrame = new MainFrame(400, 200);
                 MainFrame cancelChangeFrame = new MainFrame(600, 280);
                 MainFrame attendFrame = new MainFrame(400, 150);
                 MainFrame studentReportFrame = new MainFrame(1000, 200);
-                MainFrame lookupTimeSlotFrame = new MainFrame(800, 250);
+                MainFrame lookupTimeSlotFrame = new MainFrame(1000, 250);
                 MainFrame bookAppointmentFrame = new MainFrame(600, 200);
                 
                 /*
@@ -466,7 +465,12 @@ public class Main {
                 JLabel lessonName = new JLabel("Enter Lesson name:");
                 JTextField lessonNameT = new JTextField(25);
                 JLabel location = new JLabel("Enter Location");
-                JTextField locationT = new JTextField(25);
+                JRadioButton radioPlaceButton1 = new JRadioButton("Badminton court A");
+                JRadioButton radioPlaceButton2 = new JRadioButton("Badminton court B");
+                JRadioButton radioPlaceButton3 = new JRadioButton("Gym");
+                JRadioButton radioPlaceButton4 = new JRadioButton("Swimming pool A");
+                JRadioButton radioPlaceButton5 = new JRadioButton("Swimming pool B");
+//                JTextField locationT = new JTextField(25);
                 JLabel coachId = new JLabel("Enter Coach Id");
                 JTextField coachIdT = new JTextField(25);
                 JLabel day = new JLabel("Select a day:");
@@ -485,6 +489,22 @@ public class Main {
                 JRadioButton radioButton2 = new JRadioButton("badminton");
                 JRadioButton radioButton3 = new JRadioButton("gymnastics");
 
+                JPanel placesRadioPanel = new JPanel();
+                placesRadioPanel.setLayout(new GridLayout(3, 2, 5, 5));
+                
+                ButtonGroup placesGroup = new ButtonGroup();
+                placesGroup.add(radioPlaceButton1);
+                placesGroup.add(radioPlaceButton2);
+                placesGroup.add(radioPlaceButton3);
+                placesGroup.add(radioPlaceButton4);
+                placesGroup.add(radioPlaceButton5);
+
+                placesRadioPanel.add(radioPlaceButton1);
+                placesRadioPanel.add(radioPlaceButton2);
+                placesRadioPanel.add(radioPlaceButton3);
+                placesRadioPanel.add(radioPlaceButton4);
+                placesRadioPanel.add(radioPlaceButton5);
+                
                 JPanel daysRadioPanel2 = new JPanel();
                 daysRadioPanel2.setLayout(new GridLayout(3, 2, 5, 5));
                              
@@ -519,7 +539,8 @@ public class Main {
                 addLessonPanel.add(lessonName);
                 addLessonPanel.add(lessonNameT);
                 addLessonPanel.add(location);
-                addLessonPanel.add(locationT);
+                addLessonPanel.add(placesRadioPanel);
+//                addLessonPanel.add(locationT);
                 addLessonPanel.add(coachId);
                 addLessonPanel.add(coachIdT);
                 addLessonPanel.add(day);
@@ -566,7 +587,23 @@ public class Main {
                         if (radioButton3.isSelected()) {
                             area = "gymnastics";
                         }
-                        String result = hcl.addLesson(lessonNameT.getText(), locationT.getText(), coachId, day, startTimeT.getText()+" - "+endTimeT.getText(), area, Integer.parseInt(capacityT.getText()));
+                        String place = "";
+                        if (radioDayButton6.isSelected()) {
+                            day = "Badminton court A";
+                        }
+                        if (radioDayButton7.isSelected()) {
+                            day = "Badminton court B";
+                        }
+                        if (radioDayButton8.isSelected()) {
+                            day = "Gym";
+                        }
+                        if (radioDayButton9.isSelected()) {
+                            day = "Swimming pool B";
+                        }
+                        if (radioDayButton10.isSelected()) {
+                            day = "Swimming pool B";
+                        }
+                        String result = hcl.addLesson(lessonNameT.getText(), place, coachId, day, startTimeT.getText()+" - "+endTimeT.getText(), area, Integer.parseInt(capacityT.getText()));
                         if (result.equals("Empty Fields")) {
                             JOptionPane.showMessageDialog(null,
                                     "Empty Fileds",
@@ -599,7 +636,7 @@ public class Main {
                                     JOptionPane.ERROR_MESSAGE);
                             addLessonFrame.setVisible(false);
                             lessonNameT.setText("");
-                            locationT.setText("");
+//                            locationT.setText("");
                             coachIdT.setText("");
                             startTimeT.setText("");
                             endTimeT.setText("");
@@ -613,7 +650,7 @@ public class Main {
                     public void actionPerformed(ActionEvent e) {
                         addLessonFrame.setVisible(false);
                         lessonNameT.setText("");
-                        locationT.setText("");
+//                        locationT.setText("");
                         coachIdT.setText("");
                         startTimeT.setText("");
                         endTimeT.setText("");

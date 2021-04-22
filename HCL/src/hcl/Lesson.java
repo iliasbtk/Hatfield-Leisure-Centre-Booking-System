@@ -20,6 +20,7 @@ public class Lesson {
     private String place;
     private String name;
     private Integer capacity;
+    private int week;
     
     
     public Lesson(String name, String place, Coach coach, String day, String hour, String area, Integer capacity){
@@ -53,11 +54,17 @@ public class Lesson {
     public Coach getCoach(){
         return this.coach;
     }
+    public int getWeek(){
+        return this.week;
+    }
     public Integer getStudentNumber(){
         return this.studentsNumber;
     }
     public void setId(String id){
         this.lessonId = id;
+    }
+    public void setWeek(int week){
+        this.week = week;
     }
     public void updateState(){
         if(this.studentsNumber == capacity){

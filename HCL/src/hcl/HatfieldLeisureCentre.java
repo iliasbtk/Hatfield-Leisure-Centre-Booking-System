@@ -53,14 +53,12 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getArea().equals(area)) {
-                result = result + (k + ": " + v.getName() + " / " + v.getArea() 
-                        + " / " + v.getDay() + " / " + v.getHour() + " / " +
+                result = result + ("Lesson Id: "+k + " / " + v.getName() + " / " + v.getArea() 
+                        + " / Week: "+v.getWeek()+" / "+ v.getDay() + " / " + v.getHour() + " / Coach: " +
                         v.getCoach().getFullName() + " / " + v.isFull() + "\n");
             }
         }
-        System.out.println(result);
         return result;
-
     }
 
     public String lookupLessonByCoach(String coachName) {
@@ -69,12 +67,11 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getCoach().getFullName().equals(coachName)) {
-                result = result + (k + ": " + v.getName() + " / " + v.getArea() 
-                        + " / " + v.getDay() + " / " + v.getHour() + " / " +
+                result = result + ("Lesson Id: "+k + " / " + v.getName() + " / " + v.getArea() 
+                        + " / Week: "+v.getWeek()+" / "+ v.getDay() + " / " + v.getHour() + " / Coach: " +
                         v.getCoach().getFullName() + " / " + v.isFull() + "\n");
             }
         }
-        System.out.println(result);
         return result;
     }
     public String book(String idS, String lessonId) {
@@ -168,7 +165,11 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Booking v = entry.getValue();
             if(v.getStudent().getId().equals(studentId)){
-                result=result+(k + ": " + v.getLesson().getName() + " / " + v.getLesson().getArea()  + " / " + v.getLesson().getDay() +" / "+v.getLesson().getHour() + "\n");
+                result=result+("Booking Id: "+k + " / " + v.getLesson().getName() +
+                        " / " + v.getLesson().getArea() +" / Week: "+
+                        v.getLesson().getWeek() + " / " + v.getLesson().getDay() +
+                        " / "+v.getLesson().getHour() +" / Coach: "+
+                        v.getLesson().getCoach().getFullName()+ "\n");
             } 
         }
         result = result+"Appointments:\n";
@@ -177,8 +178,11 @@ public class HatfieldLeisureCentre {
             ParentAppointment v = entry.getValue();
             if(v.getState().equals("Booked")){
                 if (v.getStudentId().equals(studentId)) {
-                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                    v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+"\n");
+                    result=result+("Appointment Id: "+k + " / Week: " +
+                            v.getWeek() + " / Day: " + v.getDay() + " / " +
+                            v.getTime() + " / " + v.getSlot() + " / Parent: " +
+                            v.getParentName() + " / Coach Name: " +
+                            v.getCoach().getFullName()+"\n");
                 }
             }
             
@@ -194,13 +198,15 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getCoach().getFullName().equals(coachName)) {
-                result = result + (k + ": " + v.getCoach().getFullName() + " / " + v.getDay() + " / " + v.getTime() + " / Week: " + v.getWeek() + " / " + "Slot: " + v.getSlot() + " / " + v.getState() + "\n");
+                result = result + ("Appointment Id: "+k + " / Coach name: " + 
+                        v.getCoach().getFullName() + " / Week: " + v.getWeek() +
+                        " / " + v.getDay() + " / " + v.getTime() + " / " +
+                        v.getSlot() + " / " + v.getState() + "\n");
             }
         }
         if (result == "") {
             result = "Coach name: " + coachName + " is incorrect";
         }
-        System.out.println(result);
         return result;
     }
 
@@ -211,11 +217,13 @@ public class HatfieldLeisureCentre {
             ParentAppointment v = entry.getValue();
             for (String coachArea : v.getCoach().getExpertiseArea()) {
                 if (coachArea.equals(area)) {
-                    result = result + (k + ": " + v.getCoach().getFullName() + " / " + area + " / " + v.getDay() + " / " + v.getTime() + " / Week: " + v.getWeek() + " / " + "Slot: " + v.getSlot() + " / " + v.getState() + "\n");
+                    result = result + ("Appointment Id: "+k + " / Coach name: " + 
+                        v.getCoach().getFullName() + " / Week: " + v.getWeek() +
+                        " / " + v.getDay() + " / " + v.getTime() + " / " +
+                        v.getSlot() + " / " + v.getState() + "\n");
                 }
             }
         }
-        System.out.println(result);
         return result;
     }
 
@@ -351,7 +359,10 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if(v.getCoach().getId().equals(coachId)){
-                result=result+(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + "\n");
+                result=result+("Lesson Id: "+k + " / " + v.getName() +
+                        " / "+v.getArea()+ " / Week: "+v.getWeek()+
+                        " / " + v.getDay() + " / " + v.getHour() +
+                        " / Students number: " + v.getStudentNumber() + "\n");
             } 
         }
         result = result+"Appointments:\n";
@@ -360,8 +371,11 @@ public class HatfieldLeisureCentre {
             ParentAppointment v = entry.getValue();
             if(v.getState().equals("Booked")){
                 if (v.getCoach().getId().equals(coachId)) {
-                    result=result+(k + ": / Week: " + v.getWeek() + " / Day: " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                    v.getParentName() + " / Student Name: " + students.get(v.getStudentId()).getFullName()+"\n");
+                    result=result+("Appointment Id: "+ k + " / Week: " +
+                            v.getWeek() + " / Day: " + v.getDay() + " / " +
+                            v.getTime() + " / " + v.getSlot() + " / Parent: " +
+                            v.getParentName() + " / Student Name: " +
+                            students.get(v.getStudentId()).getFullName()+"\n");
                 }
             }
             
@@ -381,7 +395,8 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Coach v = entry.getValue();
             System.out.println(k + " / " + v.getFullName());
-            result = result + (k + " / " + v.getFullName() + " / Office hour: " + v.getOfficeDay() + "  " + v.getOfficeHours() + "\n");
+            result = result + ("Coach Id: "+k + " / Name: " + v.getFullName() +
+                    " / Office hours: " + v.getOfficeDay() + "  " + v.getOfficeHours() + "\n");
         }
         return result;
     }
@@ -391,7 +406,8 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Student v = entry.getValue();
             System.out.println(k + ": " + v.getFullName()+" / Parent name: "+v.getParentName());
-            result = result + (k + ": " + v.getFullName()+" / Parent name: "+v.getParentName()+"\n");
+            result = result + ("Lesson Id: "+k + " / Name: " + v.getFullName()+
+                    " / Parent name: "+v.getParentName()+"\n");
         }
         return result;
     }
@@ -406,21 +422,25 @@ public class HatfieldLeisureCentre {
         if(!coach.hasExpertiseArea(area)){
             return "Expertise area not teached by the coach";
         }
-        Lesson lesson = new Lesson(name, place, coaches.get(coachId), day, hour, area, capacity);
-        if (lesson.getCoach().getLessonsNumber() >= 3) {
-            System.out.println("The coach: " + lesson.getCoach().getFullName() + " is already teaching 3 lessons per week");
+        
+        if (coaches.get(coachId).getLessonsNumber() >= 3) {
+            System.out.println("The coach: " + coaches.get(coachId).getFullName() + " is already teaching 3 lessons per week");
             return "Max lesson";
-        } else if (lesson.getDay().equals(lesson.getCoach().getOfficeDay()) && lesson.getHour().equals(lesson.getCoach().getOfficeHours())) {
-            System.out.println("The lesson time is conflicting with the coach " + lesson.getCoach().getFullName() + " 's office hour");
+        } else if (day.equals(coaches.get(coachId).getOfficeDay()) && hour.equals(coaches.get(coachId).getOfficeHours())) {
+            System.out.println("The lesson time is conflicting with the coach " + coaches.get(coachId).getFullName() + " 's office hour");
             return "Time conflict";
         } else {
-            String lessonId;
-            idL = idL + 1;
-            lessonId = "less" + String.valueOf(idL);
-            lessons.put(lessonId, lesson);
-            lesson.setId(lessonId);
-            lesson.getCoach().increaseLessonNumbers();
-            return lessonId;
+            for(int i = 1; i<=4; i++){
+                Lesson lesson = new Lesson(name, place, coaches.get(coachId), day, hour, area, capacity);
+                String lessonId;
+                idL = idL + 1;
+                lessonId = "less" + String.valueOf(idL) + String.valueOf(i);
+                lesson.setWeek(i);
+                lessons.put(lessonId, lesson);
+                lesson.setId(lessonId);
+            }
+            coaches.get(coachId).increaseLessonNumbers();
+            return "Successful lesson creation";
         }
     }
     public Lesson getLesson(String lessonId) {
@@ -431,7 +451,7 @@ public class HatfieldLeisureCentre {
         for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
             String k = entry.getKey();
             Booking v = entry.getValue();
-            result = result + (k + ": " + v.getStudent().getId() + " " + v.getLesson().getId() + " " + v.getState() + "\n");
+            result = result + ("Booking Id: "+k + " /Student Name: " + v.getStudent().getFullName() + " / " + v.getLesson().getName() + " / " + v.getState() + "\n");
         }
         System.out.println(result);
         return result;
@@ -444,8 +464,10 @@ public class HatfieldLeisureCentre {
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
-            result=result+(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + " / " + v.isFull()+"\n");
-            System.out.println(k + ": " + v.getName() + " / " + v.getDay() + " / " + v.getHour() + " / Students number: " + v.getStudentNumber() + " / " + v.isFull());
+            result=result+("Lesson Id: "+ k + " / " + v.getName() +
+                    " / "+v.getArea() +" / Week: "+v.getWeek() +" / " +
+                    v.getDay() + " / " + v.getHour() + " / Students number: " +
+                    v.getStudentNumber() + " / " + v.isFull()+"\n");
         }
         result = result+"Appointments:\n";
         System.out.println("Appointments:");
@@ -453,11 +475,13 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getState().equals("Booked")) {
-                result=result+(k + ": Week: " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() + " / Parent Name: " +
-                        v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+"\n");
-                System.out.println(k + ": " + v.getWeek() + " / " + v.getDay() + " / " + v.getTime() + " / " + v.getSlot() +
-                        " / " + v.getParentName() + " / " + v.getCoach().getFullName());
+                result=result+(k + ": Week: " + v.getWeek() + " / " + v.getDay() +
+                        " / " + v.getTime() + " / " + v.getSlot() + " / Parent Name: " +
+                        v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+
+                        " / Student: "+ students.get(v.getStudentId()).getFullName()+
+                        " / "+v.getState()+ "\n");
             }
+
         }
         return result;
     }
@@ -473,10 +497,9 @@ public class HatfieldLeisureCentre {
                 String key2 = entry2.getKey();
                 Booking value2 = entry2.getValue();
                 if (value1.getId() == value2.getStudent().getId()) {
-                    result=result+"Student: " + value1.getFirstName() + " " + value1.getLastName() + " is signed up for:\n"+
-                            value2.getLesson().getId() + " / " + value2.getLesson().getName()+"\n";
-                    System.out.println("Student: " + value1.getFirstName() + " " + value1.getLastName() + " is signed up for:");
-                    System.out.println(value2.getLesson().getId() + " / " + value2.getLesson().getName());
+                    result=result+"Student: " + value1.getFullName() + " is signed up for:\n"+
+                            "Lesson Id: "+value2.getLesson().getId() + " / " +
+                            value2.getLesson().getName()+" / "+value2.getLesson().getArea() +"\n";
                 }
             }
         }
