@@ -990,7 +990,7 @@ public class Main {
                 JTextField bNumT = new JTextField(25);
                 JLabel bNum2 = new JLabel("Enter your booking number:");
                 JTextField bNumT2 = new JTextField(25);
-                JLabel lessonId2 = new JLabel("Enter the new lesson Id:");
+                JLabel lessonId2Label = new JLabel("Enter the new lesson Id:");
                 JTextField lessonIdT2 = new JTextField(25);
 
                 JButton CancelButton = new JButton("Cancel Booking");
@@ -1050,7 +1050,7 @@ public class Main {
                 cancelChangePanel.add(CancelButton);
                 cancelChangePanel.add(bNum2);
                 cancelChangePanel.add(bNumT2);
-                cancelChangePanel.add(lessonId2);
+                cancelChangePanel.add(lessonId2Label);
                 cancelChangePanel.add(lessonIdT2);
                 cancelChangePanel.add(ChangeButton);
                 cancelChangeFrame.add(cancelChangePanel, BorderLayout.CENTER);
@@ -1285,95 +1285,169 @@ public class Main {
                 sReportPanel.add(buttonDisplaySReport);
 
                 /*
-                Data
+                Pre-registered Data
                 */
                
+                String idC1 = hcl.registerCoach("Serita", "Tuck", "tel", "09:00 - 10:00", "Monday");
+                String idC2 = hcl.registerCoach("Cyndy", "Cerrato", "tel", "08:00 - 09:00", "Tuesday");
+                String idC3 = hcl.registerCoach("Annamae", "Koski", "tel", "08:00 - 09:00", "Wednesday");
+                String idC4 = hcl.registerCoach("Sari", "Stlaurent", "tel", "09:00 - 10:00", "Thursday");
+                String idC5 = hcl.registerCoach("Desire", "Royalty", "tel", "09:00 - 10:00", "Friday");
+                String idC6 = hcl.registerCoach("Ronny", "Eriksen", "tel", "08:00 - 09:00", "Tuesday");
+                String idC7 = hcl.registerCoach("Steward", "Denver", "tel", "08:00 - 09:00", "Wednesday");
+
+                hcl.coaches.get(idC1).addArea("swimming");
+                hcl.coaches.get(idC1).addArea("badminton");
+                hcl.coaches.get(idC1).addArea("gymnastics");
+                hcl.coaches.get(idC2).addArea("swimming");
+                hcl.coaches.get(idC2).addArea("badminton");
+                hcl.coaches.get(idC3).addArea("gymnastics");
+                hcl.coaches.get(idC4).addArea("swimming");
+                hcl.coaches.get(idC4).addArea("badminton");
+                hcl.coaches.get(idC4).addArea("gymnastics");
+                hcl.coaches.get(idC5).addArea("badminton");
+                hcl.coaches.get(idC5).addArea("gymnastics");
+                hcl.coaches.get(idC6).addArea("swimming");
+                hcl.coaches.get(idC7).addArea("swimming");
+                hcl.coaches.get(idC7).addArea("badminton");
+                hcl.coaches.get(idC7).addArea("gymnastics");
+
+                String idS1 = hcl.registerStudent("Loida", "Poon", "Add", "tel", "Brad");
+                String idS2 = hcl.registerStudent("Ewa", "Porto", "Add", "tel", "Linkon");
+                String idS3 = hcl.registerStudent("Dylan ", "Bucher", "Add", "tel", "Jimmy");
+                String idS4 = hcl.registerStudent("Reggie ", "Malan", "Add", "tel", "Smith");
+                String idS5 = hcl.registerStudent("Landon ", "Buel", "Add", "tel", "Henderson");
+                String idS6 = hcl.registerStudent("Enid ", "Lepine", "Add", "tel", "Eriksen");
+                String idS7 = hcl.registerStudent("Aiko ", "Redmon", "Add", "tel", "Marco");
+                String idS8 = hcl.registerStudent("Earl ", "Evatt", "Add", "tel", "Lucas");
+                String idS9 = hcl.registerStudent("Annita ", "Bruckner", "Add", "tel", "Sergio");
+                String idS10 = hcl.registerStudent("Emilee ", "Lubin", "Add", "tel", "Dani");
+                String idS11 = hcl.registerStudent("Estell ", "Dillenbeck", "Add", "tel", "Ferland");
+                String idS12 = hcl.registerStudent("Charleen ", "Boss", "Add", "tel", "Toni");
+                String idS13 = hcl.registerStudent("Chadwick ", "Fiscus", "Add", "tel", "Fede");
+                String idS14 = hcl.registerStudent("Steven", "Pullman", "Add", "tel", "Nacho");
+                String idS15 = hcl.registerStudent("Elizabeth", "Simpson", "Add", "tel", "Fernandez");
+
+                hcl.addLesson("Swimming 1", "swimming pool A", idC1, "Monday", "15:00 - 16:00", "swimming", 4);
+                hcl.addLesson("Badminton 1", "badminton court A", idC1, "Tuesday", "15:00 - 16:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", idC1, "Wednesday", "15:00 - 16:00", "gymnastics", 5);
+                hcl.addLesson("Swimming 1", "swimming pool A", idC2, "Thursday", "15:00 - 16:00", "swimming", 5);
+                hcl.addLesson("Badminton 1", "badminton court A", idC2, "Friday", "15:00 - 16:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", idC3, "Monday", "15:00 - 16:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 1", "swimming pool A", idC4, "Monday", "16:00 - 17:00", "swimming", 5);
+                hcl.addLesson("Gymnastics 2", "swimming pool A", idC3, "Tuesday", "16:00 - 17:00", "swimming", 5);
+                hcl.addLesson("Swimming 1", "badminton court A", idC4, "Tuesday", "16:00 - 17:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 2", "Gym", idC3, "Wednesday", "16:00 - 17:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 2", "swimming pool B", idC7, "Thursday", "16:00 - 17:00", "swimming", 5);
+                hcl.addLesson("Badminton 2", "Gym", idC3, "Thursday", "16:00 - 17:00", "gymnastics", 5);
+                hcl.addLesson("Badminton 2", "Gym", idC4, "Friday", "16:00 - 17:00", "gymnastics", 5);
+                hcl.addLesson("Gymnastics 2", "badminton court B", idC5, "Monday", "17:00 - 18:00", "badminton", 5);
+                hcl.addLesson("Gymnastics 2", "Gym", idC5, "Tuesday", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Badminton 2", "badminton court B", idC7, "Wednesday", "17:00 - 18:00", "badminton", 5);
+                hcl.addLesson("Badminton 2", "Gym", idC7, "Wednesday", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Swimming 1", "swimming pool B", idC6, "Thursday", "17:00 - 18:00", "swimming", 5);
+                hcl.addLesson("Badminton 1", "swimming pool B", idC6, "Friday", "17:00 - 18:00", "swimming", 5);
+                hcl.addLesson("Gymnastics 1", "Gym", idC2, "Friday", "15:00 - 16:00", "gymnastics", 5);
+                
+                hcl.book(idS1, "less101");
+                hcl.book(idS2, "less101");
+                hcl.book(idS3, "less101");
+                hcl.book(idS4, "less101");
+                hcl.book(idS1, "less102");
+                hcl.book(idS2, "less102");
+                hcl.book(idS3, "less102");
+                hcl.book(idS4, "less102");               
+                hcl.book(idS1, "less103");
+                hcl.book(idS2, "less103");
+                hcl.book(idS3, "less103");
+                hcl.book(idS4, "less103");               
+                hcl.book(idS1, "less104");
+                hcl.book(idS2, "less104");
+                hcl.book(idS3, "less104");
+                hcl.book(idS4, "less104");
+                
+                hcl.book(idS1, "less111");
+                hcl.book(idS2, "less111");
+                hcl.book(idS3, "less111");              
+                hcl.book(idS1, "less112");
+                hcl.book(idS2, "less112");
+                hcl.book(idS3, "less112");              
+                hcl.book(idS1, "less113");
+                hcl.book(idS2, "less113");
+                hcl.book(idS3, "less113");               
+                hcl.book(idS1, "less114");
+                hcl.book(idS2, "less114");
+                hcl.book(idS3, "less114");
+                
+                hcl.book(idS4, "less121");
+                hcl.book(idS5, "less121");
+                hcl.book(idS4, "less122");
+                hcl.book(idS5, "less122");
+                hcl.book(idS6, "less122");            
+                hcl.book(idS4, "less123");
+                hcl.book(idS5, "less123");
+                hcl.book(idS6, "less123");               
+                hcl.book(idS4, "less124");
+                hcl.book(idS5, "less124");
+                hcl.book(idS6, "less124");
+                
+                hcl.book(idS7, "less131");
+                hcl.book(idS7, "less132");
+                hcl.book(idS7, "less133");
+                hcl.book(idS7, "less134");
+                
+                hcl.book(idS8, "less141");
+                hcl.book(idS8, "less142");
+                hcl.book(idS8, "less143");
+                hcl.book(idS8, "less144");
+                
+                hcl.book(idS9, "less151");
+                hcl.book(idS9, "less152");
+                hcl.book(idS9, "less153");
+                hcl.book(idS9, "less154");
+                
+                hcl.book(idS10, "less161");
+                hcl.book(idS10, "less162");
+                hcl.book(idS10, "less163");
+                hcl.book(idS10, "less164");
+                
+                hcl.book(idS11, "less171");
+                hcl.book(idS11, "less172");
+                hcl.book(idS11, "less173");
+                hcl.book(idS11, "less174");
+                
+                hcl.book(idS12, "less181");
+                hcl.book(idS12, "less182");
+                hcl.book(idS12, "less183");
+                hcl.book(idS12, "less184");
+                
+                hcl.book(idS13, "less191");
+                hcl.book(idS13, "less192");
+                hcl.book(idS13, "less193");
+                hcl.book(idS13, "less194");
+                
+                hcl.book(idS14, "less201");
+                hcl.book(idS14, "less202");
+                hcl.book(idS14, "less203");
+                hcl.book(idS14, "less204");
+                
+                hcl.bookApointment("Appoint038", idS1);
+                hcl.bookApointment("Appoint079", idS2);
+                hcl.bookApointment("Appoint073", idS3);
+                hcl.bookApointment("Appoint015", idS4);
+                hcl.bookApointment("Appoint056", idS5);
+
                 
 
                 
-                Coach coach1 = new Coach("Serita", "Tuck", "tel", "16:00 - 17:00", "Mon");
-                Coach coach2 = new Coach("Cyndy", "Cerrato", "tel", "16:00 - 17:00", "Tue");
-                Coach coach3 = new Coach("Annamae", "Koski", "tel", "16:00 - 17:00", "Wed");
-                Coach coach4 = new Coach("Sari", "Stlaurent", "tel", "16:00 - 17:00", "Thu");
-                Coach coach5 = new Coach("Desire", "Royalty", "tel", "16:00 - 17:00", "Fri");
-                Coach coach6 = new Coach("Ronny", "Eriksen", "tel", "15:00 - 16:00", "Tue");
-                Coach coach7 = new Coach("Steward", "Denver", "tel", "15:00 - 16:00", "Wed");
+                
 
-                hcl.addCoach(coach1);
-                hcl.addCoach(coach2);
-                hcl.addCoach(coach3);
-                hcl.addCoach(coach4);
-                hcl.addCoach(coach5);
-                hcl.addCoach(coach6);
-                hcl.addCoach(coach7);
 
-                coach1.addArea("swimming");
-                coach1.addArea("badminton");
-                coach1.addArea("gymnastics");
-                coach2.addArea("swimming");
-                coach2.addArea("badminton");
-                coach3.addArea("gymnastics");
-                coach4.addArea("swimming");
-                coach4.addArea("badminton");
-                coach4.addArea("gymnastics");
-                coach5.addArea("badminton");
-                coach5.addArea("gymnastics");
-                coach6.addArea("swimming");
-                coach7.addArea("swimming");
-                coach7.addArea("badminton");
-                coach7.addArea("gymnastics");
+                
+                
+                
 
-                hcl.registerStudent("Loida", "Poon", "Add", "tel", "Brad");
-                hcl.registerStudent("Ewa", "Porto", "Add", "tel", "Linkon");
-                hcl.registerStudent("Dylan ", "Bucher", "Add", "tel", "Jimmy");
-                hcl.registerStudent("Reggie ", "Malan", "Add", "tel", "Smith");
-                hcl.registerStudent("Landon ", "Buel", "Add", "tel", "Henderson");
-                hcl.registerStudent("Enid ", "Lepine", "Add", "tel", "Eriksen");
-                hcl.registerStudent("Aiko ", "Redmon", "Add", "tel", "Marco");
-                hcl.registerStudent("Earl ", "Evatt", "Add", "tel", "Lucas");
-                hcl.registerStudent("Annita ", "Bruckner", "Add", "tel", "Sergio");
-                hcl.registerStudent("Emilee ", "Lubin", "Add", "tel", "Dani");
-                hcl.registerStudent("Estell ", "Dillenbeck", "Add", "tel", "Ferland");
-                hcl.registerStudent("Charleen ", "Boss", "Add", "tel", "Toni");
-                hcl.registerStudent("Chadwick ", "Fiscus", "Add", "tel", "Fede");
-                hcl.registerStudent("Steven", "Pullman", "Add", "tel", "Nacho");
-                hcl.registerStudent("Elizabeth", "Simpson", "Add", "tel", "Fernandez");
-
-                hcl.addLesson("Swimming 1", "swimming pool A", "C01", "Mon", "16:00 - 17:00", "swimming", 5);
-                hcl.addLesson("Badminton 1", "badminton court A", "C01", "Tue", "14:00 - 15:00", "badminton", 5);
-                hcl.addLesson("Gymnastics 1", "Gym", "C01", "Wed", "14:00 - 15:00", "gymnastics", 5);
-                hcl.addLesson("Swimming 1", "swimming pool A", "C02", "Fri", "14:00 - 15:00", "swimming", 5);
-                hcl.addLesson("Badminton 1", "badminton court A", "C02", "Mon", "14:00 - 15:00", "badminton", 5);
-                hcl.addLesson("Gymnastics 1", "Gym", "C03", "Mon", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Gymnastics 1", "Gym", "C03", "Tue", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Gymnastics 2", "Gym", "C03", "Wed", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Swimming 1", "swimming pool A", "C04", "Thu", "17:00 - 18:00", "swimming", 5);
-                hcl.addLesson("Gymnastics 2", "Gym", "C04", "Fri", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Gymnastics 2", "Gym", "C04", "Wed", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Badminton 2", "badminton court B", "C05", "Mon", "19:00 - 20:00", "badminton", 5);
-                hcl.addLesson("Badminton 2", "badminton court B", "C05", "Tue", "19:00 - 20:00", "badminton", 5);
-
-                hcl.book("S01", "less11");
-                hcl.book("S01", "less16");
-                hcl.book("S02", "less11");
-                hcl.book("S03", "less11");
-                hcl.book("S04", "less11");
-                hcl.book("S05", "less11");
-                hcl.book("S06", "less11");
-                hcl.book("S07", "less11");
-                hcl.book("S07", "less12");
-                hcl.book("S08", "less13");
-                hcl.book("S09", "less14");
-                hcl.book("S010", "less15");
-                hcl.book("S011", "less16");
-                hcl.book("S012", "less17");
-
-                hcl.bookApointment("Appoint016", "S01");
-                hcl.bookApointment("Appoint014", "S02");
-                hcl.bookApointment("Appoint015", "S03");
-                hcl.bookApointment("Appoint013", "S04");
-                hcl.bookApointment("Appoint016", "S05");
-                hcl.bookApointment("Appoint03", "S06");
+                
             }
         });
     }

@@ -13,7 +13,7 @@ import java.util.Map;
  * @author NGSI
  */
 public class HatfieldLeisureCentre {
-
+    
     Map<String, Student> students = new HashMap<>();
     Map<String, Coach> coaches = new HashMap<>();
     Map<String, Lesson> lessons = new HashMap<>();
@@ -27,8 +27,10 @@ public class HatfieldLeisureCentre {
     Integer idPA = 0;
     
     /*
-    Student
+    Students functionalities
     */
+    
+    //Register a new student
 
     public String registerStudent(String firstName, String lastName, String address, String tel, String parrentName) {
         if (firstName.equals("") || lastName.equals("") || address.equals("") || tel.equals("") || parrentName.equals("")) {
@@ -46,16 +48,18 @@ public class HatfieldLeisureCentre {
         students.put(studentId, student);
         student.setId(studentId);
         return studentId;
-    }
+    } 
+    
     public String lookupLessonByArea(String area) {
         String result = "";
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getArea().equals(area)) {
-                result = result + ("Lesson Id: "+k + " / " + v.getName() + " / " + v.getArea() 
-                        + " / Week: "+v.getWeek()+" / "+ v.getDay() + " / " + v.getHour() + " / Coach: " +
-                        v.getCoach().getFullName() + " / " + v.isFull() + "\n");
+                result+="Lesson Id: "+k+" / "+v.getName()+" / "+v.getArea()+
+                        " / Week: "+v.getWeek()+" / "+ v.getDay()+" / "+
+                        v.getHour()+" / Coach: "+v.getCoach().getFullName()+
+                        " / "+ v.isFull()+"\n";
             }
         }
         return result;
@@ -67,21 +71,24 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Lesson v = entry.getValue();
             if (v.getCoach().getFullName().equals(coachName)) {
-                result = result + ("Lesson Id: "+k + " / " + v.getName() + " / " + v.getArea() 
-                        + " / Week: "+v.getWeek()+" / "+ v.getDay() + " / " + v.getHour() + " / Coach: " +
-                        v.getCoach().getFullName() + " / " + v.isFull() + "\n");
+                result = result + ("Lesson Id: " + k + " / " + v.getName() + " / " + v.getArea()
+                        + " / Week: " + v.getWeek() + " / " + v.getDay() + " / " + v.getHour() + " / Coach: "
+                        + v.getCoach().getFullName() + " / " + v.isFull() + "\n");
             }
         }
         return result;
     }
+    
+    //Book a place in a lesson
+    
     public String book(String idS, String lessonId) {
-        if(idS.equals("") || lessonId.equals("")){
+        if (idS.equals("") || lessonId.equals("")) {
             return "Empty Fields";
         }
-        if(!studentDoesExist(idS)){
+        if (!studentDoesExist(idS)) {
             return "Error studentId";
         }
-        if(!lessonDoesExist(lessonId)){
+        if (!lessonDoesExist(lessonId)) {
             return "Error lessonId";
         }
         Lesson lesson = lessons.get(lessonId);
@@ -104,41 +111,49 @@ public class HatfieldLeisureCentre {
             return bookingNumber;
         }
     }
-        public boolean checkSameTimeLessons(String idS, Lesson lesson) {
+    
+    //Check if a student is already enrolled in a lesson running at the same time.
+
+    public boolean checkSameTimeLessons(String idS, Lesson lesson) {
         String day = lesson.getDay();
         String time = lesson.getHour();
+        int week = lesson.getWeek();
         for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
             String k = entry.getKey();
             Booking v = entry.getValue();
+            
             if (v.getStudent().getId().equals(idS)) {
-                if (v.getLesson().getDay().equals(day)) {
-                    if (v.getLesson().getHour().equals(time)) {
-                        return true;
+                if(v.getLesson().getWeek() == week){
+                    if (v.getLesson().getDay().equals(day)) {
+                        if (v.getLesson().getHour().equals(time)) {
+                            return true;
+                        }
                     }
-                }
+                }  
             }
         }
         return false;
     }
+
     public String cancelBooking(String bookNum) {
-        if(bookNum.equals("")){
+        if (bookNum.equals("")) {
             return "Empty Fields";
         }
-        if(!bookingDoesExist(bookNum)){
-            return"Error";
+        if (!bookingDoesExist(bookNum)) {
+            return "Error";
         }
         Booking booking = bookings.get(bookNum);
         booking.setState("Canceled");
         Lesson lesson = booking.getLesson();
         lesson.decreaseStudentsNumber();
-        return "The booking: "+bookNum+" is succesfully canceled";
+        return "The booking: " + bookNum + " is succesfully canceled";
     }
 
     public String changeBooking(String bookNum, String newLessonId) {
-        if(bookNum.equals("") || newLessonId.equals("")){
+        if (bookNum.equals("") || newLessonId.equals("")) {
             return "Empty Fields";
         }
-        if(cancelBooking(bookNum).equals("Error")){
+        if (cancelBooking(bookNum).equals("Error")) {
             return "Error";
         }
         Booking booking = bookings.get(bookNum);
@@ -148,60 +163,63 @@ public class HatfieldLeisureCentre {
     }
 
     public String attendLesson(String bookNum) {
-        if(bookNum.equals("")){
+        if (bookNum.equals("")) {
             return "Empty Fields";
         }
-        if(!bookingDoesExist(bookNum)){
-            return"Error";
+        if (!bookingDoesExist(bookNum)) {
+            return "Error";
         }
         Booking booking = bookings.get(bookNum);
         booking.setState("Attended");
         return bookNum;
     }
-        public String studentReport(String studentId) {
-        String result="";
-        result = result+"Lessons:\n";
+
+    public String studentReport(String studentId) {
+        String result = "";
+        result = result + "Lessons:\n";
         for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
             String k = entry.getKey();
             Booking v = entry.getValue();
-            if(v.getStudent().getId().equals(studentId)){
-                result=result+("Booking Id: "+k + " / " + v.getLesson().getName() +
-                        " / " + v.getLesson().getArea() +" / Week: "+
-                        v.getLesson().getWeek() + " / " + v.getLesson().getDay() +
-                        " / "+v.getLesson().getHour() +" / Coach: "+
-                        v.getLesson().getCoach().getFullName()+ "\n");
-            } 
+            if (v.getStudent().getId().equals(studentId)) {
+                result = result + ("Booking Id: " + k + " / " + v.getLesson().getName()
+                        + " / " + v.getLesson().getArea() + " / Week: "
+                        + v.getLesson().getWeek() + " / " + v.getLesson().getDay()
+                        + " / " + v.getLesson().getHour() + " / Coach: "
+                        + v.getLesson().getCoach().getFullName() + "\n");
+            }
         }
-        result = result+"Appointments:\n";
+        result = result + "Appointments:\n";
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
-            if(v.getState().equals("Booked")){
+            if (v.getState().equals("Booked")) {
                 if (v.getStudentId().equals(studentId)) {
-                    result=result+("Appointment Id: "+k + " / Week: " +
-                            v.getWeek() + " / Day: " + v.getDay() + " / " +
-                            v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                            v.getParentName() + " / Coach Name: " +
-                            v.getCoach().getFullName()+"\n");
+                    result = result + ("Appointment Id: " + k + " / Week: "
+                            + v.getWeek() + " / Day: " + v.getDay() + " / "
+                            + v.getTime() + " / " + v.getSlot() + " / Parent: "
+                            + v.getParentName() + " / Coach Name: "
+                            + v.getCoach().getFullName() + "\n");
                 }
             }
-            
+
         }
         return result;
     }
+
     /*
     Student's parent
     */
+    
     public String lookupTimeslotsByCoach(String coachName) {
         String result = "";
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getCoach().getFullName().equals(coachName)) {
-                result = result + ("Appointment Id: "+k + " / Coach name: " + 
-                        v.getCoach().getFullName() + " / Week: " + v.getWeek() +
-                        " / " + v.getDay() + " / " + v.getTime() + " / " +
-                        v.getSlot() + " / " + v.getState() + "\n");
+                result = result + ("Appointment Id: " + k + " / Coach name: "
+                        + v.getCoach().getFullName() + " / Week: " + v.getWeek()
+                        + " / " + v.getDay() + " / " + v.getTime() + " / "
+                        + v.getSlot() + " / " + v.getState() + "\n");
             }
         }
         if (result == "") {
@@ -217,10 +235,10 @@ public class HatfieldLeisureCentre {
             ParentAppointment v = entry.getValue();
             for (String coachArea : v.getCoach().getExpertiseArea()) {
                 if (coachArea.equals(area)) {
-                    result = result + ("Appointment Id: "+k + " / Coach name: " + 
-                        v.getCoach().getFullName() + " / Week: " + v.getWeek() +
-                        " / " + v.getDay() + " / " + v.getTime() + " / " +
-                        v.getSlot() + " / " + v.getState() + "\n");
+                    result = result + ("Appointment Id: " + k + " / Coach name: "
+                            + v.getCoach().getFullName() + " / Week: " + v.getWeek()
+                            + " / " + v.getDay() + " / " + v.getTime() + " / "
+                            + v.getSlot() + " / " + v.getState() + "\n");
                 }
             }
         }
@@ -228,15 +246,15 @@ public class HatfieldLeisureCentre {
     }
 
     public String bookApointment(String appointmentId, String idS) {
-        if(appointmentId.equals("") || idS.equals("")){
+        if (appointmentId.equals("") || idS.equals("")) {
             return "Empty Fields";
         }
-        if(!appointmentDoesExist(appointmentId)){
-            return"Error appointmentId";
+        if (!appointmentDoesExist(appointmentId)) {
+            return "Error appointmentId";
         }
-        if(!studentDoesExist(idS)){
-            return"Error studentId";
-        }        
+        if (!studentDoesExist(idS)) {
+            return "Error studentId";
+        }
         ParentAppointment parentAppointment = parentAppointments.get(appointmentId);
         Student student = students.get(idS);
         if (parentAppointment.getState().equals("Availble")) {
@@ -247,11 +265,12 @@ public class HatfieldLeisureCentre {
         } else {
             return "This apointment slot is already booked";
         }
-    }    
-        
+    }
+
     /*
     Helper Methods    
-    */ 
+     */
+    
     public boolean coachDoesExist(String coachId) {
         for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
             String k = entry.getKey();
@@ -260,7 +279,8 @@ public class HatfieldLeisureCentre {
             }
         }
         return false;
-    }  
+    }
+
     public boolean studentDoesExist(String studentId) {
         for (Map.Entry<String, Student> entry : students.entrySet()) {
             String k = entry.getKey();
@@ -269,7 +289,8 @@ public class HatfieldLeisureCentre {
             }
         }
         return false;
-    }  
+    }
+
     public boolean lessonDoesExist(String lessonId) {
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
@@ -278,7 +299,8 @@ public class HatfieldLeisureCentre {
             }
         }
         return false;
-    }  
+    }
+
     public boolean bookingDoesExist(String bookingNum) {
         for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
             String k = entry.getKey();
@@ -287,7 +309,8 @@ public class HatfieldLeisureCentre {
             }
         }
         return false;
-    }  
+    }
+
     public boolean appointmentDoesExist(String bookingNum) {
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
@@ -296,8 +319,9 @@ public class HatfieldLeisureCentre {
             }
         }
         return false;
-    }  
-        public String generateId(String code, Integer i) {
+    }
+
+    public String generateId(String code, Integer i) {
         String id;
         i = i + 1;
         switch (code) {
@@ -315,10 +339,13 @@ public class HatfieldLeisureCentre {
         id = code + String.valueOf(i);
         return id;
     }
-    
+
     /*
-    Coach
-    */
+    Coaches functionalities
+     */
+    
+    //Register a new coach
+    
     public String registerCoach(String firstName, String lastName, String tel, String officeHours, String officeDay) {
         if (firstName.equals("") || lastName.equals("") || tel.equals("") || officeHours.equals("") || officeDay.equals("")) {
             return "Error";
@@ -326,6 +353,7 @@ public class HatfieldLeisureCentre {
         Coach coach = new Coach(firstName, lastName, tel, officeHours, officeDay);
         return addCoach(coach);
     }
+
     public String addCoach(Coach coach) {
         for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
             Coach v = entry.getValue();
@@ -341,6 +369,8 @@ public class HatfieldLeisureCentre {
         return coachId;
     }
     
+    //Create visitor appointment slots when a coach is registered
+
     public void addCoachTimeSlots(Coach coach) {
         for (Integer week = 1; week <= 4; week++) {
             for (Integer slot = 1; slot <= 3; slot++) {
@@ -352,77 +382,91 @@ public class HatfieldLeisureCentre {
             }
         }
     }
-            public String coachReport(String coachId) {
-        String result="";
-        result = result+"Lessons:\n";
+
+    public String coachReport(String coachId) {
+        String result = "";
+        result = result + "Lessons:\n";
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
-            if(v.getCoach().getId().equals(coachId)){
-                result=result+("Lesson Id: "+k + " / " + v.getName() +
-                        " / "+v.getArea()+ " / Week: "+v.getWeek()+
-                        " / " + v.getDay() + " / " + v.getHour() +
-                        " / Students number: " + v.getStudentNumber() + "\n");
-            } 
+            if (v.getCoach().getId().equals(coachId)) {
+                result = result + ("Lesson Id: " + k + " / " + v.getName()
+                        + " / " + v.getArea() + " / Week: " + v.getWeek()
+                        + " / " + v.getDay() + " / " + v.getHour()
+                        + " / Students number: " + v.getStudentNumber() + "\n");
+            }
         }
-        result = result+"Appointments:\n";
+        result = result + "Appointments:\n";
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
-            if(v.getState().equals("Booked")){
+            if (v.getState().equals("Booked")) {
                 if (v.getCoach().getId().equals(coachId)) {
-                    result=result+("Appointment Id: "+ k + " / Week: " +
-                            v.getWeek() + " / Day: " + v.getDay() + " / " +
-                            v.getTime() + " / " + v.getSlot() + " / Parent: " +
-                            v.getParentName() + " / Student Name: " +
-                            students.get(v.getStudentId()).getFullName()+"\n");
+                    result = result + ("Appointment Id: " + k + " / Week: "
+                            + v.getWeek() + " / Day: " + v.getDay() + " / "
+                            + v.getTime() + " / " + v.getSlot() + " / Parent: "
+                            + v.getParentName() + " / Student Name: "
+                            + students.get(v.getStudentId()).getFullName() + "\n");
                 }
             }
-            
+
         }
         return result;
     }
 
-
-
-    
     /*
     Administration
-    */
+     */
+    
     public String displayCoaches() {
         String result = "";
         for (Map.Entry<String, Coach> entry : coaches.entrySet()) {
             String k = entry.getKey();
             Coach v = entry.getValue();
             System.out.println(k + " / " + v.getFullName());
-            result = result + ("Coach Id: "+k + " / Name: " + v.getFullName() +
-                    " / Office hours: " + v.getOfficeDay() + "  " + v.getOfficeHours() + "\n");
+            result = result + ("Coach Id: " + k + " / Name: " + v.getFullName()
+                    + " / Office hours: " + v.getOfficeDay() + "  " + v.getOfficeHours() + "\n");
         }
         return result;
     }
+
     public String displayStudents() {
         String result = "";
         for (Map.Entry<String, Student> entry : students.entrySet()) {
             String k = entry.getKey();
             Student v = entry.getValue();
-            System.out.println(k + ": " + v.getFullName()+" / Parent name: "+v.getParentName());
-            result = result + ("Lesson Id: "+k + " / Name: " + v.getFullName()+
-                    " / Parent name: "+v.getParentName()+"\n");
+            System.out.println(k + ": " + v.getFullName() + " / Parent name: " + v.getParentName());
+            result = result + ("Lesson Id: " + k + " / Name: " + v.getFullName()
+                    + " / Parent name: " + v.getParentName() + "\n");
         }
         return result;
     }
+    
+    public String displayBookings() {
+        String result = "";
+        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
+            String k = entry.getKey();
+            Booking v = entry.getValue();
+            result = result + ("Booking Id: " + k + " /Student Name: " + v.getStudent().getFullName() + " / " + v.getLesson().getName() + " / " + v.getState() + "\n");
+        }
+        System.out.println(result);
+        return result;
+    }
+     
+    //Create and add a new lesson
+
     public String addLesson(String name, String place, String coachId, String day, String hour, String area, Integer capacity) {
-        if(name.equals("") || place.equals("") || coachId.equals("") || day.equals("") || hour.equals("")){
+        if (name.equals("") || place.equals("") || coachId.equals("") || day.equals("") || hour.equals("")) {
             return "Empty Fields";
         }
-        if(!coachDoesExist(coachId)){
+        if (!coachDoesExist(coachId)) {
             return "Coach not registered";
         }
         Coach coach = coaches.get(coachId);
-        if(!coach.hasExpertiseArea(area)){
+        if (!coach.hasExpertiseArea(area)) {
             return "Expertise area not teached by the coach";
         }
-        
+
         if (coaches.get(coachId).getLessonsNumber() >= 3) {
             System.out.println("The coach: " + coaches.get(coachId).getFullName() + " is already teaching 3 lessons per week");
             return "Max lesson";
@@ -430,66 +474,51 @@ public class HatfieldLeisureCentre {
             System.out.println("The lesson time is conflicting with the coach " + coaches.get(coachId).getFullName() + " 's office hour");
             return "Time conflict";
         } else {
-            for(int i = 1; i<=4; i++){
+            for (int i = 1; i <= 4; i++) {
                 Lesson lesson = new Lesson(name, place, coaches.get(coachId), day, hour, area, capacity);
                 String lessonId;
-                idL = idL + 1;
                 lessonId = "less" + String.valueOf(idL) + String.valueOf(i);
                 lesson.setWeek(i);
                 lessons.put(lessonId, lesson);
                 lesson.setId(lessonId);
             }
+            idL = idL + 1;
             coaches.get(coachId).increaseLessonNumbers();
             return "Successful lesson creation";
         }
     }
-    public Lesson getLesson(String lessonId) {
-        return lessons.get(lessonId);
-    }
-    public String displayBookings() {
-        String result = "";
-        for (Map.Entry<String, Booking> entry : bookings.entrySet()) {
-            String k = entry.getKey();
-            Booking v = entry.getValue();
-            result = result + ("Booking Id: "+k + " /Student Name: " + v.getStudent().getFullName() + " / " + v.getLesson().getName() + " / " + v.getState() + "\n");
-        }
-        System.out.println(result);
-        return result;
-    }
 
     public String report1() {
-        String result="";
-        result = result+"Lessons:\n";
+        String result = "";
+        result = result + "Lessons:\n";
         System.out.println("Lessons:");
         for (Map.Entry<String, Lesson> entry : lessons.entrySet()) {
             String k = entry.getKey();
             Lesson v = entry.getValue();
-            result=result+("Lesson Id: "+ k + " / " + v.getName() +
-                    " / "+v.getArea() +" / Week: "+v.getWeek() +" / " +
-                    v.getDay() + " / " + v.getHour() + " / Students number: " +
-                    v.getStudentNumber() + " / " + v.isFull()+"\n");
+            result = result + ("Lesson Id: " + k + " / " + v.getName()
+                    + " / " + v.getArea() + " / Week: " + v.getWeek() + " / "
+                    + v.getDay() + " / " + v.getHour() + " / Students number: "
+                    + v.getStudentNumber() + " / " + v.isFull() + "\n");
         }
-        result = result+"Appointments:\n";
+        result = result + "Appointments:\n";
         System.out.println("Appointments:");
         for (Map.Entry<String, ParentAppointment> entry : parentAppointments.entrySet()) {
             String k = entry.getKey();
             ParentAppointment v = entry.getValue();
             if (v.getState().equals("Booked")) {
-                result=result+(k + ": Week: " + v.getWeek() + " / " + v.getDay() +
-                        " / " + v.getTime() + " / " + v.getSlot() + " / Parent Name: " +
-                        v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()+
-                        " / Student: "+ students.get(v.getStudentId()).getFullName()+
-                        " / "+v.getState()+ "\n");
+                result = result + (k + ": Week: " + v.getWeek() + " / " + v.getDay()
+                        + " / " + v.getTime() + " / " + v.getSlot() + " / Parent Name: "
+                        + v.getParentName() + " / Coach Name: " + v.getCoach().getFullName()
+                        + " / Student: " + students.get(v.getStudentId()).getFullName()
+                        + " / " + v.getState() + "\n");
             }
 
         }
         return result;
     }
 
-
-
     public String report2() {
-        String result="";
+        String result = "";
         for (Map.Entry<String, Student> entry1 : students.entrySet()) {
             String key1 = entry1.getKey();
             Student value1 = entry1.getValue();
@@ -497,9 +526,9 @@ public class HatfieldLeisureCentre {
                 String key2 = entry2.getKey();
                 Booking value2 = entry2.getValue();
                 if (value1.getId() == value2.getStudent().getId()) {
-                    result=result+"Student: " + value1.getFullName() + " is signed up for:\n"+
-                            "Lesson Id: "+value2.getLesson().getId() + " / " +
-                            value2.getLesson().getName()+" / "+value2.getLesson().getArea() +"\n";
+                    result = result + "Student: " + value1.getFullName() + " is signed up for:\n"
+                            + "Lesson Id: " + value2.getLesson().getId() + " / "
+                            + value2.getLesson().getName() + " / " + value2.getLesson().getArea() + "\n";
                 }
             }
         }
