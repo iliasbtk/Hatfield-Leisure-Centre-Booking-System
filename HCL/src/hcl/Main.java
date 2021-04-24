@@ -589,19 +589,19 @@ public class Main {
                         }
                         String place = "";
                         if (radioDayButton6.isSelected()) {
-                            day = "Badminton court A";
+                            place = "Badminton court A";
                         }
                         if (radioDayButton7.isSelected()) {
-                            day = "Badminton court B";
+                            place = "Badminton court B";
                         }
                         if (radioDayButton8.isSelected()) {
-                            day = "Gym";
+                            place = "Gym";
                         }
                         if (radioDayButton9.isSelected()) {
-                            day = "Swimming pool B";
+                            place = "Swimming pool B";
                         }
                         if (radioDayButton10.isSelected()) {
-                            day = "Swimming pool B";
+                            place = "Swimming pool B";
                         }
                         String result = hcl.addLesson(lessonNameT.getText(), place, coachId, day, startTimeT.getText()+" - "+endTimeT.getText(), area, Integer.parseInt(capacityT.getText()));
                         if (result.equals("Empty Fields")) {
@@ -614,12 +614,12 @@ public class Main {
                                     "The CoachId is incorrect",
                                     "New Lesson",
                                     JOptionPane.ERROR_MESSAGE);
-                        } else if (result.equals("Expertise area not teached by the coach")) {
+                        } else if (result.equals("Expertise area not taught by the coach")) {
                             JOptionPane.showMessageDialog(null,
                                     "The Coach: " + coach.getFullName() + " does not teach " + area,
                                     "New Lesson",
                                     JOptionPane.ERROR_MESSAGE);
-                        } else if (coach.getLessonsNumber() >= 3) {
+                        } else if (coach.getLessonsNumber() >= 4) {
                             JOptionPane.showMessageDialog(null,
                                     "The Coach: " + coach.getFullName() + " is already teaching 3 lessons per week",
                                     "New Lesson",
@@ -631,7 +631,7 @@ public class Main {
                                     JOptionPane.ERROR_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(null,
-                                    "The Lesson: " + lessonNameT.getText() + " is succefully added with Id: " + hcl.lessons.get(result),
+                                    "The Lesson: " + lessonNameT.getText() + " is succefully created",
                                     "New Lesson",
                                     JOptionPane.ERROR_MESSAGE);
                             addLessonFrame.setVisible(false);
@@ -776,7 +776,7 @@ public class Main {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String id = hcl.registerStudent(sFirstNameT.getText(), sLastNameT.getText(), sAddressT.getText(), sTelT.getText(), parentNameT.getText());
-                        if (id.equals("Empty Fields")) {
+                        if (id.equals("Error")) {
                             JOptionPane.showMessageDialog(null,
                                     "Empty Fileds",
                                     "Student Registration",
@@ -1344,10 +1344,10 @@ public class Main {
                 hcl.addLesson("Gymnastics 2", "badminton court B", idC5, "Monday", "17:00 - 18:00", "badminton", 5);
                 hcl.addLesson("Gymnastics 2", "Gym", idC5, "Tuesday", "17:00 - 18:00", "gymnastics", 5);
                 hcl.addLesson("Badminton 2", "badminton court B", idC7, "Wednesday", "17:00 - 18:00", "badminton", 5);
-                hcl.addLesson("Badminton 2", "Gym", idC7, "Wednesday", "17:00 - 18:00", "gymnastics", 5);
-                hcl.addLesson("Swimming 1", "swimming pool B", idC6, "Thursday", "17:00 - 18:00", "swimming", 5);
-                hcl.addLesson("Badminton 1", "swimming pool B", idC6, "Friday", "17:00 - 18:00", "swimming", 5);
-                hcl.addLesson("Gymnastics 1", "Gym", idC2, "Friday", "15:00 - 16:00", "gymnastics", 5);
+                hcl.addLesson("Badminton 3", "Gym", idC7, "Wednesday", "17:00 - 18:00", "gymnastics", 5);
+                hcl.addLesson("Swimming 3", "swimming pool B", idC6, "Thursday", "17:00 - 18:00", "swimming", 5);
+                hcl.addLesson("Swimming 2", "swimming pool B", idC6, "Friday", "17:00 - 18:00", "swimming", 5);
+                hcl.addLesson("Gymnastics 3", "Gym", idC2, "Friday", "15:00 - 16:00", "gymnastics", 5);
                 
                 hcl.book(idS1, "less101");
                 hcl.book(idS2, "less101");

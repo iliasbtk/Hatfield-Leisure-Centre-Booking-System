@@ -45,15 +45,18 @@ public class Coach extends Personnel {
     public void addArea(String sport){
         expertiseArea.add(sport);
     }
-    public void displayExpertiseArea(){
+    public String displayExpertiseArea(){
+        String result="";
         System.out.println ("Coach: " + this.getFullName() +" - Expertise area:");
-        for (String area : expertiseArea) {                                   
+        for (String area : expertiseArea) {       
+            result+=area+", ";
             System.out.println (area);
         }
+        return result;
     }
     public boolean hasExpertiseArea(String areaName){
         for (String area : expertiseArea) { 
-            if(area == areaName){
+            if(area.equals(areaName)){
                 return true;
             }    
         }

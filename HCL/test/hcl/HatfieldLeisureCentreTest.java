@@ -16,11 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author NGSI
  */
-public class HatfieldLeisureCentreTest {
-    
-    public HatfieldLeisureCentreTest() {
-    }
-    
+public class HatfieldLeisureCentreTest {    
     /**
      * Test of registerCoach method, of class HatfieldLeisureCentre.
      */
@@ -75,7 +71,7 @@ public class HatfieldLeisureCentreTest {
         assertEquals(expectedResult2, actualResult2);
         //Expertise area not teached by the coach
         String actualResult3 = hcl.addLesson("Gymnastics 1", "Gym", idC, "Wed", "14:00 - 15:00", "gymnastics", 5);
-        String expectedResult3 = "Expertise area not teached by the coach";
+        String expectedResult3 = "Expertise area not taught by the coach";
         assertEquals(actualResult3, expectedResult3);
         //Maximum lessons teached by the coach reached
         hcl.addLesson("Gymnastics 1", "Gym", idC, "Wed", "14:00 - 15:00", "swimming", 5);

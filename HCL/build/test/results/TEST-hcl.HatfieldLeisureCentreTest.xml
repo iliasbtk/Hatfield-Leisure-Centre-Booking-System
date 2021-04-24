@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HatfieldLeisureCentreTest" skipped="0" tests="13" time="0.1" timestamp="2021-04-23T04:30:56">
+<testsuite errors="0" failures="0" hostname="DESKTOP-PC6RLL7" name="hcl.HatfieldLeisureCentreTest" skipped="0" tests="13" time="0.147" timestamp="2021-04-24T16:43:21">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="GB" />
@@ -59,7 +59,7 @@
     <property name="libs.j2me_common_ant.maven-pom" value="" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HatfieldLeisureCentreTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HatfieldLeisureCentreTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher7766784725717423335.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit4136255150385487328.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner hcl.HatfieldLeisureCentreTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\test\results\TEST-hcl.HatfieldLeisureCentreTest.xml crashfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junitvmwatcher8228278160002834676.properties propsfile=C:\Users\NGSI\Desktop\Bsc Online\Hertfordshire\2nd Year\S2\Programming and Software Engeneering\CW\HCL\Hatfield-Leisure-Centre-Booking-System\HCL\build\junit8231102485829041322.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -405,15 +405,15 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBookApointment" time="0.0" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupLessonByCoach" time="0.016" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAttendLesson" time="0.0" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testCheckSameTimeLessons" time="0.0" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBook" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBookApointment" time="0.008" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupLessonByCoach" time="0.002" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAttendLesson" time="0.001" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testCheckSameTimeLessons" time="0.001" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testBook" time="0.002" />
   <testcase classname="hcl.HatfieldLeisureCentreTest" name="testCancelBooking" time="0.0" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupTimeslotsByArea" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupTimeslotsByArea" time="0.001" />
   <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupLessonByArea" time="0.0" />
-  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAddLesson" time="0.0" />
+  <testcase classname="hcl.HatfieldLeisureCentreTest" name="testAddLesson" time="0.001" />
   <testcase classname="hcl.HatfieldLeisureCentreTest" name="testRegisterCoach" time="0.0" />
   <testcase classname="hcl.HatfieldLeisureCentreTest" name="testChangeBooking" time="0.0" />
   <testcase classname="hcl.HatfieldLeisureCentreTest" name="testLookupTimeslotsByCoach" time="0.0" />

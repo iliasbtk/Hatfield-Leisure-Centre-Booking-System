@@ -425,7 +425,8 @@ public class HatfieldLeisureCentre {
             Coach v = entry.getValue();
             System.out.println(k + " / " + v.getFullName());
             result = result + ("Coach Id: " + k + " / Name: " + v.getFullName()
-                    + " / Office hours: " + v.getOfficeDay() + "  " + v.getOfficeHours() + "\n");
+                    + " / Office hours: " + v.getOfficeDay() + "  " + v.getOfficeHours() +
+                    "\n"+"Expertise areas: "+v.displayExpertiseArea()+"\n");
         }
         return result;
     }
@@ -436,7 +437,7 @@ public class HatfieldLeisureCentre {
             String k = entry.getKey();
             Student v = entry.getValue();
             System.out.println(k + ": " + v.getFullName() + " / Parent name: " + v.getParentName());
-            result = result + ("Lesson Id: " + k + " / Name: " + v.getFullName()
+            result = result + ("Student Id: " + k + " / Name: " + v.getFullName()
                     + " / Parent name: " + v.getParentName() + "\n");
         }
         return result;
@@ -456,7 +457,7 @@ public class HatfieldLeisureCentre {
     //Create and add a new lesson
 
     public String addLesson(String name, String place, String coachId, String day, String hour, String area, Integer capacity) {
-        if (name.equals("") || place.equals("") || coachId.equals("") || day.equals("") || hour.equals("")) {
+        if (name.equals("") || coachId.equals("") || day.equals("") || hour.equals("")) {
             return "Empty Fields";
         }
         if (!coachDoesExist(coachId)) {
@@ -464,7 +465,7 @@ public class HatfieldLeisureCentre {
         }
         Coach coach = coaches.get(coachId);
         if (!coach.hasExpertiseArea(area)) {
-            return "Expertise area not teached by the coach";
+            return "Expertise area not taught by the coach";
         }
 
         if (coaches.get(coachId).getLessonsNumber() >= 3) {
@@ -522,13 +523,14 @@ public class HatfieldLeisureCentre {
         for (Map.Entry<String, Student> entry1 : students.entrySet()) {
             String key1 = entry1.getKey();
             Student value1 = entry1.getValue();
+            result = result + "Student: " + value1.getFullName() + " is signed up for:\n";
             for (Map.Entry<String, Booking> entry2 : bookings.entrySet()) {
                 String key2 = entry2.getKey();
                 Booking value2 = entry2.getValue();
                 if (value1.getId() == value2.getStudent().getId()) {
-                    result = result + "Student: " + value1.getFullName() + " is signed up for:\n"
-                            + "Lesson Id: " + value2.getLesson().getId() + " / "
-                            + value2.getLesson().getName() + " / " + value2.getLesson().getArea() + "\n";
+                    result = result + "Lesson Id: " + value2.getLesson().getId() +
+                            " / "+ value2.getLesson().getName() + " / " +
+                            value2.getLesson().getArea() + "\n";
                 }
             }
         }
